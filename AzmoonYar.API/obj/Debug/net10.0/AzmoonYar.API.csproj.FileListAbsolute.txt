@@ -31,3 +31,7 @@ C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\refint\Azm
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.pdb
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.genruntimeconfig.cache
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\ref\AzmoonYar.API.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.sourcelink.json
