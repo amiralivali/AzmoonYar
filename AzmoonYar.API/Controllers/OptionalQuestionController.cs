@@ -1,16 +1,18 @@
-﻿using AzmoonYar.API.Intefaces;
+﻿using AzmoonYar.API.DTOs;
+using AzmoonYar.API.Intefaces;
 using AzmoonYar.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers;
 [ApiController]
 [Route("[controller]/[action]")]
-public class OptionalQuestionController(IOptionalService optionalService) : ControllerBase
+public class OptionalQuestion(IOptionalService optionalService) : ControllerBase
 {
     [HttpPost]
-    public IActionResult Add([FromBody]AddOptionalQuestionRequest values)
+    public IActionResult Add([FromBody]OptionalDTO entity)
     {
-        optionalService.Add(values.Question, values.Item);
+        var option = entity.MapToOptional();
+        optionalService.Add(option);
         return Ok();
     }
     [HttpDelete]
@@ -20,9 +22,10 @@ public class OptionalQuestionController(IOptionalService optionalService) : Cont
         return Ok();
     }
     [HttpPost]
-    public IActionResult Update([FromBody]AddOptionalQuestionRequest values)
+    public IActionResult Update([FromBody] OptionalDTO entity)
     {
-        optionalService.Update(values.Question, values.Item);
+        var option = entity.MapToOptional();
+        optionalService.Update(option);
         return Ok();
     }
     [HttpGet]

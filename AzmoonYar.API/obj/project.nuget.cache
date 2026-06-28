@@ -1,26 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c6O66vhzPd4=",
+  "dgSpecHash": "llqGTSPorU0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\USer\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.9\\microsoft.aspnetcore.openapi.10.0.9.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\microsoft.extensions.apidescription.server\\10.0.0\\microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\microsoft.openapi\\2.7.5\\microsoft.openapi.2.7.5.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\swashbuckle.aspnetcore\\10.2.3\\swashbuckle.aspnetcore.10.2.3.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\10.2.3\\swashbuckle.aspnetcore.swagger.10.2.3.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\10.2.3\\swashbuckle.aspnetcore.swaggergen.10.2.3.nupkg.sha512",
-    "C:\\Users\\USer\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\10.2.3\\swashbuckle.aspnetcore.swaggerui.10.2.3.nupkg.sha512"
-  ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://mirror-nuget.runflare.com/v3/index.json.",
-      "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "projectFilePath": "C:\\Users\\Amir\\Source\\Repos\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+  "expectedPackageFiles": [],
+  "logs": []
 }

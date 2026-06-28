@@ -6,11 +6,11 @@ namespace AzmoonYar.API.Services;
 
 public class OptionalService: IOptionalService
 {
-    private static readonly List<OptionalQuestion>? Questions = [];
+    private static readonly List<Mapper>? Questions = [];
     private static readonly List<OptionalItem>? Items=[];
-    public List<OptionalQuestionDto> GetAll()
+    public List<OptionalDTO> GetAll()
     {
-        List<OptionalQuestionDto> result = new List<OptionalQuestionDto>();
+        List<OptionalDTO> result = new List<OptionalDTO>();
         if (Questions != null)
             for (int i = 0; i < Questions.Count; i++)
             {
@@ -21,7 +21,7 @@ public class OptionalService: IOptionalService
         return result;
     }
 
-    public void Add(OptionalQuestion question, OptionalItem item)
+    public void Add(Mapper question, OptionalItem item)
     {
         Questions?.Add(question);
         Items?.Add(item);
@@ -33,7 +33,7 @@ public class OptionalService: IOptionalService
         Items?.Remove(Items.Find(x => x.OptionalId == id));
     }
 
-    public void Update(OptionalQuestion question, OptionalItem item)
+    public void Update(Mapper question, OptionalItem item)
     {
         if (Questions != null)
         {
