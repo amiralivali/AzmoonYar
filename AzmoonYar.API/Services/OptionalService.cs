@@ -1,39 +1,36 @@
-﻿using AzmoonYar.API.DTOs;
+﻿using AzmoonYar.API.Dtos;
 using AzmoonYar.API.Intefaces;
+using AzmoonYar.API.Mapper;
 using AzmoonYar.API.Models;
 
 namespace AzmoonYar.API.Services;
 
-public class OptionalService: IOptionalService
+public class OptionalService:IOptionalService
 {
-    private static readonly List<Mapper>? Questions = [];
-    private static readonly List<OptionalItem>? Items=[];
-    public List<OptionalDTO> GetAll()
-    {
-        List<OptionalDTO> result = new List<OptionalDTO>();
-        if (Questions != null)
-            for (int i = 0; i < Questions.Count; i++)
-            {
-                result.Add(new OptionalQuestionDto(Questions[i].Id, Questions[i].QuestionText, Items![i].Option1,
-                    Items[i].Option2, Items[i].Option3, Items[i].Option4));
-            }
+    private static List<OptionalQuestion>? Questions = new List<OptionalQuestion>();
 
-        return result;
+
+    public List<OptionalDto> GetAll()
+    {
+        List<OptionalDto> optionals = new List<OptionalDto>();
+        foreach (var optional in Questions)
+        {
+            optionals.Add(optional.MapToDto());
+        }
+        return optionals;
     }
 
-    public void Add(Mapper question, OptionalItem item)
+    public void Add(OptionalQuestion question)
     {
         Questions?.Add(question);
-        Items?.Add(item);
     }
 
     public void Remove(int id)
     {
         Questions?.Remove(Questions.Find(x => x.Id == id));
-        Items?.Remove(Items.Find(x => x.OptionalId == id));
     }
 
-    public void Update(Mapper question, OptionalItem item)
+    public void Update(OptionalQuestion question)
     {
         if (Questions != null)
         {
@@ -41,7 +38,6 @@ public class OptionalService: IOptionalService
             if (index != -1)
             {
                 Questions[index] = question;
-                Items?[index] = item;
             }
         }
     }
