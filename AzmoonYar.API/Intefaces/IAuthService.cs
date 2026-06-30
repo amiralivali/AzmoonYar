@@ -6,5 +6,5 @@ public interface IAuthService
 {
     public Guid Login(User user);
     public bool Register(User user);
-    public bool IsValid(Guid guid);
+    public bool IsValidGuid(string guid);
 }

@@ -34,11 +34,15 @@ public class AuthService:IAuthService
         }
     }
 
-    public bool IsValid(Guid guid)
+    public bool IsValidGuid(string guid)
     {
+        if (!Guid.TryParse(guid, out Guid parsedGuid))
+        {
+            return false; 
+        }
         foreach (var user in Users)
         {
-            if (user.Guid == guid)
+            if (user.Guid == parsedGuid) 
             {
                 return true;
             }

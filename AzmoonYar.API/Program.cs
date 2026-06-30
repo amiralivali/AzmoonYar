@@ -1,4 +1,6 @@
+using AzmoonYar.API.Controllers;
 using AzmoonYar.API.Intefaces;
+using AzmoonYar.API.Middlewear;
 using AzmoonYar.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOptionalService, OptionalService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
@@ -19,6 +22,8 @@ if (app.Environment.IsDevelopment())
     app.MapSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<AuthorizeMiddleware>();
 
 app.UseHttpsRedirection();
 

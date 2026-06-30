@@ -35,4 +35,13 @@ public static class Mapper
             QuestionText = dto.QuestionText
         };
     }
+    public static User MapToUser(this UserDto dto)
+    {
+        return new User()
+        {
+            Guid = dto.Guid,
+            Username = dto.Password,
+            Password = dto.Password
+        };
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace AzmoonYar.API.Models;
+﻿using System.ComponentModel;
+
+namespace AzmoonYar.API.Models;
 
 public class User
 {
