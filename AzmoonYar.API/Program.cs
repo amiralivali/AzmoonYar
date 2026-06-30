@@ -3,6 +3,7 @@ using AzmoonYar.API.Controllers;
 using AzmoonYar.API.Intefaces;
 using AzmoonYar.API.Middlewear;
 using AzmoonYar.API.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddScoped<IOptionalService, OptionalService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<AuthorizeActionFilter>();
 
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +29,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<AuthorizeMiddleware>();
+
+app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
