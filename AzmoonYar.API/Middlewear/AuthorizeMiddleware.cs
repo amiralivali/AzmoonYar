@@ -14,7 +14,7 @@ public class AuthorizeMiddleware
     public async Task InvokeAsync(HttpContext httpContext, IAuthService authService)
     {
         var path = httpContext.Request.Path.Value;
-        if (path.StartsWith("/swagger") || path.StartsWith("/favicon.ico"))
+        if (path != null && (path.StartsWith("/swagger") || path.StartsWith("/favicon.ico")))
         {
             await _next(httpContext);
             return;

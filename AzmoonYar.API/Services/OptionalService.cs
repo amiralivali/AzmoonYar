@@ -7,16 +7,18 @@ namespace AzmoonYar.API.Services;
 
 public class OptionalService:IOptionalService
 {
-    private static List<OptionalQuestion>? Questions = new List<OptionalQuestion>();
+    private static List<OptionalQuestion?>? Questions = new List<OptionalQuestion?>();
 
 
     public List<OptionalDto> GetAll()
     {
         List<OptionalDto> optionals = new List<OptionalDto>();
-        foreach (var optional in Questions)
-        {
-            optionals.Add(optional.MapToDto());
-        }
+        if (Questions != null)
+            foreach (var optional in Questions)
+            {
+                if (optional != null) optionals.Add(optional.MapToDto());
+            }
+
         return optionals;
     }
 
@@ -27,14 +29,14 @@ public class OptionalService:IOptionalService
 
     public void Remove(int id)
     {
-        Questions?.Remove(Questions.Find(x => x.Id == id));
+        Questions?.Remove(Questions.Find(x => x!.Id == id));
     }
 
     public void Update(OptionalQuestion question)
     {
         if (Questions != null)
         {
-            int index = Questions.FindIndex(x => x.Id == question.Id);
+            int index = Questions.FindIndex(x => x!.Id == question.Id);
             if (index != -1)
             {
                 Questions[index] = question;
