@@ -1,3 +1,4 @@
+using AzmoonYar.API.ActionFilters;
 using AzmoonYar.API.Controllers;
 using AzmoonYar.API.Intefaces;
 using AzmoonYar.API.Middlewear;
@@ -13,6 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOptionalService, OptionalService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<AuthorizeActionFilter>();
 
 var app = builder.Build();
 

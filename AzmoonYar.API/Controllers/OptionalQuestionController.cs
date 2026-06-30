@@ -1,4 +1,5 @@
-﻿using AzmoonYar.API.Dtos;
+﻿using AzmoonYar.API.ActionFilters;
+using AzmoonYar.API.Dtos;
 using AzmoonYar.API.Intefaces;
 using AzmoonYar.API.Mapper;
 using AzmoonYar.API.Models;
@@ -24,6 +25,7 @@ public class OptionalQuestion : ControllerBase
         return Ok();
     }
     [HttpDelete]
+    [ServiceFilter(typeof(AuthorizeActionFilter))]
     public IActionResult Remove(int id)
     {
         _optionalService.Remove(id);
