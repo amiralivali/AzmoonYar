@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AzmoonYar.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9741d2ab2acf86cafb02cb557b5e6b106e532c0f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0af210181b49b1758d55a6b9641ae4dd48c008a")]
 [assembly: System.Reflection.AssemblyProductAttribute("AzmoonYar.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AzmoonYar.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,18 +1,14 @@
-using AzmoonYar.API.Controllers;
-using AzmoonYar.API.Intefaces;
-using AzmoonYar.API.Middlewear;
-using AzmoonYar.API.Services;
+using AzmoonYar.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddDbContext<AzmoonYarDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IOptionalService, OptionalService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
@@ -22,8 +18,6 @@ if (app.Environment.IsDevelopment())
     app.MapSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseMiddleware<AuthorizeMiddleware>();
 
 app.UseHttpsRedirection();
 

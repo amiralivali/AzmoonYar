@@ -8,7 +8,27 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AzmoonYar.Application\AzmoonYar.Application.csproj" />
+      <ProjectReference Include="..\AzmoonYar.Infrastructure\AzmoonYar.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Development.json">
+        <DependentUpon>appsettings.json</DependentUpon>
+      </Content>
     </ItemGroup>
 
 </Project>
