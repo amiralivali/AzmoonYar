@@ -3,7 +3,6 @@
 public class ExceptionLog
 {
     public long Id { get; private set; }
-
     public string Message { get; private set; } = null!;
     public string? StackTrace { get; private set; }
     public string ExceptionType { get; private set; } = null!;

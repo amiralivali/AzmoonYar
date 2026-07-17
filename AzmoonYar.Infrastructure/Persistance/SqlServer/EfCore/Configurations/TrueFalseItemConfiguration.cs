@@ -1,8 +1,9 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Data.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
 
 public class TrueFalseItemConfiguration:IEntityTypeConfiguration<TrueFalseItem>
 {
@@ -11,10 +12,10 @@ public class TrueFalseItemConfiguration:IEntityTypeConfiguration<TrueFalseItem>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ItemText)
             .IsRequired(true)
-            .HasMaxLength(200);
+            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
         builder.HasOne(x => x.TrueFalseQuestion)
             .WithMany(x => x.TrueFalseItems)
-            .HasForeignKey(x => x.QuestionId)
+            .HasForeignKey(x => x.TrueFalseQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

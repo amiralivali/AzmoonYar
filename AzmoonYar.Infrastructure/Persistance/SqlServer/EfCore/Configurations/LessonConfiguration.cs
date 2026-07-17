@@ -1,8 +1,9 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Data.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
 
 public class LessonConfiguration:IEntityTypeConfiguration<Lesson>
 {
@@ -10,8 +11,11 @@ public class LessonConfiguration:IEntityTypeConfiguration<Lesson>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.LessonName)
+            .IsRequired()
+            .HasMaxLength(LessonConstants.LessonNameMaxLenght);
+        builder.Property(x => x.Title)
             .IsRequired(false)
-            .HasMaxLength(50);
+            .HasMaxLength(LessonConstants.LessonNameMaxLenght);
         builder.HasOne(x => x.Book)
             .WithMany(x => x.Lessons)
             .HasForeignKey(x => x.BookId)

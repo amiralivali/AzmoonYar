@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.Domain.Enums;
+using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Domain.Entities;
 
@@ -9,15 +10,43 @@ public abstract class BaseQuestion
     public string QuestionText { get; private set; } = null!;
     public string? Picture { get; private set; }
     public DifficultyLevel DifficultyLevel { get; private set; }
-    public Lesson Lesson { get; set; } = null!;
+    public DateTimeOffset CreatedAt { get; private set; }
     
-    private BaseQuestion(){}
+    public Lesson? Lesson { get; private set; }
 
-    protected BaseQuestion(long id, long lessonId, string questionText, DifficultyLevel difficultyLevel)
+    private BaseQuestion()
     {
-        Id = id;
+    }
+
+    protected BaseQuestion(
+        long lessonId,
+        string questionText,
+        DifficultyLevel difficultyLevel)
+    {
+        if (string.IsNullOrWhiteSpace(questionText))
+            throw new ValidationException("Question text cannot be empty.");
+        
         LessonId = lessonId;
-        QuestionText = questionText;
+        QuestionText = questionText.Trim();
         DifficultyLevel = difficultyLevel;
+        CreatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void UpdateQuestion(
+        long lessonId,
+        string questionText,
+        DifficultyLevel difficultyLevel)
+    {
+        if (string.IsNullOrWhiteSpace(questionText))
+            throw new ValidationException("Question text cannot be empty.");
+
+        LessonId = lessonId;
+        QuestionText = questionText.Trim();
+        DifficultyLevel = difficultyLevel;
+    }
+
+    public void ChangePicture(string? picture)
+    {
+        Picture = picture;
     }
 }

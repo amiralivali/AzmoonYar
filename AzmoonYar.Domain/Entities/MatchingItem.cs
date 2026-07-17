@@ -1,21 +1,38 @@
-﻿namespace AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Exceptions;
+
+namespace AzmoonYar.Domain.Entities;
 
 public class MatchingItem
 {
-    public long Id { get;private set; }
+    public long Id { get; private set; }
+    public long MatchingQuestionId { get; private set; }
     public string LeftItemText { get; private set; } = null!;
     public string RightItemText { get; private set; } = null!;
-    public long QuestionId { get;private set; }
     public MatchingQuestion MatchingQuestion { get; private set; } = null!;
 
-    private MatchingItem(){}
-    
-    public MatchingItem(long id, string leftItemText, string rightItemText, long questionId, MatchingQuestion matchingQuestion)
+    private MatchingItem()
     {
-        Id = id;
+    }
+
+    internal MatchingItem(string leftItemText, string rightItemText)
+    {
+        if (string.IsNullOrWhiteSpace(leftItemText))
+            throw new ValidationException("Left value cannot be empty.");
+
+        if (string.IsNullOrWhiteSpace(rightItemText))
+            throw new ValidationException("Right value cannot be empty.");
         LeftItemText = leftItemText;
         RightItemText = rightItemText;
-        QuestionId = questionId;
-        MatchingQuestion = matchingQuestion;
+    }
+    internal void UpdateItem(string leftItemText, string rightItemText)
+    {
+        if (string.IsNullOrWhiteSpace(leftItemText))
+            throw new ValidationException("Left value cannot be empty.");
+
+        if (string.IsNullOrWhiteSpace(rightItemText))
+            throw new ValidationException("Right value cannot be empty.");
+
+        LeftItemText = leftItemText.Trim();
+        RightItemText = rightItemText.Trim();
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/UW2Wit1DHE=",
+  "dgSpecHash": "1fewX/gPgUc=",
   "success": true,
   "projectFilePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
   "expectedPackageFiles": [
@@ -66,15 +66,5 @@
     "C:\\Users\\USer\\.nuget\\packages\\system.security.permissions\\9.0.0\\system.security.permissions.9.0.0.nupkg.sha512",
     "C:\\Users\\USer\\.nuget\\packages\\system.windows.extensions\\9.0.0\\system.windows.extensions.9.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://mirror-nuget.runflare.com/v3/index.json.",
-      "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

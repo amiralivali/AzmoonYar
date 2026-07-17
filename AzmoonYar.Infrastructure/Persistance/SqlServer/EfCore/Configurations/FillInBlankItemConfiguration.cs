@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,10 +12,10 @@ public class FillInBlankItemConfiguration:IEntityTypeConfiguration<FillInBlankIt
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ItemText)
             .IsRequired (true)
-            .HasMaxLength(200);
+            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
         builder.HasOne(x => x.FillInBlankQuestion)
             .WithMany(x => x.FillInBlankItems)
-            .HasForeignKey(x => x.QuestionId)
+            .HasForeignKey(x => x.FillInBlankQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

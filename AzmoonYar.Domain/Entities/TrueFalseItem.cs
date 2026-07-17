@@ -1,19 +1,30 @@
-﻿namespace AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Exceptions;
+
+namespace AzmoonYar.Domain.Entities;
 
 public class TrueFalseItem
 {
     public long Id { get; private set; }
+    public long TrueFalseQuestionId { get; private set; }
     public string ItemText { get; private set; } = null!;
-    public long QuestionId { get; private set; }
     public TrueFalseQuestion TrueFalseQuestion { get; private set; } = null!;
-    private  TrueFalseItem()
+
+    private TrueFalseItem()
     {
     }
-    public TrueFalseItem(long id, string itemText, long questionId, TrueFalseQuestion trueFalseQuestion)
+
+    internal TrueFalseItem(string itemText)
     {
-        Id = id;
+        if (string.IsNullOrWhiteSpace(itemText))
+            throw new ValidationException("itemText cannot be empty"); 
+        
         ItemText = itemText;
-        QuestionId = questionId;
-        TrueFalseQuestion = trueFalseQuestion;
+    }
+    internal void UpdateItem(string itemText)
+    {
+        if (string.IsNullOrWhiteSpace(itemText))
+            throw new ValidationException("itemText cannot be empty"); 
+        
+        ItemText = itemText;
     }
 }

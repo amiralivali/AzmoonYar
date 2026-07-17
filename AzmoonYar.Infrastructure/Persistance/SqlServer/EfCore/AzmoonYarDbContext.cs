@@ -7,12 +7,7 @@ namespace AzmoonYar.Infrastructure.Data;
 public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : DbContext(options)
 {
     public DbSet<Book> Books { get; set; }
-    public DbSet<DescriptiveQuestion> DescriptiveQuestions { get; set; }
-    public DbSet<ShortAnswerQuestion> ShortAnswerQuestions { get; set; }
-    public DbSet<OptionalQuestion> OptionalQuestions { get; set; }
-    public DbSet<TrueFalseQuestion> TrueFalseQuestions { get; set; }
-    public DbSet<MatchingQuestion> MatchingQuestions { get; set; }
-    public DbSet<FillInBlankQuestion> FillInBlankQuestions { get; set; }
+    public DbSet<BaseQuestion> Questions { get; set; }
     public DbSet<OptionalItem> OptionalItems { get; set; }
     public DbSet<TrueFalseItem> TrueFalseItems { get; set; }
     public DbSet<MatchingItem> MatchingItems { get; set; }

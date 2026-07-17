@@ -1,8 +1,9 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Data.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
 
 public class BookConfiguration : IEntityTypeConfiguration<Book>
 {
@@ -11,10 +12,10 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.BookName)
             .IsRequired(true)
-            .HasMaxLength(50);
+            .HasMaxLength(BookConstants.BookNameMaxLength);
         builder.Property(x => x.GradeInfo)
             .IsRequired(false)
-            .HasMaxLength(80);
+            .HasMaxLength(BookConstants.GradeInfoMaxLenght);
         builder.HasIndex(x => x.BookName);
     }
 }

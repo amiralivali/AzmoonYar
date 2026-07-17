@@ -1,8 +1,9 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Data.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
 
 public class ExceptionLogConfiguration : IEntityTypeConfiguration<ExceptionLog>
 {
@@ -12,20 +13,20 @@ public class ExceptionLogConfiguration : IEntityTypeConfiguration<ExceptionLog>
 
         builder.Property(x => x.Message)
             .IsRequired()
-            .HasMaxLength(4000);
+            .HasMaxLength(ExceptionLogConfigurationConstants.MessageMaxLength);
 
         builder.Property(x => x.StackTrace)
-            .HasMaxLength(16000);
+            .HasMaxLength(ExceptionLogConfigurationConstants.StackTraceMaxLenght);
 
         builder.Property(x => x.ExceptionType)
             .IsRequired()
-            .HasMaxLength(200);
+            .HasMaxLength(ExceptionLogConfigurationConstants.ExceptionTypeMaxLength);
 
         builder.Property(x => x.Source)
-            .HasMaxLength(200);
+            .HasMaxLength(ExceptionLogConfigurationConstants.SourceMaxLength);
 
         builder.Property(x => x.InnerException)
-            .HasMaxLength(4000);
+            .HasMaxLength(ExceptionLogConfigurationConstants.InnerExceptionMaxLength);
 
         builder.Property(x => x.CreatedAt)
             .IsRequired();

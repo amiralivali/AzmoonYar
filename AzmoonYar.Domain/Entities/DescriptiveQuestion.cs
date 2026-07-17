@@ -2,5 +2,5 @@
 
 namespace AzmoonYar.Domain.Entities;
 
-public class DescriptiveQuestion(long id, long lessonId, string questionText, DifficultyLevel difficultyLevel)
-    : BaseQuestion(id, lessonId, questionText, difficultyLevel);   
+public class DescriptiveQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel)
+    : BaseQuestion(lessonId, questionText, difficultyLevel);   
