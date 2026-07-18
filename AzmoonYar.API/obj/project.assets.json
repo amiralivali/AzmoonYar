@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net10.0": {
       "Azure.Core/1.47.1": {
@@ -4283,7 +4283,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
             "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
@@ -4309,7 +4308,6 @@
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": {

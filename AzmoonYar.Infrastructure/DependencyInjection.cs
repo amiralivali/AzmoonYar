@@ -1,4 +1,7 @@
-﻿using AzmoonYar.Infrastructure.Data;
+﻿using AzmoonYar.Application.Repositories;
+using AzmoonYar.Infrastructure.Data;
+using AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore;
+using AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,5 +13,8 @@ public static class DependencyInjection
     public static void AddInfrastructure(this IServiceCollection builder,IConfiguration configuration)
     {
         builder.AddDbContext<AzmoonYarDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default")));
+        builder.AddScoped<IBookRepository, BookRepository>();
+        builder.AddScoped<IQuestionRepository, QuestionRepository>();
+        builder.AddScoped<IExceptionLogRepository, ExceptionLogRepository>();
     }
 }
