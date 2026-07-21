@@ -11,7 +11,6 @@ public class OptionalItem
     public string Option4 { get; private set; } = null!;
     public long QuestionId { get; private set; }
 
-    public OptionalQuestion OptionalQuestion { get; private set; } = null!;
 
     private OptionalItem()
     {

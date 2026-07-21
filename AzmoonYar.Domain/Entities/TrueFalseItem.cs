@@ -7,7 +7,6 @@ public class TrueFalseItem
     public long Id { get; private set; }
     public long TrueFalseQuestionId { get; private set; }
     public string ItemText { get; private set; } = null!;
-    public TrueFalseQuestion TrueFalseQuestion { get; private set; } = null!;
 
     private TrueFalseItem()
     {

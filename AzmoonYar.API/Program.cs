@@ -1,7 +1,5 @@
 using AzmoonYar.Application;
 using AzmoonYar.Infrastructure;
-using AzmoonYar.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

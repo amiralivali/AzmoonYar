@@ -2,7 +2,7 @@
 using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
 
 public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : DbContext(options)
 {

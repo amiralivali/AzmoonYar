@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

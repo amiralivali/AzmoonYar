@@ -1,6 +1,8 @@
 ﻿using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
+using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
+using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Repositories;

@@ -3,7 +3,7 @@ using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Data.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
 public class FillInBlankItemConfiguration:IEntityTypeConfiguration<FillInBlankItem>
 {
@@ -13,7 +13,7 @@ public class FillInBlankItemConfiguration:IEntityTypeConfiguration<FillInBlankIt
         builder.Property(x => x.ItemText)
             .IsRequired (true)
             .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne(x => x.FillInBlankQuestion)
+        builder.HasOne<BaseQuestion>()
             .WithMany(x => x.FillInBlankItems)
             .HasForeignKey(x => x.FillInBlankQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
