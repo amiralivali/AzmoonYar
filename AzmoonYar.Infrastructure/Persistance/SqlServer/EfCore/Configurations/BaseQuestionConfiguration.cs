@@ -21,12 +21,5 @@ public class BaseQuestionConfiguration : IEntityTypeConfiguration<BaseQuestion>
             .WithMany()
             .HasForeignKey(x => x.LessonId)
             .OnDelete(DeleteBehavior.Cascade);
-        builder.HasDiscriminator<string>("QuestionType")
-            .HasValue<DescriptiveQuestion>("Descriptive")
-            .HasValue<ShortAnswerQuestion>("ShortAnswer")
-            .HasValue<OptionalQuestion>("Optional")
-            .HasValue<TrueFalseQuestion>("TrueFalse")
-            .HasValue<MatchingQuestion>("Matching")
-            .HasValue<FillInBlankQuestion>("FillInBlank");
     }
 }

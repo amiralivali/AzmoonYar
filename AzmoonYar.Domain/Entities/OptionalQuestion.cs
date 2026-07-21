@@ -2,8 +2,8 @@
 
 namespace AzmoonYar.Domain.Entities;
 
-public class OptionalQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel)
-    : BaseQuestion(lessonId, questionText, difficultyLevel)
+public class OptionalQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel,QuestionType questionType)
+    : BaseQuestion(lessonId, questionText, difficultyLevel,questionType)    
 {
     public OptionalItem OptionalItem { get; private set; } = null!;
 

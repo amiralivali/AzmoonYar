@@ -5,5 +5,5 @@ namespace AzmoonYar.Application.Repositories;
 
 public interface IBookRepository : IRepository<Book>
 {
-    Task<IReadOnlyList<Grade>> SelectAvailableGradesAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Grade>> GetAvailableGradesAsync(CancellationToken cancellationToken = default);
 }

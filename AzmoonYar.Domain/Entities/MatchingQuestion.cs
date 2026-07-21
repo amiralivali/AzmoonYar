@@ -4,8 +4,8 @@ using ValidationException = System.ComponentModel.DataAnnotations.ValidationExce
 
 namespace AzmoonYar.Domain.Entities;
 
-public class MatchingQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel)
-    : BaseQuestion(lessonId, questionText, difficultyLevel)
+public class MatchingQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel,QuestionType questionType)
+    : BaseQuestion(lessonId, questionText, difficultyLevel,questionType)
 {
     private readonly List<MatchingItem> _matchingItems = [];
 
@@ -22,7 +22,7 @@ public class MatchingQuestion(long lessonId, string questionText, DifficultyLeve
         var item = _matchingItems.FirstOrDefault(x=>x.Id == itemId);
         if (item is null)
         {
-            throw new NotFoundException("Matching Item not found.");
+            throw new EntityNotFoundException("matchingItem", itemId);
         }
         _matchingItems.Remove(item);
     }
@@ -32,7 +32,7 @@ public class MatchingQuestion(long lessonId, string questionText, DifficultyLeve
         var item = _matchingItems.FirstOrDefault(x=>x.Id == itemId);
         if (item is null)
         {
-            throw new NotFoundException("Matching Item not found.");
+            throw new EntityNotFoundException("matchingItem", itemId);
         }
         item.UpdateItem(leftItemText, rightItemText);
     }

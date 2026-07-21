@@ -14,6 +14,7 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
     public DbSet<FillInBlankItem> FillInBlankItems { get; set; }
     public DbSet<ExceptionLog> ExceptionLogs { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

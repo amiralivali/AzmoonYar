@@ -30,15 +30,13 @@ public class Book
 
     public void UpdateBook(
         string bookName,
-        Grade grade,
-        string? gradeInfo)
+        Grade grade)
     {
         if (string.IsNullOrWhiteSpace(bookName))
-            throw new ValidationException("Book name is required.");
+            throw new RequiredBookNameException();
 
         BookName = bookName.Trim();
         Grade = grade;
-        GradeInfo = gradeInfo;
     }
 
     public void ChangeGradeInfo(string? gradeInfo)
@@ -46,10 +44,10 @@ public class Book
         GradeInfo = gradeInfo;
     }
 
-    public void AddLesson()
+    public void AddLesson(string? title)
     {
         var lesson = new Lesson(_lessons.Count+1);
-
+        lesson.ChangeTitle(title);
         _lessons.Add(lesson);
     }
 
@@ -58,16 +56,16 @@ public class Book
         var lesson = _lessons.FirstOrDefault(x=>x.Id == lessonId);
         if (lesson is null)
         {
-            throw new NotFoundException("Lesson not found.");
+            throw new EntityNotFoundException("lesson", lessonId);
         }
         _lessons.Remove(lesson);
     }
-    public void ChangeTitle(long lessonId,string title)
+    public void ChangeLessonTitle(long lessonId,string title)
     {
         var lesson = _lessons.FirstOrDefault(x=>x.Id == lessonId);
         if (lesson is null)
         {
-            throw new NotFoundException("Lesson not found.");
+            throw new EntityNotFoundException("lesson", lessonId);
         }
         lesson.ChangeTitle(title);
     }

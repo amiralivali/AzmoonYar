@@ -16,14 +16,14 @@ public class TrueFalseItem
     internal TrueFalseItem(string itemText)
     {
         if (string.IsNullOrWhiteSpace(itemText))
-            throw new ValidationException("itemText cannot be empty"); 
+            throw new RequiredItemTextException();
         
         ItemText = itemText;
     }
     internal void UpdateItem(string itemText)
     {
         if (string.IsNullOrWhiteSpace(itemText))
-            throw new ValidationException("itemText cannot be empty"); 
+            throw new RequiredItemTextException();
         
         ItemText = itemText;
     }

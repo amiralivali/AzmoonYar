@@ -17,10 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\AzmoonYar.Application\AzmoonYar.Application.csproj" />
       <ProjectReference Include="..\AzmoonYar.Infrastructure\AzmoonYar.Infrastructure.csproj" />
     </ItemGroup>

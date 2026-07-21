@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="555b0de2-3ca9-4f6f-baba-429de990f76b" name="Changes" comment="" />
+    <list default="true" id="555b0de2-3ca9-4f6f-baba-429de990f76b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Enums/QuestionType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/AzmoonYar.API.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/AzmoonYar.API.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/AzmoonYar.API.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/AzmoonYar.API.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/Debug/net10.0/AzmoonYar.API.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/Debug/net10.0/AzmoonYar.API.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/Debug/net10.0/AzmoonYar.API.csproj.AssemblyReference.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/Debug/net10.0/AzmoonYar.API.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/Debug/net10.0/AzmoonYar.API.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.API/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.API/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/BaseQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/BaseQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/DescriptiveQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/DescriptiveQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/FillInBlankQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/FillInBlankQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/MatchingQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/MatchingQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/OptionalQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/OptionalQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/ShortAnswerQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/ShortAnswerQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/TrueFalseQuestion.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Domain/Entities/TrueFalseQuestion.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AzmoonYar.Infrastructure/Persistance/SqlServer/EfCore/Configurations/BaseQuestionConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AzmoonYar.Infrastructure/Persistance/SqlServer/EfCore/Configurations/BaseQuestionConfiguration.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +56,22 @@
     &quot;accountId&quot;: &quot;e2032982-b29b-4b6c-8b10-c185a871da0c&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/BaseQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/Book.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/DescriptiveQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/ExceptionLog.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/FillInBlankItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/FillInBlankQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/MatchingItem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/MatchingQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/OptionalQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/ShortAnswerQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Entities/TrueFalseQuestion.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Domain/Enums/QuestionType.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Infrastructure/Persistance/SqlServer/EfCore/AzmoonYarDbContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AzmoonYar.Infrastructure/Persistance/SqlServer/EfCore/Configurations/BaseQuestionConfiguration.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -52,13 +89,15 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;T03-CleanArchitecture&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -71,6 +110,7 @@
       <updated>1782464286948</updated>
       <workItem from="1782464288097" duration="984000" />
       <workItem from="1782465752867" duration="199000" />
+      <workItem from="1784440991733" duration="281000" />
     </task>
     <servers />
   </component>

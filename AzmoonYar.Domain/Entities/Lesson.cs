@@ -19,8 +19,8 @@ public class Lesson
 
     internal Lesson(int lessonCount)
     {
-        if (lessonCount <= 0)
-            throw new ValidationException("Lesson count must be greater than zero.");
+        if (lessonCount is <= 0 or > 30)
+            throw new InvalidLessonCountException();
         LessonName = $"Lesson {lessonCount}:";
         LessonCount = lessonCount;
         CreatedAt = DateTimeOffset.UtcNow;

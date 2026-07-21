@@ -17,20 +17,20 @@ public class MatchingItem
     internal MatchingItem(string leftItemText, string rightItemText)
     {
         if (string.IsNullOrWhiteSpace(leftItemText))
-            throw new ValidationException("Left value cannot be empty.");
+            throw new RequiredLeftItemException();
 
         if (string.IsNullOrWhiteSpace(rightItemText))
-            throw new ValidationException("Right value cannot be empty.");
+            throw new RequiredRightItemException();
         LeftItemText = leftItemText;
         RightItemText = rightItemText;
     }
     internal void UpdateItem(string leftItemText, string rightItemText)
     {
         if (string.IsNullOrWhiteSpace(leftItemText))
-            throw new ValidationException("Left value cannot be empty.");
+            throw new RequiredLeftItemException();
 
         if (string.IsNullOrWhiteSpace(rightItemText))
-            throw new ValidationException("Right value cannot be empty.");
+            throw new RequiredRightItemException();
 
         LeftItemText = leftItemText.Trim();
         RightItemText = rightItemText.Trim();

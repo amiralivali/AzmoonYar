@@ -23,17 +23,11 @@ public class OptionalItem
         string option3,
         string option4)
     {
-        if (string.IsNullOrWhiteSpace(option1))
-            throw new ValidationException("Option 1 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option2))
-            throw new ValidationException("Option 2 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option3))
-            throw new ValidationException("Option 3 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option4))
-            throw new ValidationException("Option 4 cannot be empty.");
+        if (string.IsNullOrWhiteSpace(option1) || string.IsNullOrWhiteSpace(option2) ||
+            string.IsNullOrWhiteSpace(option3) || string.IsNullOrWhiteSpace(option4))
+        {
+            throw new RequiredOptionsException();
+        }
         Option1 = option1.Trim();
         Option2 = option2.Trim();
         Option3 = option3.Trim();
@@ -46,17 +40,11 @@ public class OptionalItem
         string option3,
         string option4)
     {
-        if (string.IsNullOrWhiteSpace(option1))
-            throw new ValidationException("Option 1 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option2))
-            throw new ValidationException("Option 2 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option3))
-            throw new ValidationException("Option 3 cannot be empty.");
-
-        if (string.IsNullOrWhiteSpace(option4))
-            throw new ValidationException("Option 4 cannot be empty.");
+        if (string.IsNullOrWhiteSpace(option1) || string.IsNullOrWhiteSpace(option2) ||
+            string.IsNullOrWhiteSpace(option3) || string.IsNullOrWhiteSpace(option4))
+        {
+            throw new RequiredOptionsException();
+        }
 
         Option1 = option1.Trim();
         Option2 = option2.Trim();

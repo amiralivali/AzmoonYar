@@ -1,13 +1,9 @@
 ﻿using AzmoonYar.Domain.Entities;
+using AzmoonYar.Domain.Enums;
 
 namespace AzmoonYar.Application.Repositories;
 
 public interface IQuestionRepository : IRepository<BaseQuestion>
 {
-    Task<IReadOnlyList<DescriptiveQuestion>> GetAllDescriptiveQuestions();
-    Task<IReadOnlyList<ShortAnswerQuestion>> GetAllShortAnswerQuestions();
-    Task<IReadOnlyList<FillInBlankQuestion>> GetAllFillInBlankQuestions();
-    Task<IReadOnlyList<TrueFalseQuestion>> GetAllTrueFalseQuestions();
-    Task<IReadOnlyList<OptionalQuestion>> GetAllOptionalQuestions();
-    Task<IReadOnlyList<MatchingQuestion>> GetAllMatchingQuestions();
+    Task<IReadOnlyList<BaseQuestion>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default);
 }

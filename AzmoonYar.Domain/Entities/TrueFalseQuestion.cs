@@ -3,8 +3,8 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Domain.Entities;
 
-public class TrueFalseQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel)
-    : BaseQuestion(lessonId, questionText, difficultyLevel)
+public class TrueFalseQuestion(long lessonId, string questionText, DifficultyLevel difficultyLevel,QuestionType questionType)    
+    : BaseQuestion(lessonId, questionText, difficultyLevel, questionType)
 {
     private readonly List<TrueFalseItem> _trueFalseItems = [];
     public IReadOnlyCollection<TrueFalseItem> TrueFalseItems => _trueFalseItems.AsReadOnly();
@@ -20,7 +20,7 @@ public class TrueFalseQuestion(long lessonId, string questionText, DifficultyLev
         var item = _trueFalseItems.FirstOrDefault(x=>x.Id == itemId);
         if (item is null)
         {
-            throw new NotFoundException("TrueFalse Item not found.");
+            throw new EntityNotFoundException("trueFalseItem",itemId);
         }
         _trueFalseItems.Remove(item);
     }
@@ -30,7 +30,7 @@ public class TrueFalseQuestion(long lessonId, string questionText, DifficultyLev
         var item = _trueFalseItems.FirstOrDefault(x=>x.Id == itemId);
         if (item is null)
         {
-            throw new NotFoundException("TrueFalse Item not found.");
+            throw new EntityNotFoundException("trueFalseItem",itemId);
         }
         item.UpdateItem(itemText);
     }

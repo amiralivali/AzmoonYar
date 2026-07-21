@@ -7,8 +7,12 @@ namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Repositories;
 
 public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(context) , IBookRepository
 {
-    private readonly AzmoonYarDbContext _context = context;
+    public override async Task<Book?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+        => await Context.Books.Include(x => x.Lessons).FirstOrDefaultAsync(x => x.Id == id,cancellationToken);
 
-    public async Task<IReadOnlyList<Grade>> SelectAvailableGradesAsync(CancellationToken cancellationToken = default)
-       => await _context.Books.Select(x=>x.Grade).Distinct().ToListAsync(cancellationToken);
+    public override async Task<IReadOnlyList<Book>> GetAllAsync(CancellationToken cancellationToken = default)
+        => await Context.Books.Include(x => x.Lessons).AsNoTracking().ToListAsync(cancellationToken);
+
+    public async Task<IReadOnlyList<Grade>> GetAvailableGradesAsync(CancellationToken cancellationToken = default)
+       => await Context.Books.Select(x=>x.Grade).Distinct().ToListAsync(cancellationToken);
 }

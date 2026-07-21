@@ -16,5 +16,6 @@ public static class DependencyInjection
         builder.AddScoped<IBookRepository, BookRepository>();
         builder.AddScoped<IQuestionRepository, QuestionRepository>();
         builder.AddScoped<IExceptionLogRepository, ExceptionLogRepository>();
+        builder.AddScoped<IUserRepository, UserRepository>();
     }
 }
