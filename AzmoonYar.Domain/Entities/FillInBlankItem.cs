@@ -7,7 +7,6 @@ public class FillInBlankItem
     public long Id { get; private set; }
     public long FillInBlankQuestionId { get; private set; }
     public string ItemText { get; private set; } = null!;
-    public FillInBlankQuestion FillInBlankQuestion { get; private set; } = null!;
 
     private FillInBlankItem()
     {

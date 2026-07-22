@@ -3,7 +3,7 @@ using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
 public class TrueFalseItemConfiguration:IEntityTypeConfiguration<TrueFalseItem>
 {
@@ -13,7 +13,7 @@ public class TrueFalseItemConfiguration:IEntityTypeConfiguration<TrueFalseItem>
         builder.Property(x => x.ItemText)
             .IsRequired(true)
             .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne(x => x.TrueFalseQuestion)
+        builder.HasOne<BaseQuestion>()           
             .WithMany(x => x.TrueFalseItems)
             .HasForeignKey(x => x.TrueFalseQuestionId)
             .OnDelete(DeleteBehavior.Cascade);

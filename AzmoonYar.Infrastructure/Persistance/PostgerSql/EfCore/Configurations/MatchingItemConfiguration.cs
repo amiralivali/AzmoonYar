@@ -3,7 +3,7 @@ using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
 public class MatchingItemConfiguration : IEntityTypeConfiguration<MatchingItem>
 {
@@ -19,8 +19,7 @@ public class MatchingItemConfiguration : IEntityTypeConfiguration<MatchingItem>
             .IsRequired()
             .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
 
-        builder.HasOne(x => x.MatchingQuestion)
-            .WithMany(x => x.MatchingItems)
+        builder.HasOne<BaseQuestion>()            .WithMany(x => x.MatchingItems)
             .HasForeignKey(x => x.MatchingQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }

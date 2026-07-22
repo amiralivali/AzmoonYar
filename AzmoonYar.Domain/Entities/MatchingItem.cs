@@ -8,7 +8,6 @@ public class MatchingItem
     public long MatchingQuestionId { get; private set; }
     public string LeftItemText { get; private set; } = null!;
     public string RightItemText { get; private set; } = null!;
-    public MatchingQuestion MatchingQuestion { get; private set; } = null!;
 
     private MatchingItem()
     {

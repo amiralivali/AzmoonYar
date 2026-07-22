@@ -1,7 +1,7 @@
 ﻿using AzmoonYar.Application.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Repositories;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 
 public abstract class RepositoryBase<TEntity>(AzmoonYarDbContext context) : IRepository<TEntity> where TEntity : class
 {

@@ -3,7 +3,7 @@ using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Configurations;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
 public class OptionalItemConfiguration:IEntityTypeConfiguration<OptionalItem>
 {
@@ -22,8 +22,7 @@ public class OptionalItemConfiguration:IEntityTypeConfiguration<OptionalItem>
         builder.Property(x => x.Option4)
             .IsRequired(true)
             .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne(x => x.OptionalQuestion)
-            .WithOne(x => x.OptionalItem)
+        builder.HasOne<BaseQuestion>()            .WithOne(x => x.OptionalItem)
             .HasForeignKey<OptionalItem>(x => x.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }
