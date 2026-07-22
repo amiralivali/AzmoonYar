@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Domain.Constants;
+using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,19 +11,19 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x=>x.FirstName)
-            .HasMaxLength(30)
+            .HasMaxLength(UserConstants.FirstNameMaxLength)
             .IsRequired();
         builder.Property(x=>x.LastName)
-            .HasMaxLength(50)
+            .HasMaxLength(UserConstants.LastNameMaxLength)
             .IsRequired();
         builder.Property(x=>x.UserName)
-            .HasMaxLength(50)
+            .HasMaxLength(UserConstants.UsernameMaxLength)
             .IsRequired(false);  
         builder.Property(x=>x.Password)
-            .HasMaxLength(50)
+            .HasMaxLength(UserConstants.PasswordMaxLength)   
             .IsRequired(false);
         builder.Property(x => x.PhoneNumber)
-            .HasMaxLength(11)
+            .HasMaxLength(UserConstants.PhoneNumberMaxLength)
             .IsUnicode(false)
             .IsRequired();
     }

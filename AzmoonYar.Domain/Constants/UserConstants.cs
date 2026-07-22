@@ -1,0 +1,12 @@
+﻿namespace AzmoonYar.Domain.Constants;
+
+public static class UserConstants
+{
+    public const int FirstNameMaxLength = 50;
+    public const int LastNameMaxLength = 50;
+    public const int UsernameMinLength = 4;
+    public const int UsernameMaxLength = 20;
+    public const int PasswordMinLength = 8;
+    public const int PasswordMaxLength = 32;
+    public const int PhoneNumberMaxLength = 100;
+}
