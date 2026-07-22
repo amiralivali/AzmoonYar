@@ -222,11 +222,8 @@ C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\tr\Microso
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
-C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.dll
-C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\refint\AzmoonYar.API.dll
-C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.pdb
-C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\appsettings.Development.json
-C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\appsettings.json
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.Build.Locator.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe.config
@@ -273,6 +270,8 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-netcore\tr\System.CommandLine.resources.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-netcore\zh-Hans\System.CommandLine.resources.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BuildHost-netcore\zh-Hant\System.CommandLine.resources.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\appsettings.Development.json
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\appsettings.json
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.staticwebassets.endpoints.json
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.exe
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.deps.json
@@ -281,6 +280,8 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.pdb
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Azure.Identity.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\FluentValidation.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Humanizer.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -315,6 +316,8 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Mono.TextTemplating.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Newtonsoft.Json.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -443,7 +446,8 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\staticweba
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\swae.build.ex.cache
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYa.C0AF6646.Up2Date
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\refint\AzmoonYar.API.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.pdb
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.genruntimeconfig.cache
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\ref\AzmoonYar.API.dll
-C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.dll
-C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

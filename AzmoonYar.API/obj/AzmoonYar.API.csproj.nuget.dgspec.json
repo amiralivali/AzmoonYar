@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj": {}
+    "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj": {
+    "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+        "projectUniqueName": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
         "projectName": "AzmoonYar.API",
-        "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-        "packagesPath": "C:\\Users\\USer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\obj\\",
+        "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+        "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,18 +26,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://mirror-nuget.runflare.com/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
-                "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj"
+              "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
+                "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj"
               },
-              "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj"
+              "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj"
               }
             }
           }
@@ -100,7 +99,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -518,20 +517,20 @@
         }
       }
     },
-    "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
+    "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj",
         "projectName": "AzmoonYar.Application",
-        "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj",
-        "packagesPath": "C:\\Users\\USer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\obj\\",
+        "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj",
+        "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -540,15 +539,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://mirror-nuget.runflare.com/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
-                "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj"
+              "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
+                "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj"
               }
             }
           }
@@ -590,7 +588,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -868,20 +866,20 @@
         }
       }
     },
-    "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
+    "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj",
         "projectName": "AzmoonYar.Domain",
-        "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj",
-        "packagesPath": "C:\\Users\\USer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\obj\\",
+        "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj",
+        "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -890,8 +888,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://mirror-nuget.runflare.com/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
@@ -930,7 +927,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1208,20 +1205,20 @@
         }
       }
     },
-    "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj": {
+    "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj",
         "projectName": "AzmoonYar.Infrastructure",
-        "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\USer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\AzmoonYar.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Amir\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\USer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Amir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1230,18 +1227,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://mirror-nuget.runflare.com/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
-                "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj"
+              "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
+                "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj"
               },
-              "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
-                "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj"
+              "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
+                "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj"
               }
             }
           }
@@ -1266,9 +1262,13 @@
               "target": "Package",
               "version": "[10.0.0, )"
             },
-            "Microsoft.EntityFrameworkCore.Tools": {
+            "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[10.0.0, )"
             },
@@ -1293,7 +1293,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

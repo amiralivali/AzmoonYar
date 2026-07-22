@@ -1,7 +1,6 @@
 using AzmoonYar.API.FluentValidation.Filters;
 using AzmoonYar.Application;
 using AzmoonYar.Infrastructure;
-using AzmoonYar.Infrastructure.Data;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
