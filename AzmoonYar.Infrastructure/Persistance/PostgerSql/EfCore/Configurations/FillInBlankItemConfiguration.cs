@@ -11,9 +11,9 @@ public class FillInBlankItemConfiguration:IEntityTypeConfiguration<FillInBlankIt
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ItemText)
-            .IsRequired (true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne<BaseQuestion>()
+            .IsRequired ()
+            .HasMaxLength(FillInBlankItemConstants.ItemTextMaxLength);
+        builder.HasOne<Question>()
             .WithMany(x => x.FillInBlankItems)
             .HasForeignKey(x => x.FillInBlankQuestionId)
             .OnDelete(DeleteBehavior.Cascade);

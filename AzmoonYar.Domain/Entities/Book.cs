@@ -32,9 +32,6 @@ public class Book
         string bookName,
         Grade grade)
     {
-        if (string.IsNullOrWhiteSpace(bookName))
-            throw new RequiredBookNameException();
-
         BookName = bookName.Trim();
         Grade = grade;
     }

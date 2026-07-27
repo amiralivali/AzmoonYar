@@ -1,5 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.User;
 using AzmoonYar.Application.DTOs;
+using AzmoonYar.Application.DTOs.User;
 
 namespace AzmoonYar.API.Mappers;
 

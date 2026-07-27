@@ -1,17 +1,55 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using System.Collections.Immutable;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
-using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
-using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
+using AzmoonYar.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace AzmoonYar.Infrastructure.Persistance.SqlServer.EfCore.Repositories;
+namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 
-public class QuestionRepository(AzmoonYarDbContext context) : RepositoryBase<BaseQuestion>(context) , IQuestionRepository
+public class QuestionRepository(AzmoonYarDbContext context)
+    : RepositoryBase<Question>(context), IQuestionRepository
 {
-    private readonly AzmoonYarDbContext _context = context;
-    public async Task<IReadOnlyList<BaseQuestion>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default)
+    public override async Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
-        return await _context.Questions.Where(x => x.QuestionType == questionType).AsNoTracking().ToListAsync(cancellationToken);
+        return await Context.Questions
+            .Include(x=>x.FillInBlankItems)
+            .Include(x=>x.TrueFalseItems)
+            .Include(x=>x.MatchingItems)
+            .Include(x=>x.OptionalItem)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x=>x.Id==id,cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<Question>> GetAllAsync(
+        QuestionType questionType,
+        CancellationToken cancellationToken = default)
+    {
+        var query = Context.Questions
+            .Where(x => x.QuestionType == questionType);
+
+        query = questionType switch
+        {
+            QuestionType.FillInBlank =>
+                query.Include(x => x.FillInBlankItems),
+
+            QuestionType.Matching =>
+                query.Include(x => x.MatchingItems),
+
+            QuestionType.TrueFalse =>
+                query.Include(x => x.TrueFalseItems),
+
+            QuestionType.Optional =>
+                query.Include(x => x.OptionalItem),
+
+            QuestionType.Descriptive or QuestionType.ShortAnswer =>
+                query,
+
+            _ => throw new InvalidQuestionType()
+        };
+
+        return await query
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
     }
 }

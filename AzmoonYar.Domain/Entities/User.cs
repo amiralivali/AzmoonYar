@@ -8,7 +8,7 @@ public class User
     public string? UserName { get; private set; } 
     public string? Password { get; private set; }
     public string PhoneNumber { get; private set; } = null!;
-    public DateTimeOffset CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; private set; }
 
     private User()
     {

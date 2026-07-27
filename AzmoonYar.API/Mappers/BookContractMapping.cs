@@ -1,5 +1,7 @@
 ﻿using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.Application.DTOs;
+using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.DTOs.Lesson;
 
 namespace AzmoonYar.API.Mappers;
 

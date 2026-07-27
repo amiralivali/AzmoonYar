@@ -10,5 +10,7 @@ public static class DependencyInjection
     {
         builder.AddScoped<UserService>();
         builder.AddScoped<BookService>();
+        builder.AddScoped<ExceptionLogService>();
+        builder.AddScoped<QuestionService>();
     }
 }

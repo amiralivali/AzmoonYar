@@ -10,7 +10,7 @@ namespace AzmoonYar.API.Controllers;
 public class UserController(UserService service):ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<UserResponse>> AddAsync([FromBody] CreateUserRequest request,CancellationToken cancellationToken)
+    public async Task<ActionResult<UserResponse>> Add([FromBody] CreateUserRequest request,CancellationToken cancellationToken)
     {
         var dto = await service.AddAsync(request.ToDto(), cancellationToken);
         return dto.ToResponse();

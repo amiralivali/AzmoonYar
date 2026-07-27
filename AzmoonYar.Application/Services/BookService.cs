@@ -1,5 +1,7 @@
 ﻿using System.Data;
 using AzmoonYar.Application.DTOs;
+using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.DTOs.Lesson;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;

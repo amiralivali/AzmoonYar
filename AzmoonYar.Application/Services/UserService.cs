@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.Application.DTOs;
+using AzmoonYar.Application.DTOs.User;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 

@@ -12,17 +12,17 @@ public class OptionalItemConfiguration:IEntityTypeConfiguration<OptionalItem>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Option1)
             .IsRequired(true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
+            .HasMaxLength(OptionalItemConstants.Option1MaxLength);
         builder.Property(x => x.Option2)
             .IsRequired(true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
+            .HasMaxLength(OptionalItemConstants.Option2MaxLength);
         builder.Property(x => x.Option3)
             .IsRequired(true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
+            .HasMaxLength(OptionalItemConstants.Option3MaxLength);
         builder.Property(x => x.Option4)
             .IsRequired(true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne<BaseQuestion>()            .WithOne(x => x.OptionalItem)
+            .HasMaxLength(OptionalItemConstants.Option4MaxLength);
+        builder.HasOne<Question>()            .WithOne(x => x.OptionalItem)
             .HasForeignKey<OptionalItem>(x => x.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }

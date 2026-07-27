@@ -3,7 +3,7 @@ using AzmoonYar.Domain.Enums;
 
 namespace AzmoonYar.Application.Repositories;
 
-public interface IQuestionRepository : IRepository<BaseQuestion>
+public interface IQuestionRepository : IRepository<Question>
 {
-    Task<IReadOnlyList<BaseQuestion>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Question>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default);
 }

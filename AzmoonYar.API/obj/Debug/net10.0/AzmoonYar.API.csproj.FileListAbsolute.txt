@@ -451,3 +451,9 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\refint\Azm
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.pdb
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\AzmoonYar.API.genruntimeconfig.cache
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\obj\Debug\net10.0\ref\AzmoonYar.API.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\DnsClient.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\MongoDB.Bson.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\MongoDB.Driver.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\SharpCompress.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Snappier.dll
+C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\ZstdSharp.dll

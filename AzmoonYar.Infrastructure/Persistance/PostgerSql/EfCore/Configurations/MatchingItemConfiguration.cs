@@ -13,13 +13,13 @@ public class MatchingItemConfiguration : IEntityTypeConfiguration<MatchingItem>
 
         builder.Property(x => x.LeftItemText)
             .IsRequired()
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
+            .HasMaxLength(MatchingItemConstants.LeftItemTextMaxLength);
 
         builder.Property(x => x.RightItemText)
             .IsRequired()
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
+            .HasMaxLength(MatchingItemConstants.RightItemTextMaxLength);
 
-        builder.HasOne<BaseQuestion>()            .WithMany(x => x.MatchingItems)
+        builder.HasOne<Question>()            .WithMany(x => x.MatchingItems)
             .HasForeignKey(x => x.MatchingQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
     }

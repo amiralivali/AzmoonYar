@@ -12,8 +12,8 @@ public class TrueFalseItemConfiguration:IEntityTypeConfiguration<TrueFalseItem>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.ItemText)
             .IsRequired(true)
-            .HasMaxLength(BaseItemConstants.ItemTextMaxLength);
-        builder.HasOne<BaseQuestion>()           
+            .HasMaxLength(TrueFalseItemConstants.ItemTextMaxLength);
+        builder.HasOne<Question>()           
             .WithMany(x => x.TrueFalseItems)
             .HasForeignKey(x => x.TrueFalseQuestionId)
             .OnDelete(DeleteBehavior.Cascade);
