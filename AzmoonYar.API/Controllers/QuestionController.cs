@@ -72,6 +72,55 @@ public class QuestionController(QuestionService service) : ControllerBase
        return CreatedAtAction(nameof(GetById), new { id = response.QuestionId }, response);
    }
 
+   [HttpPut("descriptive")]
+   public async Task<ActionResult<QuestionResponse>> UpdateDescriptiveQuestion
+       (long id,UpdateDescriptiveQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       return Ok(dto.ToResponse());
+   }
+   
+   [HttpPut("shortAnswer")]
+   public async Task<ActionResult<QuestionResponse>> UpdateShortAnswerQuestion
+       (long id ,UpdateShortAnswerQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       return Ok(dto.ToResponse());
+   }
+   
+   [HttpPut("trueFalse")]
+   public async Task<ActionResult<QuestionResponse>> UpdateTrueFalseQuestion
+       (long id, UpdateTrueFalseQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       var response = dto.ToResponse();
+       return Ok(dto.ToResponse());
+   }
+   
+   [HttpPut("fillInBlank")]
+   public async Task<ActionResult<QuestionResponse>> UpdateFillInBlankQuestion
+       (long id, UpdateFillInBlankQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       return Ok(dto.ToResponse());
+   }
+   
+   [HttpPut("matching")]
+   public async Task<ActionResult<QuestionResponse>> UpdateMatchingQuestion
+       (long id, UpdateMatchingQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       return Ok(dto.ToResponse());
+   }
+   
+   [HttpPut("optional")]
+   public async Task<ActionResult<QuestionResponse>> UpdateOptionalQuestion
+       (long id,UpdateOptionalQuestionRequest request,CancellationToken cancellationToken)
+   {
+       var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
+       return Ok(dto.ToResponse());
+   }
+   
    [HttpDelete("{questionId:long}")]
    public async Task<IActionResult> DeleteQuestion(
        long questionId,

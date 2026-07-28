@@ -50,6 +50,17 @@ public class Question
         CreatedAt = DateTimeOffset.UtcNow;
     }
 
+    public void UpdateQuestion(long lessonId,
+        string questionText,
+        DifficultyLevel difficultyLevel,
+        QuestionType questionType)
+    {
+        LessonId = lessonId;
+        QuestionText = questionText.Trim();
+        DifficultyLevel = difficultyLevel;
+        QuestionType = questionType;
+    }
+    
     public void ChangePicture(string? picture)
     {
         Picture = string.IsNullOrWhiteSpace(picture)
@@ -78,6 +89,17 @@ public class Question
         _fillInBlankItems.Remove(item);
     }
 
+    public void UpdateFillInBlankItem(long itemId, string itemText)
+    {
+        if (QuestionType != QuestionType.FillInBlank)
+            throw new FillInBlankItemOperationNotAllowedException();
+
+        var item = _fillInBlankItems.FirstOrDefault(x => x.Id == itemId)
+                   ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
+        
+        item.UpdateItem(itemText);
+    }
+    
     #endregion
 
     #region Matching
@@ -101,6 +123,17 @@ public class Question
         _matchingItems.Remove(item);
     }
 
+    public void UpdateMatchingItem(long itemId, string leftItemText, string rightItemText)
+    {
+        if (QuestionType != QuestionType.FillInBlank)
+            throw new MatchingItemOperationNotAllowedException();
+
+        var item = _matchingItems.FirstOrDefault(x => x.Id == itemId)
+                   ?? throw new EntityNotFoundException(nameof(MatchingItem), itemId);
+        
+        item.UpdateItem(leftItemText, rightItemText);
+    }
+    
     #endregion
 
     #region Optional
@@ -134,6 +167,16 @@ public class Question
 
         OptionalItem = null;
     }
+    
+    public void UpdateOptionalItem(long id,string option1, string option2, string option3, string option4)
+    {
+        if (QuestionType != QuestionType.Optional)
+            throw new OptionalItemOperationNotAllowedException();
+        
+        if (OptionalItem is null)
+            throw new EntityNotFoundException(nameof(OptionalItem), id);
+        OptionalItem.Update(option1, option2, option3, option4);
+    }
 
     #endregion
 
@@ -158,5 +201,16 @@ public class Question
         _trueFalseItems.Remove(item);
     }
 
+    public void UpdateTrueFalseItem(long itemId, string itemText)
+    {
+        if (QuestionType != QuestionType.TrueFalse)
+            throw new TrueFalseItemOperationNotAllowedException();
+
+        var item = _trueFalseItems.FirstOrDefault(x => x.Id == itemId)
+                   ?? throw new EntityNotFoundException(nameof(TrueFalseItem), itemId);
+
+        item.UpdateItem(itemText);
+    }
+    
     #endregion
 }

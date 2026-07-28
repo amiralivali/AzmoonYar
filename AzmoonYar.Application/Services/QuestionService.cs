@@ -45,6 +45,45 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(question);
     }
+    public async Task<QuestionDto> UpdateAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
+    {
+        var question =  await repository.GetByIdAsync(id, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(Question), id);
+        question.UpdateQuestion(dto.LessonId,dto.QuestionText,dto.DifficultyLevel,dto.QuestionType);
+        question.ChangePicture(dto.Picture);
+        switch (question.QuestionType)
+        {
+            case QuestionType.FillInBlank:
+                foreach (var item in dto.FillInBlankItems)
+                {
+                    question.UpdateFillInBlankItem(item.Id,item.ItemText);
+                }
+                break;
+            case QuestionType.Matching:
+                foreach (var item in dto.MatchingItems)
+                {
+                    question.UpdateMatchingItem(item.Id,item.LeftItemText, item.RightItemText);
+                }
+                break;
+            case QuestionType.TrueFalse:
+                foreach (var item in dto.TrueFalseItems)
+                {
+                    question.UpdateTrueFalseItem(item.Id,item.ItemText);
+                }
+                break;
+            case QuestionType.Optional:
+                ArgumentNullException.ThrowIfNull(dto.OptionalItem);
+                question.UpdateOptionalItem(dto.OptionalItem.Id,
+                    dto.OptionalItem.Option1,
+                    dto.OptionalItem.Option2,
+                    dto.OptionalItem.Option3,
+                    dto.OptionalItem.Option4);
+                break;
+        } 
+        repository.Update(question);
+        await repository.SaveChangesAsync(cancellationToken);
+        return ToDto(question);
+    }
 
     public async Task<QuestionDto> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
@@ -60,12 +99,6 @@ public class QuestionService(IQuestionRepository repository)
         return questions.Select(ToDto).ToList();
     }
     
-    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync(QuestionType questionType,CancellationToken cancellationToken = default)
-    {
-        var questions = await repository.GetAllAsync(questionType,cancellationToken);
-        return questions.Select(ToDto).ToList();
-    }
-
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)

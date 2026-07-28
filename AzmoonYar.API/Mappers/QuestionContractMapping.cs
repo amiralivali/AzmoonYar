@@ -89,4 +89,56 @@ public static class QuestionContractMapping
             .Select(x => new FillInBlankItemResponse(x.Id, x.ItemText))
             .ToList()
     );
+    public static UpdateQuestionDto ToDto(this UpdateDescriptiveQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.Descriptive,
+            request.DifficultyLevel);
+    }
+    public static UpdateQuestionDto ToDto(this UpdateShortAnswerQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.ShortAnswer,
+            request.DifficultyLevel);
+    }
+    public static UpdateQuestionDto ToDto(this UpdateTrueFalseQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.TrueFalse,
+            request.DifficultyLevel,
+            TrueFalseItems: request.TrueFalseItems.Select(x=>new UpdateTrueFalseItemDto(x.Id,x.ItemText)).ToList());
+    }
+    public static UpdateQuestionDto ToDto(this UpdateFillInBlankQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.FillInBlank,
+            request.DifficultyLevel,
+            FillInBlankItems: request.FillInBlankItems.Select(x=>new UpdateFillInBlankItemDto(x.Id,x.ItemText)).ToList());
+    }
+    public static UpdateQuestionDto ToDto(this UpdateMatchingQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.Matching,
+            request.DifficultyLevel,
+            MatchingItems: request.MatchingItems.Select(x=>new UpdateMatchingItemDto(x.Id,x.LeftItemText,x.RightItemText)).ToList());
+    }
+    public static UpdateQuestionDto ToDto(this UpdateOptionalQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            QuestionType.Optional,
+            request.DifficultyLevel,
+            OptionalItem: new UpdateOptionalItemDto(request.OptionalItem.Id,request.OptionalItem.Option1, request.OptionalItem.Option2, request.OptionalItem.Option3, request.OptionalItem.Option4));
+    }
 }
