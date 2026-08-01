@@ -72,7 +72,7 @@ public class QuestionController(QuestionService service) : ControllerBase
        return CreatedAtAction(nameof(GetById), new { id = response.QuestionId }, response);
    }
 
-   [HttpPut("descriptive")]
+   [HttpPut("descriptive/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateDescriptiveQuestion
        (long id,UpdateDescriptiveQuestionRequest request,CancellationToken cancellationToken)
    {
@@ -80,7 +80,7 @@ public class QuestionController(QuestionService service) : ControllerBase
        return Ok(dto.ToResponse());
    }
    
-   [HttpPut("shortAnswer")]
+   [HttpPut("shortAnswer/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateShortAnswerQuestion
        (long id ,UpdateShortAnswerQuestionRequest request,CancellationToken cancellationToken)
    {
@@ -88,16 +88,15 @@ public class QuestionController(QuestionService service) : ControllerBase
        return Ok(dto.ToResponse());
    }
    
-   [HttpPut("trueFalse")]
+   [HttpPut("trueFalse/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateTrueFalseQuestion
        (long id, UpdateTrueFalseQuestionRequest request,CancellationToken cancellationToken)
    {
        var dto = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
-       var response = dto.ToResponse();
        return Ok(dto.ToResponse());
    }
    
-   [HttpPut("fillInBlank")]
+   [HttpPut("fillInBlank/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateFillInBlankQuestion
        (long id, UpdateFillInBlankQuestionRequest request,CancellationToken cancellationToken)
    {
@@ -105,7 +104,7 @@ public class QuestionController(QuestionService service) : ControllerBase
        return Ok(dto.ToResponse());
    }
    
-   [HttpPut("matching")]
+   [HttpPut("matching/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateMatchingQuestion
        (long id, UpdateMatchingQuestionRequest request,CancellationToken cancellationToken)
    {
@@ -113,7 +112,7 @@ public class QuestionController(QuestionService service) : ControllerBase
        return Ok(dto.ToResponse());
    }
    
-   [HttpPut("optional")]
+   [HttpPut("optional/{Id:long}")]
    public async Task<ActionResult<QuestionResponse>> UpdateOptionalQuestion
        (long id,UpdateOptionalQuestionRequest request,CancellationToken cancellationToken)
    {
@@ -121,12 +120,12 @@ public class QuestionController(QuestionService service) : ControllerBase
        return Ok(dto.ToResponse());
    }
    
-   [HttpDelete("{questionId:long}")]
+   [HttpDelete("{Id:long}")]
    public async Task<IActionResult> DeleteQuestion(
-       long questionId,
+       long id,
        CancellationToken cancellationToken)
    {
-       await service.DeleteAsync(questionId, cancellationToken);
+       await service.DeleteAsync(id, cancellationToken);
        return NoContent();
    }
 
@@ -144,13 +143,13 @@ public class QuestionController(QuestionService service) : ControllerBase
        return NoContent();
    }
 
-   [HttpDelete("{questionId:long}/optional-item")]
+   [HttpDelete("{id:long}/optional-item")]
    public async Task<IActionResult> DeleteOptionalItem(
-       long questionId,
+       long id,
        CancellationToken cancellationToken)
    {
        await service.DeleteOptionalItemAsync(
-           questionId,
+           id,
            cancellationToken);
 
        return NoContent();
