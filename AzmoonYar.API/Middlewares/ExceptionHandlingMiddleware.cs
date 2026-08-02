@@ -25,11 +25,14 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
     private static HttpStatusCode ResolveStatusCode(Exception exception) => exception switch
     {
         EntityNotFoundException => HttpStatusCode.NotFound,
-        //DuplicateUserNameException => HttpStatusCode.Conflict,
-        //InvalidPriceAmountException
-        //    or InvalidAddressException
-        //    or CurrencyMismatchException
-        //    or InvalidQuantityException => HttpStatusCode.BadRequest,
+        OptionalItemAlreadyExistsException => HttpStatusCode.Conflict,
+        DescriptiveQuestionWithoutItemException
+            or FillInBlankItemOperationNotAllowedException
+            or InvalidQuestionType
+            or MatchingItemOperationNotAllowedException
+            or OptionalItemOperationNotAllowedException
+            or ShortAnswerQuestionWithoutItemException
+            or TrueFalseItemOperationNotAllowedException => HttpStatusCode.BadRequest,
         _ => HttpStatusCode.InternalServerError
     };
 

@@ -123,7 +123,8 @@ public class QuestionService(IQuestionRepository repository)
                 question.RemoveMatchingItem(itemId);
                 break;  
             case QuestionType.Optional:
-                throw new WrongRequestForDeleteOptionalItem();
+                question.RemoveOptionalItem();
+                break;  
             case QuestionType.Descriptive:
                 throw new DescriptiveQuestionWithoutItemException();
             case QuestionType.ShortAnswer:
@@ -132,17 +133,6 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
     }
     
-    public async Task DeleteOptionalItemAsync(
-        long questionId,
-        CancellationToken cancellationToken = default)
-    {
-        var question = await repository.GetByIdAsync(questionId, cancellationToken)
-                       ?? throw new EntityNotFoundException(nameof(Question), questionId);
-
-        question.RemoveOptionalItem();
-
-        await repository.SaveChangesAsync(cancellationToken);
-    }
     private static QuestionDto ToDto(Question question) => new(
         question.Id,
         question.LessonId,

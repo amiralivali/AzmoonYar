@@ -142,16 +142,4 @@ public class QuestionController(QuestionService service) : ControllerBase
 
        return NoContent();
    }
-
-   [HttpDelete("{id:long}/optional-item")]
-   public async Task<IActionResult> DeleteOptionalItem(
-       long id,
-       CancellationToken cancellationToken)
-   {
-       await service.DeleteOptionalItemAsync(
-           id,
-           cancellationToken);
-
-       return NoContent();
-   }
 }
