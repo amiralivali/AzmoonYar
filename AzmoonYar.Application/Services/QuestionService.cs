@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.DTOs.Question;
+﻿using AzmoonYar.Application.CacheKeys;
+using AzmoonYar.Application.DTOs.Question;
+using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
@@ -92,11 +94,11 @@ public class QuestionService(IQuestionRepository repository)
         
         return ToDto(question);
     }
-    
-    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync
+        (QuestionType questionType,CancellationToken cancellationToken = default)
     {
-        var questions = await repository.GetAllAsync(cancellationToken);
-        return questions.Select(ToDto).ToList();
+        var values = await repository.GetAllAsync(cancellationToken);
+        return values.Select(ToDto).ToList();
     }
     
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default)

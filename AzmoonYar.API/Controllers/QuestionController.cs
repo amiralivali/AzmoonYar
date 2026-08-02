@@ -2,6 +2,7 @@
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Services;
+using AzmoonYar.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers;
@@ -18,9 +19,10 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll
+        (QuestionType questionType,CancellationToken cancellationToken)
     {
-        var questions = await service.GetAllAsync(cancellationToken);
+        var questions = await service.GetAllAsync(questionType,cancellationToken);
         return Ok(questions.Select(x => x.ToResponse()).ToList());
     }
     
