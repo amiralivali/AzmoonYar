@@ -2,7 +2,7 @@
 
 namespace AzmoonYar.API.Contracts.Question;
 
-public record QuestionResponse(long QuestionId,
+public record QuestionResponse(long Id,
     long LessonId,
     string QuestionText,
     string? Picture,

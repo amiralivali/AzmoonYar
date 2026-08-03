@@ -70,12 +70,14 @@ public class Question
 
     #region FillInBlank
 
-    public void AddFillInBlankItem(string itemText)
+    public FillInBlankItem AddFillInBlankItem(string itemText)
     {
         if (QuestionType != QuestionType.FillInBlank)
             throw new FillInBlankItemOperationNotAllowedException();
 
-        _fillInBlankItems.Add(new FillInBlankItem(itemText));
+        var item = new FillInBlankItem(itemText);
+        _fillInBlankItems.Add(item);
+        return item;
     }
 
     public void RemoveFillInBlankItem(long itemId)
@@ -89,7 +91,7 @@ public class Question
         _fillInBlankItems.Remove(item);
     }
 
-    public void UpdateFillInBlankItem(long itemId, string itemText)
+    public FillInBlankItem UpdateFillInBlankItem(long itemId, string itemText)
     {
         if (QuestionType != QuestionType.FillInBlank)
             throw new FillInBlankItemOperationNotAllowedException();
@@ -98,18 +100,21 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
         
         item.UpdateItem(itemText);
+        return item;
     }
     
     #endregion
 
     #region Matching
 
-    public void AddMatchingItem(string leftItemText, string rightItemText)
+    public MatchingItem AddMatchingItem(string leftItemText, string rightItemText)
     {
         if (QuestionType != QuestionType.Matching)
             throw new MatchingItemOperationNotAllowedException();
 
-        _matchingItems.Add(new MatchingItem(leftItemText, rightItemText));
+        var item = new MatchingItem(leftItemText, rightItemText);
+        _matchingItems.Add(item);
+        return item;
     }
 
     public void RemoveMatchingItem(long itemId)
@@ -123,7 +128,7 @@ public class Question
         _matchingItems.Remove(item);
     }
 
-    public void UpdateMatchingItem(long itemId, string leftItemText, string rightItemText)
+    public MatchingItem UpdateMatchingItem(long itemId, string leftItemText, string rightItemText)
     {
         if (QuestionType != QuestionType.FillInBlank)
             throw new MatchingItemOperationNotAllowedException();
@@ -132,13 +137,14 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(MatchingItem), itemId);
         
         item.UpdateItem(leftItemText, rightItemText);
+        return item;
     }
     
     #endregion
 
     #region Optional
 
-    public void AddOptionalItem(
+    public OptionalItem AddOptionalItem(
         string option1,
         string option2,
         string option3,
@@ -155,20 +161,10 @@ public class Question
             option2,
             option3,
             option4);
+        return OptionalItem;
     }
 
-    public void RemoveOptionalItem()
-    {
-        if (QuestionType != QuestionType.Optional)
-            throw new OptionalItemOperationNotAllowedException();
-
-        if (OptionalItem is null)
-            throw new EntityNotFoundException(nameof(OptionalItem), 0);
-
-        OptionalItem = null;
-    }
-    
-    public void UpdateOptionalItem(long id,string option1, string option2, string option3, string option4)
+    public OptionalItem UpdateOptionalItem(long id,string option1, string option2, string option3, string option4)
     {
         if (QuestionType != QuestionType.Optional)
             throw new OptionalItemOperationNotAllowedException();
@@ -176,18 +172,21 @@ public class Question
         if (OptionalItem is null)
             throw new EntityNotFoundException(nameof(OptionalItem), id);
         OptionalItem.Update(option1, option2, option3, option4);
+        return OptionalItem;
     }
 
     #endregion
 
     #region TrueFalse
 
-    public void AddTrueFalseItem(string itemText)
+    public TrueFalseItem AddTrueFalseItem(string itemText)
     {
         if (QuestionType != QuestionType.TrueFalse)
             throw new TrueFalseItemOperationNotAllowedException();
 
-        _trueFalseItems.Add(new TrueFalseItem(itemText));
+        var item =  new TrueFalseItem(itemText);
+        _trueFalseItems.Add(item);
+        return item;
     }
 
     public void RemoveTrueFalseItem(long itemId)
@@ -201,7 +200,7 @@ public class Question
         _trueFalseItems.Remove(item);
     }
 
-    public void UpdateTrueFalseItem(long itemId, string itemText)
+    public TrueFalseItem UpdateTrueFalseItem(long itemId, string itemText)
     {
         if (QuestionType != QuestionType.TrueFalse)
             throw new TrueFalseItemOperationNotAllowedException();
@@ -210,6 +209,7 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(TrueFalseItem), itemId);
 
         item.UpdateItem(itemText);
+        return item;
     }
     
     #endregion

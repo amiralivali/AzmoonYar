@@ -6,59 +6,89 @@ namespace AzmoonYar.API.Mappers;
 
 public static class QuestionContractMapping
 {
-    public static CreateQuestionDto ToDto(this CreateDescriptiveQuestionRequest request)
+    public static CreateFillInBlankItemDto ToDto(this CreateFillInBlankItemRequest request)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Descriptive,
-            request.DifficultyLevel);
+        return new CreateFillInBlankItemDto(request.ItemText);
     }
-    public static CreateQuestionDto ToDto(this CreateShortAnswerQuestionRequest request)
+    
+    public static UpdateFillInBlankItemDto ToDto(this UpdateFillInBlankItemRequest request)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.ShortAnswer,
-            request.DifficultyLevel);
+        return new UpdateFillInBlankItemDto(request.Id,request.ItemText);
     }
-    public static CreateQuestionDto ToDto(this CreateTrueFalseQuestionRequest request)
+    
+    public static FillInBlankItemResponse ToResponse(this FillInBlankItemDto dto)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.TrueFalse,
-            request.DifficultyLevel,
-            TrueFalseItems: request.TrueFalseItems.Select(x=>new CreateTrueFalseItemDto(x.ItemText)).ToList());
+        return new FillInBlankItemResponse(dto.Id,dto.ItemText);
     }
-    public static CreateQuestionDto ToDto(this CreateFillInBlankQuestionRequest request)
+    
+    public static CreateTrueFalseItemDto ToDto(this CreateTrueFalseItemRequest request)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.FillInBlank,
-            request.DifficultyLevel,
-            FillInBlankItems: request.FillInBlankItems.Select(x=>new CreateFillInBlankItemDto(x.ItemText)).ToList());
+        return new CreateTrueFalseItemDto(request.ItemText);
     }
-    public static CreateQuestionDto ToDto(this CreateMatchingQuestionRequest request)
+    
+    public static UpdateTrueFalseItemDto ToDto(this UpdateTrueFalseItemRequest request)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Matching,
-            request.DifficultyLevel,
-            MatchingItems: request.MatchingItems.Select(x=>new CreateMatchingItemDto(x.LeftItemText,x.RightItemText)).ToList());
+        return new UpdateTrueFalseItemDto(request.Id,request.ItemText);
     }
-    public static CreateQuestionDto ToDto(this CreateOptionalQuestionRequest request)
+    
+    public static TrueFalseItemResponse ToResponse(this TrueFalseItemDto dto)
     {
-        return new CreateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Optional,
-            request.DifficultyLevel,
-            OptionalItem: new CreateOptionalItemDto(request.OptionalItem.Option1, request.OptionalItem.Option2, request.OptionalItem.Option3, request.OptionalItem.Option4));
+        return new TrueFalseItemResponse(dto.Id,dto.ItemText);
+    }
+    
+    public static CreateMatchingItemDto ToDto(this CreateMatchingItemRequest request)
+    {
+        return new CreateMatchingItemDto(request.LeftItemText,request.RightItemText);
+    }
+    
+    public static UpdateMatchingItemDto ToDto(this UpdateMatchingItemRequest request)
+    {
+        return new UpdateMatchingItemDto(request.Id,request.LeftItemText,request.RightItemText);
+    }
+    
+    public static MatchingItemResponse ToResponse(this MatchingItemDto dto)
+    {
+        return new MatchingItemResponse(dto.Id,dto.LeftItemText,dto.RightItemText);
     }
 
+    private static CreateOptionalItemDto ToDto(this CreateOptionalItemRequest request)
+    {
+        return new CreateOptionalItemDto(request.Option1,request.Option2,request.Option3,request.Option4);
+    }
+    
+    public static UpdateOptionalItemDto ToDto(this UpdateOptionalItemRequest request)
+    {
+        return new UpdateOptionalItemDto(request.Id,request.Option1,request.Option2,request.Option3,request.Option4);
+    }
+    
+    public static OptionalItemResponse ToResponse(this OptionalItemDto dto)
+    {
+        return new OptionalItemResponse(dto.Id,dto.Option1,dto.Option2,dto.Option3,dto.Option4);
+    }
+
+    public static CreateQuestionDto ToDto(this CreateQuestionRequest request)
+    {
+        return new CreateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            request.QuestionType,
+            request.DifficultyLevel,
+
+            request.OptionalItem?.ToDto(),
+
+            request.TrueFalseItems
+                .Select(x => x.ToDto())
+                .ToList(),
+
+            request.MatchingItems
+                .Select(x => x.ToDto())
+                .ToList(),
+
+            request.FillInBlankItems
+                .Select(x => x.ToDto())
+                .ToList());
+    }
+    
     public static QuestionResponse ToResponse(this QuestionDto dto)=> new(
         dto.QuestionId,
         dto.LessonId,
@@ -89,56 +119,4 @@ public static class QuestionContractMapping
             .Select(x => new FillInBlankItemResponse(x.Id, x.ItemText))
             .ToList()
     );
-    public static UpdateQuestionDto ToDto(this UpdateDescriptiveQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Descriptive,
-            request.DifficultyLevel);
-    }
-    public static UpdateQuestionDto ToDto(this UpdateShortAnswerQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.ShortAnswer,
-            request.DifficultyLevel);
-    }
-    public static UpdateQuestionDto ToDto(this UpdateTrueFalseQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.TrueFalse,
-            request.DifficultyLevel,
-            TrueFalseItems: request.TrueFalseItems.Select(x=>new UpdateTrueFalseItemDto(x.Id,x.ItemText)).ToList());
-    }
-    public static UpdateQuestionDto ToDto(this UpdateFillInBlankQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.FillInBlank,
-            request.DifficultyLevel,
-            FillInBlankItems: request.FillInBlankItems.Select(x=>new UpdateFillInBlankItemDto(x.Id,x.ItemText)).ToList());
-    }
-    public static UpdateQuestionDto ToDto(this UpdateMatchingQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Matching,
-            request.DifficultyLevel,
-            MatchingItems: request.MatchingItems.Select(x=>new UpdateMatchingItemDto(x.Id,x.LeftItemText,x.RightItemText)).ToList());
-    }
-    public static UpdateQuestionDto ToDto(this UpdateOptionalQuestionRequest request)
-    {
-        return new UpdateQuestionDto(request.LessonId,
-            request.QuestionText,
-            request.Picture,
-            QuestionType.Optional,
-            request.DifficultyLevel,
-            OptionalItem: new UpdateOptionalItemDto(request.OptionalItem.Id,request.OptionalItem.Option1, request.OptionalItem.Option2, request.OptionalItem.Option3, request.OptionalItem.Option4));
-    }
 }
