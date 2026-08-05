@@ -1,5 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.API.Mappers;
+using AzmoonYar.Application.DTOs.Book;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
@@ -50,5 +51,21 @@ public class BookController(BookService service) : ControllerBase
     {
         var grades = await service.GetAvailableGradesAsync(cancellationToken);
         return Ok(grades);
+    }
+
+    [HttpGet("grades/{grade}/books")]
+    public async Task<ActionResult<IReadOnlyList<BookResponse>>> GetBooksByGrade(Grade grade,
+        CancellationToken cancellationToken)
+    {
+        var books = await service.GetBooksByGradeAsync(grade, cancellationToken);
+        return Ok(books.Select(x=>x.ToResponse()).ToList());
+    }
+    
+    [HttpGet("{bookId:long}/lessons")]
+    public async Task<ActionResult<IReadOnlyList<LessonResponse>>> GetLessonsByBookId(long bookId,
+        CancellationToken cancellationToken)
+    {
+        var books = await service.GetLessonsByBookId(bookId, cancellationToken);
+        return Ok(books.Select(x=>x.ToResponse()).ToList());
     }
 }

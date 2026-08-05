@@ -1,7 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
-using AzmoonYar.Application.DTOs.Lesson;
 
 namespace AzmoonYar.API.Mappers;
 
@@ -15,7 +14,7 @@ public static class BookContractMapping
     public static UpdateBookDto ToDto(this UpdateBookRequest request)
     {
         return new UpdateBookDto(request.BookName,request.Grade,request.GradeInfo,request.UpdateLessonRequests.Select(x=>new 
-            UpdateLessonDto(x.Title)).ToList());
+            UpdateLessonDto(x.Id,x.Title)).ToList());
     }
     public static BookResponse ToResponse(this BookDto dto)
     {
@@ -25,5 +24,11 @@ public static class BookContractMapping
             dto.GradeInfo,
             dto.CreatedAt,
             dto.Lessons.Select(x=>new LessonResponse(x.Id,x.LessonName,x.LessonCount)).ToList());
+    }
+    public static LessonResponse ToResponse(this LessonDto dto)
+    {
+        return new LessonResponse(dto.Id,
+            dto.LessonName,
+            dto.LessonCount);
     }
 }

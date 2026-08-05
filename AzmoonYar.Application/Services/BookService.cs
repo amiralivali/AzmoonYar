@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
-using AzmoonYar.Application.DTOs.Lesson;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
@@ -53,20 +52,33 @@ public class BookService(IBookRepository repository)
         {
             book.ChangeGradeInfo(dto.GradeInfo);
         }
-
-        foreach (var lesson in dto.UpdateLessonDtos)
+        foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
-            //book.ChangeLessonTitle(,lesson.Title);
+            book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);
         }
         repository.Update(book);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(book);
     }
-
+    
     public async Task<IReadOnlyList<Grade>> GetAvailableGradesAsync(CancellationToken cancellationToken = default)
     {
         var grades = await repository.GetAvailableGradesAsync(cancellationToken);
         return grades;
+    }
+
+    public async Task<IReadOnlyList<BookDto>> GetBooksByGradeAsync(Grade grade,
+        CancellationToken cancellationToken = default)
+    {
+        var books = await repository.GetBooksByGrade(grade, cancellationToken);
+        return books.Select(ToDto).ToList();
+    }
+    
+    public async Task<IReadOnlyList<LessonDto>> GetLessonsByBookId(long bookId,
+        CancellationToken cancellationToken = default)
+    {
+        var books = await repository.GetLessonsByBookId(bookId, cancellationToken);
+        return books.Select(ToDto).ToList();
     }
 
     private static BookDto ToDto(Book book) => new(
@@ -76,4 +88,10 @@ public class BookService(IBookRepository repository)
         book.GradeInfo,
         book.CreatedAt,
         book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList());
+
+    private static LessonDto ToDto(Lesson lesson) => new(
+        lesson.Id,
+        lesson.LessonName,
+        lesson.LessonCount);
+
 }

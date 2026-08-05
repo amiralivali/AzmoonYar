@@ -4,7 +4,7 @@ using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 
-namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
+namespace AzmoonYar.Infrastructure.Persistance.Redis.Repositories;
 
 public class CachedQuestionRepository(ICacheService cacheService, IQuestionRepository inner) : IQuestionRepository
 {
