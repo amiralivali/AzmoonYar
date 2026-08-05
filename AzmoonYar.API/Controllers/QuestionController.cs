@@ -50,8 +50,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
 
     [HttpPost("{id:long}/fill-in-blank-items")]
-    public async Task<ActionResult<FillInBlankItemResponse>> AddFillInBlankItem(long id,
-        CreateFillInBlankItemRequest request,
+    public async Task<ActionResult<List<FillInBlankItemResponse>>> AddFillInBlankItem(long id,
+        List<CreateFillInBlankItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.AddFillInBlankItemAsync(id,request.ToDto(),cancellationToken);
@@ -60,8 +60,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
     
     [HttpPut("{id:long}/fill-in-blank-items")]
-    public async Task<ActionResult<FillInBlankItemResponse>> UpdateFillInBlankItem(long id,
-        UpdateFillInBlankItemRequest request,
+    public async Task<ActionResult<List<FillInBlankItemResponse>>> UpdateFillInBlankItem(long id,
+        List<UpdateFillInBlankItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.UpdateFillInBlankItemAsync(id,request.ToDto(),cancellationToken);
@@ -78,8 +78,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
 
     [HttpPost("{id:long}/true-false-items")]
-    public async Task<ActionResult<TrueFalseItemResponse>> AddTrueFalseItem(long id,
-        CreateTrueFalseItemRequest request,
+    public async Task<ActionResult<List<TrueFalseItemResponse>>> AddTrueFalseItem(long id,
+        List<CreateTrueFalseItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.AddTrueFalseItemAsync(id,request.ToDto(),cancellationToken);
@@ -88,8 +88,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
     
     [HttpPut("{id:long}/true-false-items")]
-    public async Task<ActionResult<TrueFalseItemResponse>> UpdateTrueFalseItem(long id,
-        UpdateTrueFalseItemRequest request,
+    public async Task<ActionResult<List<TrueFalseItemResponse>>> UpdateTrueFalseItem(long id,
+        List<UpdateTrueFalseItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.UpdateTrueFalseItemAsync(id,request.ToDto(),cancellationToken);
@@ -106,8 +106,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
     
     [HttpPost("{id:long}/matching-items")]
-    public async Task<ActionResult<MatchingItemResponse>> AddMatchingItem(long id,
-        CreateMatchingItemRequest request,
+    public async Task<ActionResult<List<MatchingItemResponse>>> AddMatchingItem(long id,
+        List<CreateMatchingItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.AddMatchingItemAsync(id,request.ToDto(),cancellationToken);
@@ -116,8 +116,8 @@ public class QuestionController(QuestionService service) : ControllerBase
     }
     
     [HttpPut("{id:long}/matching-items")]
-    public async Task<ActionResult<TrueFalseItemResponse>> UpdateMatchingItem(long id,
-        UpdateMatchingItemRequest request,
+    public async Task<ActionResult<List<TrueFalseItemResponse>>> UpdateMatchingItem(long id,
+        List<UpdateMatchingItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.UpdateMatchingItemAsync(id,request.ToDto(),cancellationToken);

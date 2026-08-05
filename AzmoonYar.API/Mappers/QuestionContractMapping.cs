@@ -6,49 +6,49 @@ namespace AzmoonYar.API.Mappers;
 
 public static class QuestionContractMapping
 {
-    public static CreateFillInBlankItemDto ToDto(this CreateFillInBlankItemRequest request)
+    public static List<CreateFillInBlankItemDto> ToDto(this List<CreateFillInBlankItemRequest> request)
     {
-        return new CreateFillInBlankItemDto(request.ItemText);
+        return request.Select(x => new CreateFillInBlankItemDto(x.ItemText)).ToList();
     }
     
-    public static UpdateFillInBlankItemDto ToDto(this UpdateFillInBlankItemRequest request)
+    public static List<UpdateFillInBlankItemDto> ToDto(this List<UpdateFillInBlankItemRequest> request)
     {
-        return new UpdateFillInBlankItemDto(request.Id,request.ItemText);
+        return request.Select(x => new UpdateFillInBlankItemDto(x.Id,x.ItemText)).ToList();
     }
     
-    public static FillInBlankItemResponse ToResponse(this FillInBlankItemDto dto)
+    public static List<FillInBlankItemResponse> ToResponse(this List<FillInBlankItemDto> dto)
     {
-        return new FillInBlankItemResponse(dto.Id,dto.ItemText);
+        return dto.Select(x => new FillInBlankItemResponse(x.Id, x.ItemText)).ToList();
     }
     
-    public static CreateTrueFalseItemDto ToDto(this CreateTrueFalseItemRequest request)
+    public static List<CreateTrueFalseItemDto> ToDto(this List<CreateTrueFalseItemRequest> request)
     {
-        return new CreateTrueFalseItemDto(request.ItemText);
+        return request.Select(x => new CreateTrueFalseItemDto(x.ItemText)).ToList();
     }
     
-    public static UpdateTrueFalseItemDto ToDto(this UpdateTrueFalseItemRequest request)
+    public static List<UpdateTrueFalseItemDto> ToDto(this List<UpdateTrueFalseItemRequest> request)
     {
-        return new UpdateTrueFalseItemDto(request.Id,request.ItemText);
+        return request.Select(x => new UpdateTrueFalseItemDto(x.Id,x.ItemText)).ToList();
     }
     
-    public static TrueFalseItemResponse ToResponse(this TrueFalseItemDto dto)
+    public static List<TrueFalseItemResponse> ToResponse(this List<TrueFalseItemDto> dto)
     {
-        return new TrueFalseItemResponse(dto.Id,dto.ItemText);
+        return dto.Select(x => new TrueFalseItemResponse(x.Id,x.ItemText)).ToList();
     }
     
-    public static CreateMatchingItemDto ToDto(this CreateMatchingItemRequest request)
+    public static List<CreateMatchingItemDto> ToDto(this List<CreateMatchingItemRequest> request)
     {
-        return new CreateMatchingItemDto(request.LeftItemText,request.RightItemText);
+        return request.Select(x => new CreateMatchingItemDto(x.LeftItemText,x.RightItemText)).ToList();
     }
     
-    public static UpdateMatchingItemDto ToDto(this UpdateMatchingItemRequest request)
+    public static List<UpdateMatchingItemDto> ToDto(this List<UpdateMatchingItemRequest> request)
     {
-        return new UpdateMatchingItemDto(request.Id,request.LeftItemText,request.RightItemText);
+        return request.Select(x => new UpdateMatchingItemDto(x.Id,x.LeftItemText,x.RightItemText)).ToList();
     }
     
-    public static MatchingItemResponse ToResponse(this MatchingItemDto dto)
+    public static List<MatchingItemResponse> ToResponse(this List<MatchingItemDto> dto)
     {
-        return new MatchingItemResponse(dto.Id,dto.LeftItemText,dto.RightItemText);
+        return dto.Select(x => new MatchingItemResponse(x.Id,x.LeftItemText,x.RightItemText)).ToList();
     }
 
     private static CreateOptionalItemDto ToDto(this CreateOptionalItemRequest request)

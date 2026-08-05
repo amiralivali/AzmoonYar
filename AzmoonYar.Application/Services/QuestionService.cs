@@ -88,26 +88,26 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<FillInBlankItemDto> AddFillInBlankItemAsync(long id,
-        CreateFillInBlankItemDto dto,
+    public async Task<List<FillInBlankItemDto>> AddFillInBlankItemAsync(long id,
+        List<CreateFillInBlankItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
             ??  throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.AddFillInBlankItem(dto.ItemText);
+        var items = dtos.Select(dto => ToDto(question.AddFillInBlankItem(dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
-    public async Task<FillInBlankItemDto> UpdateFillInBlankItemAsync(long id,
-        UpdateFillInBlankItemDto dto,
+    public async Task<List<FillInBlankItemDto>> UpdateFillInBlankItemAsync(long id,
+        List<UpdateFillInBlankItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.UpdateFillInBlankItem(dto.Id, dto.ItemText);
+        var items = dtos.Select(dto => ToDto(question.UpdateFillInBlankItem(dto.Id,dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
     public async Task DeleteFillInBlankItemAsync(long id, long itemId,
@@ -119,26 +119,26 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
     }
     
-    public async Task<TrueFalseItemDto> AddTrueFalseItemAsync(long id,
-        CreateTrueFalseItemDto dto,
+    public async Task<List<TrueFalseItemDto>> AddTrueFalseItemAsync(long id,
+        List<CreateTrueFalseItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ??  throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.AddTrueFalseItem(dto.ItemText);
+        var items = dtos.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
-    public async Task<TrueFalseItemDto> UpdateTrueFalseItemAsync(long id,
-        UpdateTrueFalseItemDto dto,
+    public async Task<List<TrueFalseItemDto>> UpdateTrueFalseItemAsync(long id,
+        List<UpdateTrueFalseItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.UpdateTrueFalseItem(dto.Id, dto.ItemText);
+        var items = dtos.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
     public async Task DeleteTrueFalseItemAsync(long id, long itemId,
@@ -150,26 +150,26 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
     }
     
-    public async Task<MatchingItemDto> AddMatchingItemAsync(long id,
-        CreateMatchingItemDto dto,
+    public async Task<List<MatchingItemDto>> AddMatchingItemAsync(long id,
+        List<CreateMatchingItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ??  throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.AddMatchingItem(dto.LeftItemText,dto.RightItemText);
+        var items = dtos.Select(dto => ToDto(question.AddMatchingItem(dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
-    public async Task<MatchingItemDto> UpdateMatchingItemAsync(long id,
-        UpdateMatchingItemDto dto,
+    public async Task<List<MatchingItemDto>> UpdateMatchingItemAsync(long id,
+        List<UpdateMatchingItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.UpdateMatchingItem(dto.Id, dto.LeftItemText,dto.RightItemText);
+        var items = dtos.Select(dto => ToDto(question.UpdateMatchingItem(dto.Id,dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        return ToDto(item);
+        return items;
     }
 
     public async Task DeleteMatchingItemAsync(long id, long itemId,
