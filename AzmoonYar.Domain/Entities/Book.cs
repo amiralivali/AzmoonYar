@@ -21,11 +21,8 @@ public class Book
 
     public Book(string bookName, Grade grade)
     {
-        var nextLessonCount = _lessons.Any()
-            ? _lessons.Max(x => x.LessonCount) + 1
-            : 1;
-        var lesson = new Lesson(nextLessonCount);
-        _lessons.Add(lesson);
+        BookName = bookName.Trim();
+        Grade = grade;
     }
 
     public void UpdateBook(

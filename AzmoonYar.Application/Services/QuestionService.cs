@@ -14,35 +14,6 @@ public class QuestionService(IQuestionRepository repository)
     {
         var question = new Question(dto.LessonId, dto.QuestionText, dto.DifficultyLevel, dto.QuestionType);
         question.ChangePicture(dto.Picture);
-        switch (dto.QuestionType)
-        {
-            case QuestionType.FillInBlank:
-                foreach (var item in dto.FillInBlankItems)
-                {
-                    question.AddFillInBlankItem(item.ItemText);
-                }
-                break;
-            case QuestionType.Matching:
-                foreach (var item in dto.MatchingItems)
-                {
-                    question.AddMatchingItem(item.LeftItemText, item.RightItemText);
-                }
-                break;
-            case QuestionType.TrueFalse:
-                foreach (var item in dto.TrueFalseItems)
-                {
-                    question.AddTrueFalseItem(item.ItemText);
-                }
-                break;
-            case QuestionType.Optional:
-                ArgumentNullException.ThrowIfNull(dto.OptionalItem);
-                question.AddOptionalItem(
-                    dto.OptionalItem.Option1,
-                    dto.OptionalItem.Option2,
-                    dto.OptionalItem.Option3,
-                    dto.OptionalItem.Option4);
-                break;
-        } 
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(question);
@@ -228,28 +199,7 @@ public class QuestionService(IQuestionRepository repository)
         question.Picture,
         question.DifficultyLevel,
         question.QuestionType,
-        question.CreatedAt,
-
-        question.OptionalItem is null
-            ? null
-            : new OptionalItemDto(
-                question.OptionalItem.Id,
-                question.OptionalItem.Option1,
-                question.OptionalItem.Option2,
-                question.OptionalItem.Option3,
-                question.OptionalItem.Option4),
-
-        question.TrueFalseItems
-            .Select(x => new TrueFalseItemDto(x.Id, x.ItemText))
-            .ToList(),
-
-        question.MatchingItems
-            .Select(x => new MatchingItemDto(x.Id, x.LeftItemText, x.RightItemText))
-            .ToList(),
-
-        question.FillInBlankItems
-            .Select(x => new FillInBlankItemDto(x.Id, x.ItemText))
-            .ToList()
+        question.CreatedAt
     );
 
     private static FillInBlankItemDto ToDto(FillInBlankItem item) => new(

@@ -26,17 +26,5 @@ public class CreateQuestionValidator : AbstractValidator<CreateQuestionRequest>
         RuleFor(x=>x.QuestionType)
             .NotEmpty()
             .WithMessage(QuestionValidationMessages.QuestionTypeRequired);
-
-        RuleFor(x => x.OptionalItem)
-            .SetValidator(new CreateOptionalItemValidator()!);
-
-        RuleForEach(x => x.FillInBlankItems)
-            .SetValidator(new CreateFillInBlankItemValidator());
-        
-        RuleForEach(x => x.TrueFalseItems)
-            .SetValidator(new CreateTrueFalseItemValidator());
-        
-        RuleForEach(x => x.MatchingItems)
-            .SetValidator(new CreateMatchingItemValidator());
     }
 }

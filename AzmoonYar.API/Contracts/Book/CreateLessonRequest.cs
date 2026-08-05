@@ -1,3 +1,3 @@
 ﻿namespace AzmoonYar.API.Contracts.Book;
 
-public abstract record CreateLessonRequest(string? Title);
+public record CreateLessonRequest(string? Title);

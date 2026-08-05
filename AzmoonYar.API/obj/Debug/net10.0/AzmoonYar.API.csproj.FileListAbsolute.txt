@@ -461,3 +461,15 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Pipelines.Sockets.Unofficial.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Scrutor.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\StackExchange.Redis.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\DnsClient.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\FluentValidation.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\MongoDB.Bson.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\MongoDB.Driver.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Scrutor.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\SharpCompress.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\Snappier.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\StackExchange.Redis.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\ZstdSharp.dll

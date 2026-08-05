@@ -72,21 +72,7 @@ public static class QuestionContractMapping
             request.QuestionText,
             request.Picture,
             request.QuestionType,
-            request.DifficultyLevel,
-
-            request.OptionalItem?.ToDto(),
-
-            request.TrueFalseItems
-                .Select(x => x.ToDto())
-                .ToList(),
-
-            request.MatchingItems
-                .Select(x => x.ToDto())
-                .ToList(),
-
-            request.FillInBlankItems
-                .Select(x => x.ToDto())
-                .ToList());
+            request.DifficultyLevel);
     }
     
     public static QuestionResponse ToResponse(this QuestionDto dto)=> new(
@@ -96,27 +82,6 @@ public static class QuestionContractMapping
         dto.Picture,
         dto.DifficultyLevel,
         dto.QuestionType,
-        dto.CreatedAt,
-
-        dto.OptionalItem is null
-            ? null
-            : new OptionalItemResponse(
-                dto.OptionalItem.Id,
-                dto.OptionalItem.Option1,
-                dto.OptionalItem.Option2,
-                dto.OptionalItem.Option3,
-                dto.OptionalItem.Option4),
-
-        dto.TrueFalseItems
-            .Select(x => new TrueFalseItemResponse(x.Id, x.ItemText))
-            .ToList(),
-
-        dto.MatchingItems
-            .Select(x => new MatchingItemResponse(x.Id, x.LeftItemText, x.RightItemText))
-            .ToList(),
-
-        dto.FillInBlankItems
-            .Select(x => new FillInBlankItemResponse(x.Id, x.ItemText))
-            .ToList()
+        dto.CreatedAt
     );
 }

@@ -2,7 +2,6 @@
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Services;
-using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 

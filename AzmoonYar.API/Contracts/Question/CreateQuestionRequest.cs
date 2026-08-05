@@ -7,8 +7,4 @@ public record CreateQuestionRequest(
     string QuestionText,
     string? Picture,
     DifficultyLevel DifficultyLevel,
-    QuestionType QuestionType,
-    CreateOptionalItemRequest? OptionalItem,
-    List<CreateFillInBlankItemRequest> FillInBlankItems,
-    List<CreateTrueFalseItemRequest> TrueFalseItems,
-    List<CreateMatchingItemRequest> MatchingItems);
+    QuestionType QuestionType);
