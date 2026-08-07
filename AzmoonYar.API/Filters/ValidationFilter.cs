@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AzmoonYar.API.FluentValidation.Filters;
+namespace AzmoonYar.API.Filters;
 
 public class ValidationFilter : IAsyncActionFilter
 {

@@ -21,7 +21,7 @@ public class QuestionRepository(AzmoonYarDbContext context)
             .FirstOrDefaultAsync(x=>x.Id==id,cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Question>> GetAllAsync(
+    public async Task<IReadOnlyList<Question>> GetAllByQuestionTypeAsync(
         QuestionType questionType,
         CancellationToken cancellationToken = default)
     {

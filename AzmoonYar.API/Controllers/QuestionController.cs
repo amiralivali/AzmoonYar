@@ -27,11 +27,19 @@ public class QuestionController(QuestionService service) : ControllerBase
         return Ok(question.ToResponse());
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll
+    [HttpGet("/QuestionType/{questionType}")]
+    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAllByQuestionType
         (QuestionType questionType,CancellationToken cancellationToken)
     {
-        var questions = await service.GetAllAsync(questionType,cancellationToken);
+        var questions = await service.GetAllByQuestionTypeAsync(questionType,cancellationToken);
+        return Ok(questions.Select(x => x.ToResponse()).ToList());
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll
+        (CancellationToken cancellationToken)
+    {
+        var questions = await service.GetAllAsync(cancellationToken);
         return Ok(questions.Select(x => x.ToResponse()).ToList());
     }
 

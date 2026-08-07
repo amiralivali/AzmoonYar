@@ -17,10 +17,10 @@ public class CachedQuestionRepository(ICacheService cacheService, IQuestionRepos
             TimeSpan.FromMinutes(10),
             cancellationToken)!;
 
-    public Task<IReadOnlyList<Question>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default) =>
+    public Task<IReadOnlyList<Question>> GetAllByQuestionTypeAsync(QuestionType questionType, CancellationToken cancellationToken = default) =>
         cacheService.GetOrCreateAsync(
             QuestionKeys.AllByType(questionType),
-            () => inner.GetAllAsync(questionType, cancellationToken),
+            () => inner.GetAllByQuestionTypeAsync(questionType, cancellationToken),
             TimeSpan.FromMinutes(10),
             cancellationToken)!;
 

@@ -5,5 +5,5 @@ namespace AzmoonYar.Application.Repositories;
 
 public interface IQuestionRepository : IRepository<Question>
 {
-    Task<IReadOnlyList<Question>> GetAllAsync(QuestionType questionType, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Question>> GetAllByQuestionTypeAsync(QuestionType questionType, CancellationToken cancellationToken = default);
 }

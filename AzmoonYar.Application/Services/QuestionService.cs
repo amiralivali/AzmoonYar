@@ -65,8 +65,15 @@ public class QuestionService(IQuestionRepository repository)
         
         return ToDto(question);
     }
-    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync
+    public async Task<IReadOnlyList<QuestionDto>> GetAllByQuestionTypeAsync
         (QuestionType questionType,CancellationToken cancellationToken = default)
+    {
+        var values = await repository.GetAllByQuestionTypeAsync(questionType,cancellationToken);
+        return values.Select(ToDto).ToList();
+    }
+    
+    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync
+        (CancellationToken cancellationToken = default)
     {
         var values = await repository.GetAllAsync(cancellationToken);
         return values.Select(ToDto).ToList();

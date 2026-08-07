@@ -1,4 +1,4 @@
-using AzmoonYar.API.FluentValidation.Filters;
+using AzmoonYar.API.Filters;
 using AzmoonYar.API.Middlewares;
 using AzmoonYar.Application;
 using AzmoonYar.Infrastructure;
@@ -29,7 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
