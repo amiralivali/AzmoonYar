@@ -24,6 +24,11 @@ public class CachedQuestionRepository(ICacheService cacheService, IQuestionRepos
             TimeSpan.FromMinutes(10),
             cancellationToken)!;
 
+    public async Task<FillInBlankItem?> GetFillInBlankItemByIdAsync(long itemId, CancellationToken cancellationToken = default)
+    {
+        return await inner.GetFillInBlankItemByIdAsync(itemId, cancellationToken);
+    }
+
     public Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default) =>
         cacheService.GetOrCreateAsync(
             QuestionKeys.ById(id),

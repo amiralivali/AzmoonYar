@@ -23,17 +23,17 @@ public static class QuestionContractMapping
     
     public static List<CreateTrueFalseItemDto> ToDto(this List<CreateTrueFalseItemRequest> request)
     {
-        return request.Select(x => new CreateTrueFalseItemDto(x.ItemText)).ToList();
+        return request.Select(x => new CreateTrueFalseItemDto(x.ItemText,x.IsCorrect)).ToList();
     }
     
     public static List<UpdateTrueFalseItemDto> ToDto(this List<UpdateTrueFalseItemRequest> request)
     {
-        return request.Select(x => new UpdateTrueFalseItemDto(x.Id,x.ItemText)).ToList();
+        return request.Select(x => new UpdateTrueFalseItemDto(x.Id,x.ItemText,x.IsCorrect)).ToList();
     }
     
     public static List<TrueFalseItemResponse> ToResponse(this List<TrueFalseItemDto> dto)
     {
-        return dto.Select(x => new TrueFalseItemResponse(x.Id,x.ItemText)).ToList();
+        return dto.Select(x => new TrueFalseItemResponse(x.Id,x.ItemText,x.IsCorrect)).ToList();
     }
     
     public static List<CreateMatchingItemDto> ToDto(this List<CreateMatchingItemRequest> request)
@@ -53,22 +53,31 @@ public static class QuestionContractMapping
 
     private static CreateOptionalItemDto ToDto(this CreateOptionalItemRequest request)
     {
-        return new CreateOptionalItemDto(request.Option1,request.Option2,request.Option3,request.Option4);
+        return new CreateOptionalItemDto(request.Option1,request.Option2,request.Option3,request.Option4,request.CorrectOption);
     }
     
     public static UpdateOptionalItemDto ToDto(this UpdateOptionalItemRequest request)
     {
-        return new UpdateOptionalItemDto(request.Id,request.Option1,request.Option2,request.Option3,request.Option4);
+        return new UpdateOptionalItemDto(request.Id,request.Option1,request.Option2,request.Option3,request.Option4,request.CorrectOption);
     }
     
     public static OptionalItemResponse ToResponse(this OptionalItemDto dto)
     {
-        return new OptionalItemResponse(dto.Id,dto.Option1,dto.Option2,dto.Option3,dto.Option4);
+        return new OptionalItemResponse(dto.Id,dto.Option1,dto.Option2,dto.Option3,dto.Option4,dto.CorrectOption);
     }
 
     public static CreateQuestionDto ToDto(this CreateQuestionRequest request)
     {
         return new CreateQuestionDto(request.LessonId,
+            request.QuestionText,
+            request.Picture,
+            request.QuestionType,
+            request.DifficultyLevel);
+    }
+    
+    public static UpdateQuestionDto ToDto(this UpdateQuestionRequest request)
+    {
+        return new UpdateQuestionDto(request.LessonId,
             request.QuestionText,
             request.Picture,
             request.QuestionType,

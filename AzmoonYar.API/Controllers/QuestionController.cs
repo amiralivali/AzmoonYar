@@ -15,11 +15,19 @@ public class QuestionController(QuestionService service) : ControllerBase
     public async Task<ActionResult<QuestionResponse>> AddQuestion(CreateQuestionRequest request,
         CancellationToken cancellationToken)
     {
-        var item = await service.AddAsync(request.ToDto(),cancellationToken);
-        var response = item.ToResponse();
+        var question = await service.AddQuestionAsync(request.ToDto(),cancellationToken);
+        var response = question.ToResponse();
         return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
-    
+
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult<QuestionResponse>> UpdateQuestion(long id,UpdateQuestionRequest request,
+        CancellationToken cancellationToken)
+    {
+        var question = await service.UpdateQuestionAsync(id,request.ToDto(), cancellationToken);
+        return Ok(question.ToResponse());
+    }
+
     [HttpGet("{id:long}")]
     public async Task<ActionResult<QuestionResponse>> GetById(long id, CancellationToken cancellationToken)
     {

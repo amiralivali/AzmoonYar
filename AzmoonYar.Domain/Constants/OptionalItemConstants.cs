@@ -1,6 +1,6 @@
 ﻿namespace AzmoonYar.Domain.Constants;
 
-public class OptionalItemConstants
+public static class OptionalItemConstants
 {
     public const int Option1MaxLength = 200;
     public const int Option2MaxLength = 200;

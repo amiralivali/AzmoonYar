@@ -10,7 +10,7 @@ namespace AzmoonYar.Application.Services;
 
 public class QuestionService(IQuestionRepository repository)
 {
-    public async Task<QuestionDto> AddAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
+    public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {
         var question = new Question(dto.LessonId, dto.QuestionText, dto.DifficultyLevel, dto.QuestionType);
         question.ChangePicture(dto.Picture);
@@ -18,41 +18,12 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(question);
     }
-    public async Task<QuestionDto> UpdateAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
+    public async Task<QuestionDto> UpdateQuestionAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
     {
         var question =  await repository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(Question), id);
         question.UpdateQuestion(dto.LessonId,dto.QuestionText,dto.DifficultyLevel,dto.QuestionType);
         question.ChangePicture(dto.Picture);
-        switch (question.QuestionType)
-        {
-            case QuestionType.FillInBlank:
-                foreach (var item in dto.FillInBlankItems)
-                {
-                    question.UpdateFillInBlankItem(item.Id,item.ItemText);
-                }
-                break;
-            case QuestionType.Matching:
-                foreach (var item in dto.MatchingItems)
-                {
-                    question.UpdateMatchingItem(item.Id,item.LeftItemText, item.RightItemText);
-                }
-                break;
-            case QuestionType.TrueFalse:
-                foreach (var item in dto.TrueFalseItems)
-                {
-                    question.UpdateTrueFalseItem(item.Id,item.ItemText);
-                }
-                break;
-            case QuestionType.Optional:
-                ArgumentNullException.ThrowIfNull(dto.OptionalItem);
-                question.UpdateOptionalItem(dto.OptionalItem.Id,
-                    dto.OptionalItem.Option1,
-                    dto.OptionalItem.Option2,
-                    dto.OptionalItem.Option3,
-                    dto.OptionalItem.Option4);
-                break;
-        } 
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(question);
@@ -126,13 +97,46 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
     }
     
+    public async Task<List<FillInBlankAnswerDto>> AddFillInBlankAnswersAsync(long itemId,
+        List<CreateFillInBlankAnswer> fillInBlankAnswers,
+        CancellationToken cancellationToken = default)
+    {
+        var item = await repository.GetFillInBlankItemByIdAsync(itemId, cancellationToken)
+                   ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
+        var answers = fillInBlankAnswers
+            .Select(dto => ToDto(item.AddAnswer(dto.Answer))).ToList();
+        await repository.SaveChangesAsync(cancellationToken);
+        return answers;
+    }
+    
+    public async Task<List<FillInBlankAnswerDto>> UpdateFillInBlankAnswerAsync(long itemId,
+        List<UpdateFillInBlankAnswerDto> fillInBlankAnswers,
+        CancellationToken cancellationToken = default)
+    {
+        var item = await repository.GetFillInBlankItemByIdAsync(itemId, cancellationToken)
+                   ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
+        var answers = fillInBlankAnswers
+            .Select(dto => ToDto(item.UpdateAnswer(dto.Id,dto.Answer))).ToList();
+        await repository.SaveChangesAsync(cancellationToken);
+        return answers;
+    }
+    
+    public async Task DeleteFillInBlankAnswerAsync(long itemId, long answerId,
+        CancellationToken cancellationToken = default)
+    {
+        var item = await repository.GetFillInBlankItemByIdAsync(itemId, cancellationToken)
+                   ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
+        item.DeleteAnswer(answerId);
+        await repository.SaveChangesAsync(cancellationToken);
+    }
+    
     public async Task<List<TrueFalseItemDto>> AddTrueFalseItemAsync(long id,
         List<CreateTrueFalseItemDto> dtos,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ??  throw new EntityNotFoundException(nameof(Question), id);
-        var items = dtos.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText))).ToList();
+        var items = dtos.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText,dto.IsCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         return items;
     }
@@ -143,7 +147,7 @@ public class QuestionService(IQuestionRepository repository)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        var items = dtos.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText))).ToList();
+        var items = dtos.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText,dto.IdCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         return items;
     }
@@ -194,7 +198,7 @@ public class QuestionService(IQuestionRepository repository)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        var item = question.UpdateOptionalItem(dto.Id, dto.Option1,dto.Option2,dto.Option3,dto.Option4);
+        var item = question.UpdateOptionalItem(dto.Id, dto.Option1,dto.Option2,dto.Option3,dto.Option4,dto.CorrectOption);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(item);
     }
@@ -214,9 +218,15 @@ public class QuestionService(IQuestionRepository repository)
         item.ItemText
     );
     
+    private static FillInBlankAnswerDto ToDto(FillInBlankAnswer item) => new(
+        item.Id,
+        item.Answer
+    );
+    
     private static TrueFalseItemDto ToDto(TrueFalseItem item) => new(
         item.Id,
-        item.ItemText
+        item.ItemText,
+        item.IsCorrect
     );
     
     private static MatchingItemDto ToDto(MatchingItem item) => new(
@@ -230,6 +240,7 @@ public class QuestionService(IQuestionRepository repository)
         item.Option1,
         item.Option2,
         item.Option3,
-        item.Option4
+        item.Option4,
+        item.CorrectOption
     );
 }

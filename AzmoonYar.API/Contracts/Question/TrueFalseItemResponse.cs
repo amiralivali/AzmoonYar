@@ -1,4 +1,5 @@
 ﻿namespace AzmoonYar.API.Contracts.Question;
 
 public record TrueFalseItemResponse(long Id,
-    string ItemText);
+    string ItemText,
+    bool IsCorrect);

@@ -52,4 +52,9 @@ public class QuestionRepository(AzmoonYarDbContext context)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<FillInBlankItem?> GetFillInBlankItemByIdAsync(long itemId, CancellationToken cancellationToken = default)
+    {
+        return await Context.FillInBlankItems.FirstOrDefaultAsync(x=>x.Id==itemId,cancellationToken);
+    }
 }

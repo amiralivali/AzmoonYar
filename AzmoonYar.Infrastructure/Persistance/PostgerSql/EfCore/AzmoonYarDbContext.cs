@@ -12,6 +12,7 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
     public DbSet<TrueFalseItem> TrueFalseItems { get; set; }
     public DbSet<MatchingItem> MatchingItems { get; set; }
     public DbSet<FillInBlankItem> FillInBlankItems { get; set; }
+    public DbSet<FillInBlankAnswer> FillInBlankAnswers { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<User> Users { get; set; }
 

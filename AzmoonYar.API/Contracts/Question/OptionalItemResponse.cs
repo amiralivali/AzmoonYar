@@ -1,7 +1,10 @@
-﻿namespace AzmoonYar.API.Contracts.Question;
+﻿using AzmoonYar.Domain.Enums;
+
+namespace AzmoonYar.API.Contracts.Question;
 
 public record OptionalItemResponse(long Id,
     string Option1,
     string Option2,
     string Option3,
-    string Option4);
+    string Option4,
+    OptionNumber CorrectOption);

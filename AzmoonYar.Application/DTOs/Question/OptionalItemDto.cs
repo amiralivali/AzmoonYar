@@ -1,7 +1,10 @@
-﻿namespace AzmoonYar.Application.DTOs.Question;
+﻿using AzmoonYar.Domain.Enums;
+
+namespace AzmoonYar.Application.DTOs.Question;
 
 public record OptionalItemDto(long Id,
     string Option1,
     string Option2,
     string Option3,
-    string Option4);
+    string Option4,
+    OptionNumber CorrectOption);

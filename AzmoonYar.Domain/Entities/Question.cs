@@ -148,7 +148,8 @@ public class Question
         string option1,
         string option2,
         string option3,
-        string option4)
+        string option4,
+        OptionNumber correctOption)
     {
         if (QuestionType != QuestionType.Optional)
             throw new OptionalItemOperationNotAllowedException();
@@ -160,18 +161,25 @@ public class Question
             option1,
             option2,
             option3,
-            option4);
+            option4,
+            correctOption);
         return OptionalItem;
     }
 
-    public OptionalItem UpdateOptionalItem(long id,string option1, string option2, string option3, string option4)
+    public OptionalItem UpdateOptionalItem(
+        long id,
+        string option1,
+        string option2,
+        string option3,
+        string option4,
+        OptionNumber correctOption)
     {
         if (QuestionType != QuestionType.Optional)
             throw new OptionalItemOperationNotAllowedException();
         
         if (OptionalItem is null)
             throw new EntityNotFoundException(nameof(OptionalItem), id);
-        OptionalItem.Update(option1, option2, option3, option4);
+        OptionalItem.Update(option1, option2, option3, option4, correctOption);
         return OptionalItem;
     }
 
@@ -179,12 +187,12 @@ public class Question
 
     #region TrueFalse
 
-    public TrueFalseItem AddTrueFalseItem(string itemText)
+    public TrueFalseItem AddTrueFalseItem(string itemText, bool isCorrect)
     {
         if (QuestionType != QuestionType.TrueFalse)
             throw new TrueFalseItemOperationNotAllowedException();
 
-        var item =  new TrueFalseItem(itemText);
+        var item =  new TrueFalseItem(itemText,isCorrect);
         _trueFalseItems.Add(item);
         return item;
     }
@@ -200,7 +208,7 @@ public class Question
         _trueFalseItems.Remove(item);
     }
 
-    public TrueFalseItem UpdateTrueFalseItem(long itemId, string itemText)
+    public TrueFalseItem UpdateTrueFalseItem(long itemId, string itemText, bool isCorrect)
     {
         if (QuestionType != QuestionType.TrueFalse)
             throw new TrueFalseItemOperationNotAllowedException();
@@ -208,7 +216,7 @@ public class Question
         var item = _trueFalseItems.FirstOrDefault(x => x.Id == itemId)
                    ?? throw new EntityNotFoundException(nameof(TrueFalseItem), itemId);
 
-        item.UpdateItem(itemText);
+        item.UpdateItem(itemText,isCorrect);
         return item;
     }
     

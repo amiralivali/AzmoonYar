@@ -1,6 +1,6 @@
 ﻿namespace AzmoonYar.Domain.Constants;
 
-public class FillInBlankItemConstants
+public static class FillInBlankItemConstants
 {
     public const int ItemTextMaxLength = 200;
 }
