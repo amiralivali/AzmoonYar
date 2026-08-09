@@ -1,9 +1,8 @@
 ﻿using System.Text.Json;
 using AzmoonYar.Application.Interfaces;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace AzmoonYar.Infrastructure.Persistance.Redis.Caching;
+namespace AzmoonYar.Infrastructure.Caching.Redis;
 
 public class RedisCacheService(IDistributedCache service) : ICacheService
 {

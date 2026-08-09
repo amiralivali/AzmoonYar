@@ -57,4 +57,9 @@ public class QuestionRepository(AzmoonYarDbContext context)
     {
         return await Context.FillInBlankItems.FirstOrDefaultAsync(x=>x.Id==itemId,cancellationToken);
     }
+
+    public async Task<int> GetQuestionsCountByLessonIdAsync(long lessonId, CancellationToken cancellationToken = default)
+    {
+        return await Context.Questions.CountAsync(x=>x.LessonId==lessonId,cancellationToken); 
+    }
 }

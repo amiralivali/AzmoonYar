@@ -4,7 +4,7 @@ using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 
-namespace AzmoonYar.Infrastructure.Persistance.Redis.Repositories;
+namespace AzmoonYar.Infrastructure.Caching.Redis.Repositories;
 
 public class CachedQuestionRepository(ICacheService cacheService, IQuestionRepository inner) : IQuestionRepository
 {
@@ -27,6 +27,15 @@ public class CachedQuestionRepository(ICacheService cacheService, IQuestionRepos
     public async Task<FillInBlankItem?> GetFillInBlankItemByIdAsync(long itemId, CancellationToken cancellationToken = default)
     {
         return await inner.GetFillInBlankItemByIdAsync(itemId, cancellationToken);
+    }
+
+    public async Task<int> GetQuestionsCountByLessonIdAsync(long lessonId, CancellationToken cancellationToken = default)
+    {
+        return await cacheService.GetOrCreateAsync(
+            QuestionKeys.QuestionCount,
+            () => inner.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken),
+            TimeSpan.FromMinutes(10),
+            cancellationToken);
     }
 
     public Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default) =>

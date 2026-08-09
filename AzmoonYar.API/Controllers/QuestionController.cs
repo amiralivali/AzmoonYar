@@ -186,4 +186,12 @@ public class QuestionController(QuestionService service) : ControllerBase
         var item = await service.UpdateOptionalItemAsync(id,request.ToDto(),cancellationToken);
         return Ok(item.ToResponse());
     }
+
+    [HttpGet("count-by-lesson/{lessonId:long}")]
+    public async Task<ActionResult<int>> GetQuestionsCountByLessonIdAsync(long lessonId,
+        CancellationToken cancellationToken)
+    {
+        var count = await service.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
+        return Ok(count);
+    }
 }

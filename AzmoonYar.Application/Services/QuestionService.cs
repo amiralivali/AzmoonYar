@@ -202,6 +202,12 @@ public class QuestionService(IQuestionRepository repository)
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(item);
     }
+
+    public async Task<int> GetQuestionsCountByLessonIdAsync(long lessonId,
+        CancellationToken cancellationToken = default)
+    {
+        return await repository.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
+    }
     
     private static QuestionDto ToDto(Question question) => new(
         question.Id,

@@ -1,11 +1,11 @@
 ﻿using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Infrastructure.Caching.Redis;
+using AzmoonYar.Infrastructure.Caching.Redis.Repositories;
 using AzmoonYar.Infrastructure.Persistance.Mongo;
 using AzmoonYar.Infrastructure.Persistance.Mongo.Repositories;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
-using AzmoonYar.Infrastructure.Persistance.Redis.Caching;
-using AzmoonYar.Infrastructure.Persistance.Redis.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
