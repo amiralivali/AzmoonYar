@@ -98,7 +98,7 @@ public class QuestionService(IQuestionRepository repository)
     }
     
     public async Task<List<FillInBlankAnswerDto>> AddFillInBlankAnswersAsync(long itemId,
-        List<CreateFillInBlankAnswer> fillInBlankAnswers,
+        List<CreateFillInBlankAnswerDto> fillInBlankAnswers,
         CancellationToken cancellationToken = default)
     {
         var item = await repository.GetFillInBlankItemByIdAsync(itemId, cancellationToken)

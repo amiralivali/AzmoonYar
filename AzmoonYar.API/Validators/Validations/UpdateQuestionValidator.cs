@@ -26,17 +26,5 @@ public class UpdateQuestionValidator : AbstractValidator<UpdateQuestionRequest>
         RuleFor(x=>x.QuestionType)
             .NotEmpty()
             .WithMessage(QuestionValidationMessages.QuestionTypeRequired);
-        
-        RuleFor(x => x.OptionalItem)
-            .SetValidator(new UpdateOptionalItemValidator()!);
-
-        RuleForEach(x => x.FillInBlankItems)
-            .SetValidator(new UpdateFillInBlankItemValidator());
-        
-        RuleForEach(x => x.TrueFalseItems)
-            .SetValidator(new UpdateTrueFalseItemValidator());
-        
-        RuleForEach(x => x.MatchingItems)
-            .SetValidator(new UpdateMatchingItemValidator());
     }
 }

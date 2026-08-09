@@ -93,6 +93,35 @@ public class QuestionController(QuestionService service) : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("fill-in-blank-items/{itemId:long}/fill-in-blank-answers")]
+    public async Task<ActionResult<FillInBlankAnswerResponse>> AddFillInBlankAnswer(long itemId,
+        List<CreateFillInBlankAnswerRequest> requests,
+        CancellationToken cancellationToken)
+    {
+        var answers = await service.AddFillInBlankAnswersAsync(itemId,requests.ToDto(),cancellationToken);
+        var response = answers.ToResponse();
+        //return CreatedAtAction(nameof())
+        return Ok(response);
+    }
+    
+    [HttpPut("fill-in-blank-items/{itemId:long}/fill-in-blank-answers")]
+    public async Task<ActionResult<List<FillInBlankItemResponse>>> UpdateFillInBlankItem(long itemId,
+        List<UpdateFillInBlankAnswerRequest> request,
+        CancellationToken cancellationToken)
+    {
+        var item = await service.UpdateFillInBlankAnswerAsync(itemId,request.ToDto(),cancellationToken);
+        return Ok(item.ToResponse());
+    }
+    
+    [HttpDelete("fill-in-blank-items/{itemId:long}/fill-in-blank-answers/{answerId:long}")]
+    public async Task<ActionResult> DeleteFillInBlankAnswer(long itemId,
+        long answerId,
+        CancellationToken cancellationToken)
+    {
+        await service.DeleteFillInBlankAnswerAsync(itemId,answerId,cancellationToken);
+        return NoContent();
+    }
+
     [HttpPost("{id:long}/true-false-items")]
     public async Task<ActionResult<List<TrueFalseItemResponse>>> AddTrueFalseItem(long id,
         List<CreateTrueFalseItemRequest> request,

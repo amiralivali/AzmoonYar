@@ -20,6 +20,20 @@ public static class QuestionContractMapping
     {
         return dto.Select(x => new FillInBlankItemResponse(x.Id, x.ItemText)).ToList();
     }
+    public static List<CreateFillInBlankAnswerDto> ToDto(this List<CreateFillInBlankAnswerRequest> request)
+    {
+        return request.Select(x => new CreateFillInBlankAnswerDto(x.Answer)).ToList();
+    }
+    
+    public static List<UpdateFillInBlankAnswerDto> ToDto(this List<UpdateFillInBlankAnswerRequest> request)
+    {
+        return request.Select(x => new UpdateFillInBlankAnswerDto(x.Id,x.Answer)).ToList();
+    }
+    
+    public static List<FillInBlankAnswerResponse> ToResponse(this List<FillInBlankAnswerDto> dto)
+    {
+        return dto.Select(x => new FillInBlankAnswerResponse(x.Id, x.Answer)).ToList();
+    }
     
     public static List<CreateTrueFalseItemDto> ToDto(this List<CreateTrueFalseItemRequest> request)
     {
