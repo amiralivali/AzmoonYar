@@ -98,13 +98,60 @@ public static class QuestionContractMapping
             request.DifficultyLevel);
     }
     
-    public static QuestionResponse ToResponse(this QuestionDto dto)=> new(
-        dto.QuestionId,
-        dto.LessonId,
-        dto.QuestionText,
-        dto.Picture,
-        dto.DifficultyLevel,
-        dto.QuestionType,
-        dto.CreatedAt
-    );
+    public static QuestionResponse ToResponse(this QuestionDto dto)
+    {
+        OptionalItemResponse? optionalItem = null;
+        var fillInBlankItems = new List<FillInBlankItemResponse>();
+        var fillInBlankAnswers = new List<FillInBlankAnswerResponse>();
+        var trueFalseItems = new List<TrueFalseItemResponse>();
+        var matchingItems = new List<MatchingItemResponse>();
+
+        switch (dto.QuestionType)
+        {
+            case QuestionType.Optional:
+                if (dto.OptionalItem is null)
+                    throw new InvalidOperationException(
+                        $"Optional item not found for question {dto.QuestionId}");
+
+                optionalItem = dto.OptionalItem.ToResponse();
+                break;
+
+            case QuestionType.FillInBlank:
+                fillInBlankItems = dto.FillInBlankItems
+                    .ToResponse();
+
+                fillInBlankAnswers = dto.FillInBlankAnswers
+                    .ToResponse();
+                break;
+
+            case QuestionType.TrueFalse:
+                trueFalseItems = dto.TrueFalseItems
+                    .ToResponse();
+                break;
+
+            case QuestionType.Matching:
+                matchingItems = dto.MatchingItems
+                    .ToResponse();
+                break;
+
+            case QuestionType.Descriptive:
+            case QuestionType.ShortAnswer:
+                break;
+        }
+
+        return new QuestionResponse(
+            dto.QuestionId,
+            dto.LessonId,
+            dto.QuestionText,
+            dto.Picture,
+            dto.DifficultyLevel,
+            dto.QuestionType,
+            dto.CreatedAt,
+            optionalItem,
+            fillInBlankItems,
+            fillInBlankAnswers,
+            trueFalseItems,
+            matchingItems
+        );
+    }
 }

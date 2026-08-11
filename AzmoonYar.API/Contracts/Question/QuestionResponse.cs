@@ -9,4 +9,9 @@ public record QuestionResponse(
     string? Picture,
     DifficultyLevel DifficultyLevel,
     QuestionType QuestionType,
-    DateTimeOffset CreatedAt);
+    DateTimeOffset CreatedAt,
+    OptionalItemResponse? OptionalItem,
+    List<FillInBlankItemResponse> FillInBlankItems,
+    List<FillInBlankAnswerResponse> FillInBlankAnswers,
+    List<TrueFalseItemResponse> TrueFalseItems,
+    List<MatchingItemResponse> MatchingItems);

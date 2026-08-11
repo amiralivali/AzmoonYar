@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -10,14 +9,25 @@ namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 public class QuestionRepository(AzmoonYarDbContext context)
     : RepositoryBase<Question>(context), IQuestionRepository
 {
+    public override async Task<IReadOnlyList<Question>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return await Context.Questions
+            .Include(x => x.FillInBlankItems)
+            .ThenInclude(x => x.Answers)
+            .Include(x => x.TrueFalseItems)
+            .Include(x => x.MatchingItems)
+            .Include(x => x.OptionalItem)
+            .ToListAsync(cancellationToken);
+    }
+
     public override async Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
     {
         return await Context.Questions
             .Include(x=>x.FillInBlankItems)
+            .ThenInclude(x=>x.Answers)
             .Include(x=>x.TrueFalseItems)
             .Include(x=>x.MatchingItems)
             .Include(x=>x.OptionalItem)
-            .AsNoTracking()
             .FirstOrDefaultAsync(x=>x.Id==id,cancellationToken);
     }
 
@@ -31,7 +41,7 @@ public class QuestionRepository(AzmoonYarDbContext context)
         query = questionType switch
         {
             QuestionType.FillInBlank =>
-                query.Include(x => x.FillInBlankItems),
+                query.Include(x => x.FillInBlankItems).ThenInclude(x=>x.Answers),
 
             QuestionType.Matching =>
                 query.Include(x => x.MatchingItems),
@@ -49,7 +59,6 @@ public class QuestionRepository(AzmoonYarDbContext context)
         };
 
         return await query
-            .AsNoTracking()
             .ToListAsync(cancellationToken);
     }
 

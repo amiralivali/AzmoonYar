@@ -9,4 +9,9 @@ public record QuestionDto(
     string? Picture,
     DifficultyLevel DifficultyLevel,
     QuestionType QuestionType,
-    DateTimeOffset CreatedAt);
+    DateTimeOffset CreatedAt,
+    OptionalItemDto? OptionalItem,
+    List<FillInBlankItemDto> FillInBlankItems ,
+    List<FillInBlankAnswerDto> FillInBlankAnswers,
+    List<TrueFalseItemDto> TrueFalseItems,
+    List<MatchingItemDto> MatchingItems);
