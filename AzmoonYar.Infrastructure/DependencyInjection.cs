@@ -1,7 +1,6 @@
 ﻿using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Infrastructure.Caching.Redis;
-using AzmoonYar.Infrastructure.Caching.Redis.Repositories;
 using AzmoonYar.Infrastructure.Persistance.Mongo;
 using AzmoonYar.Infrastructure.Persistance.Mongo.Repositories;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
@@ -22,7 +21,6 @@ public static class DependencyInjection
             builder.AddScoped<IBookRepository, BookRepository>();
             builder.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.AddScoped<IUserRepository, UserRepository>();
-            builder.Decorate<IQuestionRepository, CachedQuestionRepository>();
             builder.AddMongo(configuration);
             builder.AddRedis(configuration);
         }

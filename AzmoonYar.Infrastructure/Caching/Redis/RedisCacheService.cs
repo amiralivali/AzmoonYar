@@ -19,13 +19,13 @@ public class RedisCacheService(IDistributedCache service) : ICacheService
         await service.SetAsync(key, bytes, options, cancellationToken);
     }
 
-    public async Task<T> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, TimeSpan? expiration = null,
+    public async Task<T> GetOrCreateAsync<T>(string key, Func<CancellationToken,Task<T>> factory, TimeSpan? expiration = null,
         CancellationToken cancellationToken = default)
     {
         var cached = await GetAsync<T>(key, cancellationToken);
         if (cached is not null) return cached;
 
-        var value = await factory();
+        var value = await factory(cancellationToken);
         if (value is not null)
             await SetAsync(key, value, expiration, cancellationToken);
         return value;
