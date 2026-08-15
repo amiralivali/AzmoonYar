@@ -43,7 +43,7 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
         return ToDto(question);
     }
 
-    public async Task<QuestionDto?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
+    public async Task<QuestionDto> GetByIdAsync(long id, CancellationToken cancellationToken = default)
         => await cacheService.GetByIdAsync(id,
             async ct => ToDto(await repository.GetByIdAsync(id, ct) ??
                               throw new EntityNotFoundException(nameof(Question), id)),

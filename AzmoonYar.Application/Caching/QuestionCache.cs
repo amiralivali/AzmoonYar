@@ -17,8 +17,8 @@ public class QuestionCache(ICacheService service)
             CachedExpiration,
             cancellationToken);
 
-    public Task<QuestionDto?> GetByIdAsync(long id,
-        Func<CancellationToken, Task<QuestionDto?>> factory,
+    public Task<QuestionDto> GetByIdAsync(long id,
+        Func<CancellationToken, Task<QuestionDto>> factory,
         CancellationToken cancellationToken = default)
         => service.GetOrCreateAsync(QuestionCacheKeyConstants.ById(id),
             factory,

@@ -1,4 +1,5 @@
-﻿using AzmoonYar.API.Contracts.Question;
+﻿using AzmoonYar.API.Constants;
+using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Services;
@@ -7,11 +8,40 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class QuestionController(QuestionService service) : ControllerBase
+public class QuestionController(QuestionService service) : BaseController
 {
-    [HttpPost]
+    [HttpGet(QuestionUriConstants.GetAll)]
+    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll
+        (CancellationToken cancellationToken)
+    {
+        var questions = await service.GetAllAsync(cancellationToken);
+        return Ok(questions.Select(x => x.ToResponse()).ToList());
+    }
+    
+    [HttpGet(QuestionUriConstants.GetAllByQuestionType)]
+    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAllByQuestionType
+        (QuestionType questionType,CancellationToken cancellationToken)
+    {
+        var questions = await service.GetAllByQuestionTypeAsync(questionType,cancellationToken);
+        return Ok(questions.Select(x => x.ToResponse()).ToList());
+    }
+    
+    [HttpGet(QuestionUriConstants.GetById)]
+    public async Task<ActionResult<QuestionResponse>> GetById(long id, CancellationToken cancellationToken)
+    {
+        var question = await service.GetByIdAsync(id, cancellationToken);
+        return Ok(question.ToResponse());
+    }
+    
+    [HttpGet(QuestionUriConstants.GetQuestionsCountByLessonId)]
+    public async Task<ActionResult<int>> GetQuestionsCountByLessonId(long lessonId,
+        CancellationToken cancellationToken)
+    {
+        var count = await service.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
+        return Ok(count);
+    }
+    
+    [HttpPost(QuestionUriConstants.Add)]
     public async Task<ActionResult<QuestionResponse>> AddQuestion(CreateQuestionRequest request,
         CancellationToken cancellationToken)
     {
@@ -20,178 +50,25 @@ public class QuestionController(QuestionService service) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut(QuestionUriConstants.Update)]
     public async Task<ActionResult<QuestionResponse>> UpdateQuestion(long id,UpdateQuestionRequest request,
         CancellationToken cancellationToken)
     {
         var question = await service.UpdateQuestionAsync(id,request.ToDto(), cancellationToken);
         return Ok(question.ToResponse());
     }
-
-    [HttpGet("{id:long}")]
-    public async Task<ActionResult<QuestionResponse>> GetById(long id, CancellationToken cancellationToken)
-    {
-        var question = await service.GetByIdAsync(id, cancellationToken);
-        return Ok(question.ToResponse());
-    }
-
-    [HttpGet("/QuestionType/{questionType}")]
-    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAllByQuestionType
-        (QuestionType questionType,CancellationToken cancellationToken)
-    {
-        var questions = await service.GetAllByQuestionTypeAsync(questionType,cancellationToken);
-        return Ok(questions.Select(x => x.ToResponse()).ToList());
-    }
     
-    [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<QuestionResponse>>> GetAll
-        (CancellationToken cancellationToken)
-    {
-        var questions = await service.GetAllAsync(cancellationToken);
-        return Ok(questions.Select(x => x.ToResponse()).ToList());
-    }
-
-    [HttpPatch("{id:long}/picture")]
+    [HttpPatch(QuestionUriConstants.ChangePicture)]
     public async Task<ActionResult> ChangePicture(long id, string picture, CancellationToken cancellationToken)
     {
         await service.ChangePicture(id, picture, cancellationToken);
         return NoContent();
     }
 
-    [HttpDelete("{Id:long}")]
+    [HttpDelete(QuestionUriConstants.Delete)]
     public async Task<ActionResult> DeleteQuestion(long id, CancellationToken cancellationToken)
     {
         await service.DeleteAsync(id, cancellationToken);
         return NoContent();
-    }
-
-    [HttpPost("{id:long}/fill-in-blank-items")]
-    public async Task<ActionResult<List<FillInBlankItemResponse>>> AddFillInBlankItem(long id,
-        List<CreateFillInBlankItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.AddFillInBlankItemAsync(id,request.ToDto(),cancellationToken);
-        var response = item.ToResponse();
-        return CreatedAtAction(nameof(GetById), new { id }, response);
-    }
-    
-    [HttpPut("{id:long}/fill-in-blank-items")]
-    public async Task<ActionResult<List<FillInBlankItemResponse>>> UpdateFillInBlankItem(long id,
-        List<UpdateFillInBlankItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.UpdateFillInBlankItemAsync(id,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
-    }
-    
-    [HttpDelete("{id:long}/fill-in-blank-items/{itemId:long}")]
-    public async Task<ActionResult> DeleteFillInBlankItem(long id,
-        long itemId,
-        CancellationToken cancellationToken)
-    {
-        await service.DeleteFillInBlankItemAsync(id,itemId,cancellationToken);
-        return NoContent();
-    }
-
-    [HttpPost("fill-in-blank-items/{itemId:long}/fill-in-blank-answers")]
-    public async Task<ActionResult<FillInBlankAnswerResponse>> AddFillInBlankAnswer(long itemId,
-        List<CreateFillInBlankAnswerRequest> requests,
-        CancellationToken cancellationToken)
-    {
-        var answers = await service.AddFillInBlankAnswersAsync(itemId,requests.ToDto(),cancellationToken);
-        var response = answers.ToResponse();
-        //return CreatedAtAction(nameof())
-        return Ok(response);
-    }
-    
-    [HttpPut("fill-in-blank-items/{itemId:long}/fill-in-blank-answers")]
-    public async Task<ActionResult<List<FillInBlankItemResponse>>> UpdateFillInBlankItem(long itemId,
-        List<UpdateFillInBlankAnswerRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.UpdateFillInBlankAnswerAsync(itemId,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
-    }
-    
-    [HttpDelete("fill-in-blank-items/{itemId:long}/fill-in-blank-answers/{answerId:long}")]
-    public async Task<ActionResult> DeleteFillInBlankAnswer(long itemId,
-        long answerId,
-        CancellationToken cancellationToken)
-    {
-        await service.DeleteFillInBlankAnswerAsync(itemId,answerId,cancellationToken);
-        return NoContent();
-    }
-
-    [HttpPost("{id:long}/true-false-items")]
-    public async Task<ActionResult<List<TrueFalseItemResponse>>> AddTrueFalseItem(long id,
-        List<CreateTrueFalseItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.AddTrueFalseItemAsync(id,request.ToDto(),cancellationToken);
-        var response = item.ToResponse();
-        return CreatedAtAction(nameof(GetById), new { id }, response);
-    }
-    
-    [HttpPut("{id:long}/true-false-items")]
-    public async Task<ActionResult<List<TrueFalseItemResponse>>> UpdateTrueFalseItem(long id,
-        List<UpdateTrueFalseItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.UpdateTrueFalseItemAsync(id,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
-    }
-    
-    [HttpDelete("{id:long}/true-false-items/{itemId:long}")]
-    public async Task<ActionResult> DeleteTrueFalseItem(long id,
-        long itemId,
-        CancellationToken cancellationToken)
-    {
-        await service.DeleteTrueFalseItemAsync(id,itemId,cancellationToken);
-        return NoContent();
-    }
-    
-    [HttpPost("{id:long}/matching-items")]
-    public async Task<ActionResult<List<MatchingItemResponse>>> AddMatchingItem(long id,
-        List<CreateMatchingItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.AddMatchingItemAsync(id,request.ToDto(),cancellationToken);
-        var response = item.ToResponse();
-        return CreatedAtAction(nameof(GetById), new { id }, response);
-    }
-    
-    [HttpPut("{id:long}/matching-items")]
-    public async Task<ActionResult<List<TrueFalseItemResponse>>> UpdateMatchingItem(long id,
-        List<UpdateMatchingItemRequest> request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.UpdateMatchingItemAsync(id,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
-    }
-    
-    [HttpDelete("{id:long}/matching-items/{itemId:long}")]
-    public async Task<ActionResult> DeleteMatchingItem(long id,
-        long itemId,
-        CancellationToken cancellationToken)
-    {
-        await service.DeleteMatchingItemAsync(id,itemId,cancellationToken);
-        return NoContent();
-    }
-    
-    [HttpPut("{id:long}/optional-item")]
-    public async Task<ActionResult<OptionalItemResponse>> UpdateOptionalItem(long id,
-        UpdateOptionalItemRequest request,
-        CancellationToken cancellationToken)
-    {
-        var item = await service.UpdateOptionalItemAsync(id,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
-    }
-
-    [HttpGet("count-by-lesson/{lessonId:long}")]
-    public async Task<ActionResult<int>> GetQuestionsCountByLessonIdAsync(long lessonId,
-        CancellationToken cancellationToken)
-    {
-        var count = await service.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
-        return Ok(count);
     }
 }
