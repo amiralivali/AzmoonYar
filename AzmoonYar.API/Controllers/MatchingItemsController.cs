@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.API.Constants;
+using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
@@ -9,30 +10,30 @@ namespace AzmoonYar.API.Controllers;
 public class MatchingItemsController(QuestionService service) : BaseController
 {
     [HttpPost(MatchingItemsUriConstants.AddItem)]
-    public async Task<ActionResult<List<MatchingItemResponse>>> AddMatchingItem(long questionId,
+    public async Task<ApiResult<List<MatchingItemResponse>>> AddMatchingItem(long questionId,
         List<CreateMatchingItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.AddMatchingItemAsync(questionId,request.ToDto(),cancellationToken);
         var response = item.ToResponse();
-        return CreatedAtAction(nameof(GetById), new { id }, response);
+        return ApiResult<List<MatchingItemResponse>>.Created(response, location: null);
     }
     
     [HttpPut(MatchingItemsUriConstants.UpdateItem)]
-    public async Task<ActionResult<List<MatchingItemResponse>>> UpdateMatchingItem(long id,
+    public async Task<ApiResult<List<MatchingItemResponse>>> UpdateMatchingItem(long id,
         List<UpdateMatchingItemRequest> request,
         CancellationToken cancellationToken)
     {
         var item = await service.UpdateMatchingItemAsync(id,request.ToDto(),cancellationToken);
-        return Ok(item.ToResponse());
+        return item.ToResponse();
     }
     
     [HttpDelete(MatchingItemsUriConstants.DeleteItem)]
-    public async Task<ActionResult> DeleteMatchingItem(long id,
+    public async Task<ApiResult> DeleteMatchingItem(long questionId,
         long itemId,
         CancellationToken cancellationToken)
     {
-        await service.DeleteMatchingItemAsync(id,itemId,cancellationToken);
-        return NoContent();
+        await service.DeleteMatchingItemAsync(questionId,itemId,cancellationToken);
+        return ApiResult.NoContent();
     }
 }

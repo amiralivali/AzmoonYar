@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Caching;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,5 +13,6 @@ public static class DependencyInjection
         builder.AddScoped<BookService>();
         builder.AddScoped<ExceptionLogService>();
         builder.AddScoped<QuestionService>();
+        builder.AddScoped<QuestionCache>();
     }
 }

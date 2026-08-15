@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.API.Constants;
+using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
@@ -9,61 +10,61 @@ namespace AzmoonYar.API.Controllers;
 public class BookController(BookService service) : BaseController
 {
     [HttpGet(BookUriConstants.GetAll)]
-    public async Task<ActionResult<IReadOnlyList<BookResponse>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ApiResult<IReadOnlyList<BookResponse>>> GetAll(CancellationToken cancellationToken)
     {
         var books = await service.GetAllAsync(cancellationToken);
-        return Ok(books.Select(x=>x.ToResponse()).ToList());
+        return books.Select(x=>x.ToResponse()).ToList();
     }
     
     [HttpGet(BookUriConstants.GetById)]
-    public async Task<ActionResult<BookResponse>> GetById(long id, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookResponse>> GetById(long id, CancellationToken cancellationToken)
     {
         var dto = await service.GetByIdAsync(id, cancellationToken);
-        return Ok(dto.ToResponse());
+        return dto.ToResponse();
     }
     
     [HttpGet(BookUriConstants.GetAvailableGrades)] 
-    public async Task<ActionResult<IReadOnlyList<Grade>>> GetAvailableGrades(CancellationToken cancellationToken)
+    public async Task<ApiResult<IReadOnlyList<Grade>>> GetAvailableGrades(CancellationToken cancellationToken)
     {
         var grades = await service.GetAvailableGradesAsync(cancellationToken);
-        return Ok(grades);
+        return grades.ToList().AsReadOnly();
     }
 
     [HttpGet(BookUriConstants.GetBooksByGrade)]
-    public async Task<ActionResult<IReadOnlyList<BookResponse>>> GetBooksByGrade(Grade grade,
+    public async Task<ApiResult<IReadOnlyList<BookResponse>>> GetBooksByGrade(Grade grade,
         CancellationToken cancellationToken)
     {
         var books = await service.GetBooksByGradeAsync(grade, cancellationToken);
-        return Ok(books.Select(x=>x.ToResponse()).ToList());
+        return books.Select(x=>x.ToResponse()).ToList();
     }
     
     [HttpGet(BookUriConstants.GetLessonsByBookId)]
-    public async Task<ActionResult<IReadOnlyList<LessonResponse>>> GetLessonsByBookId(long bookId,
+    public async Task<ApiResult<IReadOnlyList<LessonResponse>>> GetLessonsByBookId(long bookId,
         CancellationToken cancellationToken)
     {
         var books = await service.GetLessonsByBookId(bookId, cancellationToken);
-        return Ok(books.Select(x=>x.ToResponse()).ToList());
+        return books.Select(x=>x.ToResponse()).ToList();
     }
     
     [HttpPost(BookUriConstants.Add)]
-    public async Task<ActionResult<BookResponse>> Add(CreateBookRequest request, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookResponse>> Add(CreateBookRequest request, CancellationToken cancellationToken)
     {
         var book = await service.AddAsync(request.ToDto(),cancellationToken);
         var response = book.ToResponse();
-        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
+        return ApiResult<BookResponse>.Created(response,$"/api/v1/book/{response.Id}");
     }
 
     [HttpPut(BookUriConstants.Update)]
-    public async Task<ActionResult<BookResponse>> Update(long id,UpdateBookRequest request, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookResponse>> Update(long id,UpdateBookRequest request, CancellationToken cancellationToken)
     {
         var book = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
-        return Ok(book.ToResponse());   
+        return book.ToResponse();
     }
     
     [HttpDelete(BookUriConstants.Delete)]
-    public async Task<ActionResult> Delete(long id, CancellationToken cancellationToken)
+    public async Task<ApiResult> Delete(long id, CancellationToken cancellationToken)
     {
         await service.DeleteAsync(id,cancellationToken);
-        return NoContent();
+        return ApiResult.NoContent();
     }
 }
