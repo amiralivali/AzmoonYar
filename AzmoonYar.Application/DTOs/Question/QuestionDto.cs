@@ -1,4 +1,8 @@
-﻿using AzmoonYar.Domain.Enums;
+﻿using AzmoonYar.Application.DTOs.FillInBlankItem;
+using AzmoonYar.Application.DTOs.MatchingItem;
+using AzmoonYar.Application.DTOs.OptionalItem;
+using AzmoonYar.Application.DTOs.TrueFalseItem;
+using AzmoonYar.Domain.Enums;
 
 namespace AzmoonYar.Application.DTOs.Question;
 

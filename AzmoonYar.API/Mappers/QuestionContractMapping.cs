@@ -1,5 +1,13 @@
-﻿using AzmoonYar.API.Contracts.Question;
+﻿using AzmoonYar.API.Contracts.FillInBlankItem;
+using AzmoonYar.API.Contracts.MatchingItem;
+using AzmoonYar.API.Contracts.OptionalItem;
+using AzmoonYar.API.Contracts.Question;
+using AzmoonYar.API.Contracts.TrueFalseItem;
+using AzmoonYar.Application.DTOs.FillInBlankItem;
+using AzmoonYar.Application.DTOs.MatchingItem;
+using AzmoonYar.Application.DTOs.OptionalItem;
 using AzmoonYar.Application.DTOs.Question;
+using AzmoonYar.Application.DTOs.TrueFalseItem;
 using AzmoonYar.Domain.Enums;
 
 namespace AzmoonYar.API.Mappers;

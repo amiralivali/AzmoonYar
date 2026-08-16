@@ -14,5 +14,9 @@ public static class DependencyInjection
         builder.AddScoped<ExceptionLogService>();
         builder.AddScoped<QuestionService>();
         builder.AddScoped<QuestionCache>();
+        builder.AddScoped<FillInBlankItemService>();
+        builder.AddScoped<TrueFalseItemService>();
+        builder.AddScoped<MatchingItemService>();
+        builder.AddScoped<OptionalItemService>();
     }
 }
