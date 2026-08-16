@@ -21,6 +21,7 @@ public static class DependencyInjection
             builder.AddScoped<IBookRepository, BookRepository>();
             builder.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.AddScoped<IUserRepository, UserRepository>();
+            builder.AddScoped<IExamRepository, ExamRepository>();
             builder.AddMongo(configuration);
             builder.AddRedis(configuration);
         }

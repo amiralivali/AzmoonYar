@@ -10,11 +10,9 @@ public class ExamQuestionType
     public int Count { get; private set; }
 
     private ExamQuestionType()
-    {
-        
-    }
-    
-    public ExamQuestionType(QuestionType questionType,int count)
+    {}
+
+    public ExamQuestionType(QuestionType questionType, int count)
     {
         QuestionType = questionType;
         Count = count;

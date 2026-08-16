@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Configurations;
 
-public class BaseQuestionConfiguration : IEntityTypeConfiguration<Question>
+public class QuestionConfiguration : IEntityTypeConfiguration<Question>
 {
     public void Configure(EntityTypeBuilder<Question> builder)
     {

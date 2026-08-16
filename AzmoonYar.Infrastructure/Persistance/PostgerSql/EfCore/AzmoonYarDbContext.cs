@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using AzmoonYar.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
 
@@ -16,6 +17,7 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Exam> Exams { get; set; }
+    public DbSet<ExamQuestion> ExamQuestions { get; set; }
     public DbSet<ExamQuestionType> ExamQuestionTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
