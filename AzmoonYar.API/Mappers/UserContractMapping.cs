@@ -11,16 +11,24 @@ public static class UserContractMapping
         return new UserResponse(dto.Id
             , dto.FirstName
             , dto.LastName
-            , dto.UserName
             , dto.PhoneNumber
             , dto.CreatedAt);
     }
     public static CreateUserDto ToDto(this CreateUserRequest dto)
     {
-        return new CreateUserDto(dto.FirstName
-            , dto.LastName
-            , dto.UserName
-            , dto.Password
-            , dto.PhoneNumber);
+        return new CreateUserDto(dto.FirstName,
+            dto.LastName,
+            dto.PhoneNumber,
+            dto.Password,
+            dto.Email);
+    }
+    
+    public static UpdateUserDto ToDto(this UpdateUserRequest dto)
+    {
+        return new UpdateUserDto(dto.FirstName,
+            dto.LastName,
+            dto.PhoneNumber,
+            dto.Password,
+            dto.Email);
     }
 }

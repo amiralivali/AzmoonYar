@@ -2,17 +2,40 @@
 using AzmoonYar.Application.DTOs.User;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
+using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
 public class UserService(IUserRepository repository)
 {
+    public async Task<UserDto> GetByIdAsync(long userId, CancellationToken cancellationToken)
+    {
+        var user = await repository.GetByIdAsync(userId, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(User), userId);
+        return ToDto(user);
+    }
     public async Task<UserDto> AddAsync(CreateUserDto dto,CancellationToken cancellationToken = default)
     {
-        var user = new User(dto.FirstName, dto.LastName,dto.PhoneNumber);
-        if (dto is { UserName: not null, Password: not null })
-            user.SetCredentials(dto.UserName, dto.Password);
+        var user = new User(dto.FirstName,dto.LastName,dto.PhoneNumber,dto.Password);
+        if (!string.IsNullOrEmpty(dto.Email))
+        {
+            user.SetEmail(dto.Email);
+        }
         await repository.AddAsync(user,cancellationToken);
+        await repository.SaveChangesAsync(cancellationToken);
+        return ToDto(user);
+    }
+
+    public async Task<UserDto> UpdateAsync(long userId ,UpdateUserDto dto, CancellationToken cancellationToken = default)
+    {
+        var user = await repository.GetByIdAsync(userId, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(User), userId);
+        user.UpdateUser(dto.FirstName, dto.LastName, dto.PhoneNumber, dto.Password);
+        if (!string.IsNullOrEmpty(dto.Email))
+        {
+            user.SetEmail(dto.Email);
+        } 
+        repository.Update(user);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(user);
     }
@@ -21,7 +44,6 @@ public class UserService(IUserRepository repository)
         user.Id,
         user.FirstName,
         user.LastName,
-        user.UserName,
         user.PhoneNumber,
         user.CreatedAt);
 }

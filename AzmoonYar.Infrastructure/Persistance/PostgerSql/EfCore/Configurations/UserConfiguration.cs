@@ -16,12 +16,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x=>x.LastName)
             .HasMaxLength(UserConstants.LastNameMaxLength)
             .IsRequired();
-        builder.Property(x=>x.UserName)
-            .HasMaxLength(UserConstants.UsernameMaxLength)
-            .IsRequired(false);  
+        builder.Property(x=>x.Email)
+            .HasMaxLength(UserConstants.EmailMaxLength)
+            .IsRequired(false);
         builder.Property(x=>x.Password)
             .HasMaxLength(UserConstants.PasswordMaxLength)   
-            .IsRequired(false);
+            .IsRequired();
         builder.Property(x => x.PhoneNumber)
             .HasMaxLength(UserConstants.PhoneNumberMaxLength)
             .IsUnicode(false)

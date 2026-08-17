@@ -1,3 +1,3 @@
 ﻿namespace AzmoonYar.API.Contracts.User;
 
-public record CreateUserRequest(string FirstName, string LastName, string? UserName, string? Password,string PhoneNumber);
+public record CreateUserRequest(string FirstName, string LastName,string PhoneNumber, string Password,string? Email);

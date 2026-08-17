@@ -19,13 +19,13 @@ public class CreateUserValidator : AbstractValidator<CreateUserRequest>
             .NotEmpty().WithMessage(UserValidationMessages.LastNameRequired)
             .MaximumLength(UserConstants.LastNameMaxLength).WithMessage(UserValidationMessages.LastNameMaxLengthInvalid)
             .Matches(RegexPattern.PersianOrEnglishLetters).WithMessage(UserValidationMessages.LastNameInvalidFormat);
-        
-        RuleFor(x => x.UserName)
-            .Length(UserConstants.UsernameMinLength, UserConstants.UsernameMaxLength)
-            .Matches(RegexPattern.Username).WithMessage(UserValidationMessages.UsernameInvalidFormat);
+
+        RuleFor(x => x.Email)
+            .EmailAddress().WithMessage(UserValidationMessages.EmailInvalid);
         
         RuleFor(x => x.Password)
-            .Length(UserConstants.PasswordMinLength, UserConstants.PasswordMaxLength)
+            .NotEmpty().WithMessage(UserValidationMessages.PasswordRequired)
+            .Length(UserConstants.PasswordMinLength, UserConstants.PasswordMaxLength).WithMessage(UserValidationMessages.PasswordLengthInvalid)
             .Matches(RegexPattern.PasswordUppercase).WithMessage(UserValidationMessages.PasswordMissingUppercase)
             .Matches(RegexPattern.PasswordLowercase).WithMessage(UserValidationMessages.PasswordMissingLowercase)
             .Matches(RegexPattern.PasswordDigit).WithMessage(UserValidationMessages.PasswordMissingDigit)

@@ -5,9 +5,9 @@ public class User
     public long Id { get; private set; }
     public string FirstName { get; private set; } = null!;
     public string LastName { get; private set; } = null!;
-    public string? UserName { get; private set; } 
-    public string? Password { get; private set; }
     public string PhoneNumber { get; private set; } = null!;
+    public string Password { get; private set; } = null!;
+    public string? Email { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
 
     private User()
@@ -15,17 +15,25 @@ public class User
         
     }
 
-    public User(string firstName, string lastName, string phoneNumber)
+    public User(string firstName, string lastName, string phoneNumber, string password)
     {
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
+        Password = password;
         CreatedAt = DateTimeOffset.UtcNow;
     }
 
-    public void SetCredentials(string userName, string password)
+    public void SetEmail(string email)
     {
-        UserName = userName;
+        Email = email;
+    }
+
+    public void UpdateUser(string firstName, string lastName, string phoneNumber, string password)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        PhoneNumber = phoneNumber;
         Password = password;
     }
 }

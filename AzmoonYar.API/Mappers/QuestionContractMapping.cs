@@ -1,5 +1,4 @@
-﻿using AzmoonYar.API.Contracts.Common;
-using AzmoonYar.API.Contracts.FillInBlankItem;
+﻿using AzmoonYar.API.Contracts.FillInBlankItem;
 using AzmoonYar.API.Contracts.MatchingItem;
 using AzmoonYar.API.Contracts.OptionalItem;
 using AzmoonYar.API.Contracts.Question;

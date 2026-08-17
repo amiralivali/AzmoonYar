@@ -2,7 +2,6 @@
 
 public static class RegexPattern
 {
-    public const string Username = @"^[a-zA-Z0-9_]+$";
     public const string BookName = @"^[a-zA-Z0-9آ-ی\s]+$";
     public const string LessonName = @"^[a-zA-Z0-9آ-ی\s]+$";
     public const string PersianOrEnglishLetters = @"^[a-zA-Zآ-ی\s]+$";
