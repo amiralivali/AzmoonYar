@@ -11,7 +11,4 @@ public static class QuestionCacheKeyConstants
 
     public static string CountByLessonId(long lessonId)
         => $"question:count:lesson:{lessonId}";
-
-    public static string ByType(QuestionType type)
-        => $"question:type:{type}";
 }

@@ -18,7 +18,7 @@ public class OptionalItemService(IQuestionRepository repository, QuestionCache c
         var item = question.UpdateOptionalItem(dto.Id, dto.Option1,dto.Option2,dto.Option3,dto.Option4,dto.CorrectOption);
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return ToDto(item);
     }
     

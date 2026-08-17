@@ -25,13 +25,6 @@ public class QuestionCache(ICacheService service)
             CachedExpiration,
             cancellationToken);
     
-    public Task<IReadOnlyList<QuestionDto>> GetAllByQuestionTypeAsync(QuestionType questionType,
-        Func<CancellationToken, Task<IReadOnlyList<QuestionDto>>> factory,
-        CancellationToken cancellationToken = default)
-       => service.GetOrCreateAsync(QuestionCacheKeyConstants.ByType(questionType),
-           factory,
-           CachedExpiration,
-           cancellationToken);
 
     public Task<int> GetQuestionsCountByLessonIdAsync(long lessonId,
         Func<CancellationToken, Task<int>> factory,
@@ -41,9 +34,8 @@ public class QuestionCache(ICacheService service)
             CachedExpiration,
             cancellationToken);
 
-    public async Task InvalidateAsync(QuestionType questionType,long id,long lessonId , CancellationToken cancellationToken = default)
+    public async Task InvalidateAsync(long id,long lessonId , CancellationToken cancellationToken = default)
     {
-        await service.RemoveAsync(QuestionCacheKeyConstants.ByType(questionType), cancellationToken);
         await service.RemoveAsync(QuestionCacheKeyConstants.CountByLessonId(lessonId), cancellationToken);
         await service.RemoveAsync(QuestionCacheKeyConstants.ById(id), cancellationToken);
         await service.RemoveAsync(QuestionCacheKeyConstants.All, cancellationToken);

@@ -13,17 +13,9 @@ public class QuestionController(QuestionService service) : BaseController
 {
     [HttpGet(QuestionUriConstants.GetAll)]
     public async Task<ApiResult<List<QuestionResponse>>> GetAll
-        (CancellationToken cancellationToken)
+        ([FromQuery] QuestionListFilter filter,CancellationToken cancellationToken)
     {
-        var questions = await service.GetAllAsync(cancellationToken);
-        return questions.Select(x => x.ToResponse()).ToList();
-    }
-    
-    [HttpGet(QuestionUriConstants.GetAllByQuestionType)]
-    public async Task<ApiResult<List<QuestionResponse>>> GetAllByQuestionType
-        (QuestionType questionType,CancellationToken cancellationToken)
-    {
-        var questions = await service.GetAllByQuestionTypeAsync(questionType,cancellationToken);
+        var questions = await service.GetAllAsync(filter.ToDto(),cancellationToken);
         return questions.Select(x => x.ToResponse()).ToList();
     }
     

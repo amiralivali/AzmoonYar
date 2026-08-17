@@ -105,6 +105,15 @@ public static class QuestionContractMapping
             request.QuestionType,
             request.DifficultyLevel);
     }
+
+    public static QuestionListFilterDto ToDto(this QuestionListFilter filter)
+        => new QuestionListFilterDto(filter.SearchPhase,
+            filter.BookId,
+            filter.LessonId,
+            filter.DifficultyLevel,
+            filter.Grade,
+            filter.QuestionType);
+    
     
     public static QuestionResponse ToResponse(this QuestionDto dto)
     {

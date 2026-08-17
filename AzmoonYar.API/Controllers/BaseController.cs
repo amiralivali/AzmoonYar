@@ -2,7 +2,7 @@
 
 namespace AzmoonYar.API.Controllers;
 [ApiController]
-[Route("/api/")]
+[Route("api/")]
 public class BaseController : ControllerBase
 {
     

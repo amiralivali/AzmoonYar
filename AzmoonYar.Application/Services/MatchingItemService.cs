@@ -18,7 +18,7 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
         var results = items.Select(dto => ToDto(question.AddMatchingItem(dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -31,7 +31,7 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
         var results = items.Select(dto => ToDto(question.UpdateMatchingItem(dto.Id,dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -43,7 +43,7 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
         question.RemoveMatchingItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
     
     private static MatchingItemDto ToDto(MatchingItem item) => new(

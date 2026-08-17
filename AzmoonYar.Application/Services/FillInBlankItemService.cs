@@ -18,7 +18,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
         var result = items.Select(dto => ToDto(question.AddFillInBlankItem(dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
 
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return result;
     }
 
@@ -31,7 +31,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
         var items = dtos.Select(dto => ToDto(question.UpdateFillInBlankItem(dto.Id,dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return items;
     }
 
@@ -42,7 +42,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
             ?? throw new EntityNotFoundException(nameof(Question), id);
         question.RemoveFillInBlankItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
     
     public async Task<List<FillInBlankAnswerDto>> AddFillInBlankAnswersAsync(long itemId,
@@ -56,7 +56,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
         var answers = fillInBlankAnswers
             .Select(dto => ToDto(item.AddAnswer(dto.Answer))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return answers;
     }
     
@@ -71,7 +71,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
         var answers = fillInBlankAnswers
             .Select(dto => ToDto(item.UpdateAnswer(dto.Id,dto.Answer))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return answers;
     }
     
@@ -84,7 +84,7 @@ public class FillInBlankItemService(IQuestionRepository repository,QuestionCache
                        ?? throw new EntityNotFoundException(nameof(Question), item.FillInBlankQuestionId);
         item.DeleteAnswer(answerId);
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
     private static FillInBlankItemDto ToDto(FillInBlankItem item) => new(
         item.Id,

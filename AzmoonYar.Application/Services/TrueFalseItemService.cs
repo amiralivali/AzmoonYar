@@ -18,7 +18,7 @@ public class TrueFalseItemService(IQuestionRepository repository, QuestionCache 
         var results = items.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText,dto.IsCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -31,7 +31,7 @@ public class TrueFalseItemService(IQuestionRepository repository, QuestionCache 
         var results = items.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText,dto.IdCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -43,7 +43,7 @@ public class TrueFalseItemService(IQuestionRepository repository, QuestionCache 
         question.RemoveTrueFalseItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
         
-        await cacheService.InvalidateAsync(question.QuestionType, question.Id, question.LessonId, cancellationToken);
+        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
     
     private static TrueFalseItemDto ToDto(TrueFalseItem item) => new(
