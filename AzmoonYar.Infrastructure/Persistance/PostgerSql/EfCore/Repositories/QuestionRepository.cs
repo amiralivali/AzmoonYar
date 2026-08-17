@@ -9,12 +9,15 @@ namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 public class QuestionRepository(AzmoonYarDbContext context)
     : RepositoryBase<Question>(context), IQuestionRepository
 {
-    public async Task<IReadOnlyList<Question>> GetAllAsync(string? searchPhase,
+    public async Task<(IReadOnlyList<Question> questions,int totalCount)> GetAllAsync(string? searchPhase,
         long? bookId,
         long? lessonId,
         DifficultyLevel? difficultyLevel,
         Grade? grade,
-        QuestionType? questionType,CancellationToken cancellationToken = default)
+        QuestionType? questionType,
+        int pageNumber,
+        int pageSize,
+        CancellationToken cancellationToken = default)
     {
         var queryable = Context.Questions.Include(x=>x.Lesson).ThenInclude(x=>x!.Book).AsQueryable();
         if (!string.IsNullOrEmpty(searchPhase))
@@ -46,8 +49,9 @@ public class QuestionRepository(AzmoonYarDbContext context)
         {
             queryable = queryable.Where(x=>x.QuestionType == questionType);
         }
-        
-        return await queryable.ToListAsync(cancellationToken);
+        var totalCount = await  queryable.CountAsync(cancellationToken);
+        var questions = await queryable.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(cancellationToken);
+        return (questions, totalCount);
     }
 
     public override async Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default)

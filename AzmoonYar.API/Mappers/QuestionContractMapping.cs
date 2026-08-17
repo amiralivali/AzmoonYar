@@ -1,8 +1,10 @@
-﻿using AzmoonYar.API.Contracts.FillInBlankItem;
+﻿using AzmoonYar.API.Contracts.Common;
+using AzmoonYar.API.Contracts.FillInBlankItem;
 using AzmoonYar.API.Contracts.MatchingItem;
 using AzmoonYar.API.Contracts.OptionalItem;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Contracts.TrueFalseItem;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
@@ -106,15 +108,13 @@ public static class QuestionContractMapping
             request.DifficultyLevel);
     }
 
-    public static QuestionListFilterDto ToDto(this QuestionListFilter filter)
-        => new QuestionListFilterDto(filter.SearchPhase,
-            filter.BookId,
-            filter.LessonId,
-            filter.DifficultyLevel,
-            filter.Grade,
-            filter.QuestionType);
-    
-    
+    public static GetQuestionDto ToDto(this GetQuestionRequest request)
+        => new (new QuestionListFilterDto(request.Filter.SearchPhase,request.Filter.BookId,
+            request.Filter.LessonId,request.Filter.DifficultyLevel,
+            request.Filter.Grade,request.Filter.QuestionType),
+            new QuestionPaginationFilterDto(request.PaginationRequest.PageNumber,request.PaginationRequest.PageSize));
+
+
     public static QuestionResponse ToResponse(this QuestionDto dto)
     {
         OptionalItemResponse? optionalItem = null;

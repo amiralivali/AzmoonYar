@@ -4,8 +4,11 @@ namespace AzmoonYar.Application.Caching.Constants;
 
 public static class QuestionCacheKeyConstants
 {
-    public const string All = "question:all";
-
+    public static string All(string? search, long? bookId, long? lessonId,
+        DifficultyLevel? difficulty, Grade? grade, QuestionType? type,
+        int pageNumber, int pageSize)
+        => $"questions:all:{search}:{bookId}:{lessonId}:{difficulty}:{grade}:{type}:{pageNumber}:{pageSize}";
+    
     public static string ById(long id)
         => $"question:{id}";
 

@@ -5,9 +5,10 @@ namespace AzmoonYar.Application.Repositories;
 
 public interface IQuestionRepository : IRepository<Question>
 {
-    Task<IReadOnlyList<Question>> GetAllAsync(string? searchPhase, long? bookId,
+    Task<(IReadOnlyList<Question> questions,int totalCount)> GetAllAsync(string? searchPhase, long? bookId,
         long? lessonId, DifficultyLevel? difficultyLevel,
-        Grade? grade ,QuestionType? questionType,
+        Grade? grade, QuestionType? questionType,
+        int pageNumber, int pageSize,
         CancellationToken cancellationToken);
 
     // Task<IReadOnlyList<Question>> GetAllByQuestionTypeAsync(QuestionType questionType,

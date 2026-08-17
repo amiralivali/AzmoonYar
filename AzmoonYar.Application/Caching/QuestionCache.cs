@@ -9,8 +9,8 @@ public class QuestionCache(ICacheService service)
 {
     private static readonly TimeSpan CachedExpiration = TimeSpan.FromMinutes(10);
     
-    public Task<IReadOnlyList<QuestionDto>> GetAllAsync(
-        Func<CancellationToken, Task<IReadOnlyList<QuestionDto>>> factory,
+    public Task<(IReadOnlyList<QuestionDto> questions, int totalCount)> GetAllAsync(
+        Func<CancellationToken, Task<(IReadOnlyList<QuestionDto> questions, int totalCount)>> factory,
         CancellationToken cancellationToken = default)
          => service.GetOrCreateAsync(QuestionCacheKeyConstants.All,
             factory,

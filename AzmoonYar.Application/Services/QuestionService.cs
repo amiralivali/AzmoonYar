@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.Application.Caching;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
@@ -50,14 +51,39 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
             async ct => ToDto(await repository.GetByIdAsync(id, ct) ??
                               throw new EntityNotFoundException(nameof(Question), id)),
             cancellationToken);
-    
-    public async Task<IReadOnlyList<QuestionDto>> GetAllAsync
-        (QuestionListFilterDto filter,CancellationToken cancellationToken = default)
-        => await cacheService.GetAllAsync(async ct => (await repository.GetAllAsync(filter.SearchPhase,filter.BookId,
-                filter.LessonId, filter.DifficultyLevel,
-                filter.Grade,filter.QuestionType,ct)).Select(ToDto).ToList(),
+
+    public async Task<PagedResult<QuestionDto>> GetAllAsync(
+        GetQuestionDto request, CancellationToken cancellationToken = default)
+    {
+        var (questions, totalCount) = await cacheService.GetAllAsync(
+            async ct =>
+            {
+                var (entities, count) = await repository.GetAllAsync(
+                    request.Filter.SearchPhase,
+                    request.Filter.BookId,
+                    request.Filter.LessonId,
+                    request.Filter.DifficultyLevel,
+                    request.Filter.Grade,
+                    request.Filter.QuestionType,
+                    request.PaginationFilter.PageNumber,
+                    request.PaginationFilter.PageSize,
+                    ct);
+
+                IReadOnlyList<QuestionDto> dtos = entities.Select(ToDto).ToList();
+                return (dtos, count);
+            },
             cancellationToken);
-    
+
+        var totalPages = (int)Math.Ceiling(totalCount / (double)request.PaginationFilter.PageSize);
+
+        return new PagedResult<QuestionDto>(
+            questions,
+            request.PaginationFilter.PageNumber,
+            request.PaginationFilter.PageSize,
+            totalCount,
+            totalPages);
+    }
+
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)

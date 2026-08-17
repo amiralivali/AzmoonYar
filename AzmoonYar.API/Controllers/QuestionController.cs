@@ -1,7 +1,9 @@
 ﻿using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
+using AzmoonYar.API.Contracts.Common;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Mappers;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Domain.Enums;
@@ -12,11 +14,11 @@ namespace AzmoonYar.API.Controllers;
 public class QuestionController(QuestionService service) : BaseController
 {
     [HttpGet(QuestionUriConstants.GetAll)]
-    public async Task<ApiResult<List<QuestionResponse>>> GetAll
-        ([FromQuery] QuestionListFilter filter,CancellationToken cancellationToken)
+    public async Task<ApiResult<PagedResult<QuestionDto>>> GetAll
+        ([FromQuery] GetQuestionRequest filter,CancellationToken cancellationToken)
     {
         var questions = await service.GetAllAsync(filter.ToDto(),cancellationToken);
-        return questions.Select(x => x.ToResponse()).ToList();
+        return questions;
     }
     
     [HttpGet(QuestionUriConstants.GetById)]
