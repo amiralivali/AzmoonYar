@@ -45,9 +45,23 @@ public class Exam
         Header = ExamHeader.FromImage(headerPicture);
     }
 
-    public void SetCustomHeader(string headerText, string? logoPicture = null)
+    public void SetCustomHeader(
+        string? schoolName,
+        string? examTitle,
+        string? teacherName,
+        string? className,
+        DateTimeOffset? examDate,
+        int? durationMinutes,
+        string? logoPicture = null)
     {
-        Header = ExamHeader.Custom(headerText, logoPicture);
+        Header = ExamHeader.Custom(
+            schoolName,
+            examTitle,
+            teacherName,
+            className,
+            examDate,
+            durationMinutes,
+            logoPicture);
     }
 
     public void AddQuestionType(QuestionType questionType, int count)

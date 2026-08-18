@@ -18,19 +18,16 @@ public class ExamConfiguration : IEntityTypeConfiguration<Exam>
             .IsRequired();
         builder.Property(x => x.ExamType)
             .IsRequired();
-        builder.OwnsOne(p => p.Header, header =>
+        builder.OwnsOne(x => x.Header, header =>
         {
-            header.Property(h => h.HeaderPicture)
-                .HasColumnName(ExamConstants.HeaderPicture)
-                .HasMaxLength(ExamConstants.HeaderPictureMaxLength);
-
-            header.Property(h => h.LogoPicture)
-                .HasColumnName(ExamConstants.LogoPicture)
-                .HasMaxLength(ExamConstants.LogoPictureMaxLength);
-
-            header.Property(h => h.HeaderText)
-                .HasColumnName(ExamConstants.HeaderText)
-                .HasMaxLength(ExamConstants.HeaderTextMaxLength);
+            header.Property(h => h.SchoolName).HasMaxLength(ExamConstants.SchoolNameMaxLength);
+            header.Property(h => h.ExamTitle).HasMaxLength(ExamConstants.ExamTitleMaxLength);
+            header.Property(h => h.TeacherName).HasMaxLength(ExamConstants.TeacherNameMaxLength);
+            header.Property(h => h.ClassName).HasMaxLength(ExamConstants.ClassNameMaxLength);
+            header.Property(h => h.ExamDate);
+            header.Property(h => h.DurationMinutes);
+            header.Property(h => h.LogoPicture).HasMaxLength(ExamConstants.LogoPictureMaxLength);
+            header.Property(h => h.HeaderPicture).HasMaxLength(ExamConstants.HeaderPictureMaxLength);
         });
         builder.HasMany(x => x.Lessons)
             .WithMany();
