@@ -113,6 +113,12 @@ public static class QuestionContractMapping
             request.Filter.Grade,request.Filter.QuestionType),
             new QuestionPaginationFilterDto(request.PaginationRequest.PageNumber,request.PaginationRequest.PageSize));
 
+    public static PagedResult<QuestionResponse> ToResponse(this PagedResult<QuestionDto> dto)
+        => new(dto.Items.Select(x => x.ToResponse()).ToList(),
+            dto.PageNumber,
+            dto.PageSize,
+            dto.TotalCount,
+            dto.TotalPages);
 
     public static QuestionResponse ToResponse(this QuestionDto dto)
     {

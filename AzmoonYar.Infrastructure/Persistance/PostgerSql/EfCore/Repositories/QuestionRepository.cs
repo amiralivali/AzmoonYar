@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.DTOs.Common;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -9,7 +10,7 @@ namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 public class QuestionRepository(AzmoonYarDbContext context)
     : RepositoryBase<Question>(context), IQuestionRepository
 {
-    public async Task<(IReadOnlyList<Question> questions,int totalCount)> GetAllAsync(string? searchPhase,
+    public async Task<PagedResult<Question>> GetAllAsync(string? searchPhase,
         long? bookId,
         long? lessonId,
         DifficultyLevel? difficultyLevel,
@@ -50,8 +51,9 @@ public class QuestionRepository(AzmoonYarDbContext context)
             queryable = queryable.Where(x=>x.QuestionType == questionType);
         }
         var totalCount = await  queryable.CountAsync(cancellationToken);
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageNumber);
         var questions = await queryable.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(cancellationToken);
-        return (questions, totalCount);
+        return new PagedResult<Question>(questions, pageNumber, pageSize, totalCount, totalPages);
     }
 
     public override async Task<Question?> GetByIdAsync(long id, CancellationToken cancellationToken = default)

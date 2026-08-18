@@ -1,6 +1,5 @@
 ﻿using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
-using AzmoonYar.API.Contracts.Common;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.DTOs.Common;
@@ -14,11 +13,11 @@ namespace AzmoonYar.API.Controllers;
 public class QuestionController(QuestionService service) : BaseController
 {
     [HttpGet(QuestionUriConstants.GetAll)]
-    public async Task<ApiResult<PagedResult<QuestionDto>>> GetAll
+    public async Task<ApiResult<PagedResult<QuestionResponse>>> GetAll
         ([FromQuery] GetQuestionRequest filter,CancellationToken cancellationToken)
     {
         var questions = await service.GetAllAsync(filter.ToDto(),cancellationToken);
-        return questions;
+        return questions.ToResponse();
     }
     
     [HttpGet(QuestionUriConstants.GetById)]

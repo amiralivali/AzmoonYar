@@ -53,35 +53,15 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
             cancellationToken);
 
     public async Task<PagedResult<QuestionDto>> GetAllAsync(
-        GetQuestionDto request, CancellationToken cancellationToken = default)
+        GetQuestionDto request,
+        CancellationToken cancellationToken = default)
     {
-        var (questions, totalCount) = await cacheService.GetAllAsync(
-            async ct =>
-            {
-                var (entities, count) = await repository.GetAllAsync(
-                    request.Filter.SearchPhase,
-                    request.Filter.BookId,
-                    request.Filter.LessonId,
-                    request.Filter.DifficultyLevel,
-                    request.Filter.Grade,
-                    request.Filter.QuestionType,
-                    request.PaginationFilter.PageNumber,
-                    request.PaginationFilter.PageSize,
-                    ct);
-
-                IReadOnlyList<QuestionDto> dtos = entities.Select(ToDto).ToList();
-                return (dtos, count);
-            },
-            cancellationToken);
-
-        var totalPages = (int)Math.Ceiling(totalCount / (double)request.PaginationFilter.PageSize);
-
-        return new PagedResult<QuestionDto>(
-            questions,
-            request.PaginationFilter.PageNumber,
-            request.PaginationFilter.PageSize,
-            totalCount,
-            totalPages);
+        var result = await repository.GetAllAsync(request.Filter.SearchPhase,request.Filter.BookId,
+            request.Filter.LessonId,request.Filter.DifficultyLevel,
+            request.Filter.Grade,request.Filter.QuestionType,
+            request.PaginationFilter.PageNumber,request.PaginationFilter.PageSize
+                ,cancellationToken);
+        return ToDto(result);
     }
 
     public async Task DeleteAsync(long id, CancellationToken cancellationToken = default)
@@ -108,6 +88,13 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
             async ct => await repository.GetQuestionsCountByLessonIdAsync(lessonId, ct),
             cancellationToken);
 
+    private static PagedResult<QuestionDto> ToDto(PagedResult<Question> result)
+         => new (result.Items.Select(ToDto).ToList(),
+             result.PageNumber,
+             result.PageSize,
+             result.TotalCount,
+             result.TotalPages);
+    
     private static QuestionDto ToDto(Question question)
     {
         OptionalItemDto? optionalItem = null;
