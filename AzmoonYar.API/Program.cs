@@ -4,6 +4,7 @@ using AzmoonYar.API.Middlewares;
 using AzmoonYar.Application;
 using AzmoonYar.Infrastructure;
 using FluentValidation;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<ApiResultFilter>();
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -31,13 +33,36 @@ builder.Services.AddApiVersioning(options =>
     {
         options.GroupNameFormat = "'v'VVV";
         options.SubstituteApiVersionInUrl = true;
-    });
+    })
+    .AddOpenApi(options => options.Document.AddScalarTransformers());
+
 
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.MapOpenApi().WithDocumentPerVersion();
+
+    app.MapScalarApiReference(options =>
+    {
+        options.WithTitle("AzmoonYar API");
+
+        var descriptions = app.DescribeApiVersions();
+
+        for (var index = 0; index < descriptions.Count; index++)
+        {
+            var description = descriptions[index];
+            //var isDefault = index == descriptions.Count - 1;
+            var isDefault = index == 0;
+
+            options.AddDocument(
+                description.GroupName,
+                description.GroupName.ToUpperInvariant(),
+                isDefault: isDefault);
+        }
+    });
+    
     app.MapSwagger();
     app.UseSwaggerUI(options =>
     {
