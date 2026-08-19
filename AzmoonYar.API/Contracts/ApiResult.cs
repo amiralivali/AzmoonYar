@@ -14,7 +14,7 @@ public class ApiResult(bool success,
     public static ApiResult Succeeded() 
         =>  new (true, StatusCodes.Status200OK);
     
-    public static ApiResult Failed(int statusCode,object error)
+    public static ApiResult Failed(int statusCode,object? error)
         =>  new (false, statusCode,error);
     
     public static ApiResult NoContent()
@@ -22,7 +22,17 @@ public class ApiResult(bool success,
     
     public Task ExecuteResultAsync(ActionContext context)
     {
-        throw new NotImplementedException();
+        // Allows the envelope middleware to recognize an ApiResult returned directly
+        // by a controller and avoid wrapping it a second time.
+        context.HttpContext.Items[typeof(ApiResult)] = true;
+
+        if (location is not null)
+            context.HttpContext.Response.Headers.Location = location;
+
+        return new ObjectResult(this)
+        {
+            StatusCode = StatusCode
+        }.ExecuteResultAsync(context);
     }
 }
 
@@ -39,6 +49,9 @@ public class ApiResult<T>(T? data,
 
     public static ApiResult<T> Created(T? data, string? location)
          => new (data, true, StatusCodes.Status201Created, location: location);
+    
+    public static ApiResult<T> Accepted(T? data)
+        => new (data, true, StatusCodes.Status202Accepted);
     
     public static implicit operator ApiResult<T>(T? data) => Succeeded(data);
 }
