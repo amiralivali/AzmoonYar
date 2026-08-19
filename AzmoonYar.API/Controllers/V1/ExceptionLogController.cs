@@ -1,12 +1,14 @@
-﻿using AzmoonYar.API.Constants;
+﻿using Asp.Versioning;
+using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.ExceptionLog;
 using AzmoonYar.API.Mappers;
-using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzmoonYar.API.Controllers;
+namespace AzmoonYar.API.Controllers.V1;
+
+[ApiVersion(1.0)]
 public class ExceptionLogController(ExceptionLogService service) : BaseController
 {
     [HttpGet(ExceptionLogUriConstants.GetAll)]

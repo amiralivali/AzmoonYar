@@ -1,4 +1,5 @@
-﻿using AzmoonYar.API.Constants;
+﻿using Asp.Versioning;
+using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.API.Mappers;
@@ -6,7 +7,9 @@ using AzmoonYar.Application.Services;
 using AzmoonYar.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzmoonYar.API.Controllers;
+namespace AzmoonYar.API.Controllers.V1;
+
+[ApiVersion(1.0)]
 public class BookController(BookService service) : BaseController
 {
     [HttpGet(BookUriConstants.GetAll)]

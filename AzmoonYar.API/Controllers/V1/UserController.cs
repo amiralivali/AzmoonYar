@@ -1,13 +1,14 @@
-﻿using AzmoonYar.API.Constants;
+﻿using Asp.Versioning;
+using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.User;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
-using AzmoonYar.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzmoonYar.API.Controllers;
+namespace AzmoonYar.API.Controllers.V1;
 
+[ApiVersion(1.0)]
 public class UserController(UserService service) : BaseController
 {
     [HttpGet(UserUriConstants.GetById)]
