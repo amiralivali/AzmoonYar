@@ -1,5 +1,4 @@
-﻿using AzmoonYar.Application.Caching;
-using AzmoonYar.Application.DTOs.Common;
+﻿using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
@@ -13,7 +12,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class QuestionService(IQuestionRepository repository,QuestionCache cacheService)
+public class QuestionService(IQuestionRepository repository)
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {
@@ -22,35 +21,25 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
 
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return ToDto(question);
     }
     public async Task<QuestionDto> UpdateQuestionAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
     {
         var question =  await repository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(Question), id);
-        var oldType = question.QuestionType;
-        var oldLessonId = question.LessonId;
         question.UpdateQuestion(dto.LessonId,dto.QuestionText,dto.DifficultyLevel,dto.QuestionType);
         question.ChangePicture(dto.Picture);
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(
-            question.Id,
-            oldLessonId,
-            cancellationToken);
-        await cacheService.InvalidateAsync(
-            question.Id,
-            question.LessonId,
-            cancellationToken);
         return ToDto(question);
     }
 
     public async Task<QuestionDto> GetByIdAsync(long id, CancellationToken cancellationToken = default)
-        => await cacheService.GetByIdAsync(id,
-            async ct => ToDto(await repository.GetByIdAsync(id, ct) ??
-                              throw new EntityNotFoundException(nameof(Question), id)),
-            cancellationToken);
+    {
+        var question = await repository.GetByIdAsync(id, cancellationToken)
+            ?? throw new EntityNotFoundException(nameof(Question), id);
+        return ToDto(question);
+    }
 
     public async Task<PagedResult<QuestionDto>> GetAllAsync(
         GetQuestionDto request,
@@ -70,7 +59,6 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
             ?? throw new EntityNotFoundException(nameof(Question), id);
         repository.Delete(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
 
     public async Task ChangePicture(long id, string picture, CancellationToken cancellationToken = default)
@@ -79,14 +67,13 @@ public class QuestionService(IQuestionRepository repository,QuestionCache cacheS
             ??  throw new EntityNotFoundException(nameof(Question), id);
         question.ChangePicture(picture);
         await repository.SaveChangesAsync(cancellationToken);
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
-    
+
     public async Task<int> GetQuestionsCountByLessonIdAsync(long lessonId,
         CancellationToken cancellationToken = default)
-        => await cacheService.GetQuestionsCountByLessonIdAsync(lessonId,
-            async ct => await repository.GetQuestionsCountByLessonIdAsync(lessonId, ct),
-            cancellationToken);
+    {
+        return await repository.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
+    }
 
     private static PagedResult<QuestionDto> ToDto(PagedResult<Question> result)
          => new (result.Items.Select(ToDto).ToList(),

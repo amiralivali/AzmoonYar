@@ -1,5 +1,4 @@
-﻿using AzmoonYar.Application.Caching;
-using AzmoonYar.Application.DTOs.MatchingItem;
+﻿using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -7,7 +6,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class MatchingItemService(IQuestionRepository repository, QuestionCache cacheService)
+public class MatchingItemService(IQuestionRepository repository)
 {
     public async Task<List<MatchingItemDto>> AddMatchingItemsAsync(long id,
         List<CreateMatchingItemDto> items,
@@ -17,8 +16,6 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
                        ??  throw new EntityNotFoundException(nameof(Question), id);
         var results = items.Select(dto => ToDto(question.AddMatchingItem(dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -30,8 +27,6 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
                        ?? throw new EntityNotFoundException(nameof(Question), id);
         var results = items.Select(dto => ToDto(question.UpdateMatchingItem(dto.Id,dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
-        
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
         return results;
     }
 
@@ -42,8 +37,6 @@ public class MatchingItemService(IQuestionRepository repository, QuestionCache c
                        ?? throw new EntityNotFoundException(nameof(Question), id);
         question.RemoveMatchingItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
-        
-        await cacheService.InvalidateAsync(question.Id, question.LessonId, cancellationToken);
     }
     
     private static MatchingItemDto ToDto(MatchingItem item) => new(
