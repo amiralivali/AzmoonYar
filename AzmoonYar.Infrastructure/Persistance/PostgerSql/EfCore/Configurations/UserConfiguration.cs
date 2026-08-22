@@ -26,5 +26,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserConstants.PhoneNumberMaxLength)
             .IsUnicode(false)
             .IsRequired();
+        builder.HasIndex(x=>x.Email).IsUnique();   
+        builder.HasIndex(x=>x.PhoneNumber).IsUnique();    
     }
 }
