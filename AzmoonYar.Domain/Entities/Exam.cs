@@ -21,47 +21,24 @@ public class Exam
         _examQuestionTypes.Sum(x => x.Count);
 
     public ExamType ExamType { get; private set; }
-    public DifficultyLevel DifficultyLevel { get; private set; }
-    public ExamHeader Header { get; private set; } = ExamHeader.Empty();
+    public ExamDifficultyLevel DifficultyLevel { get; private set; }
+    public ExamHeader ExamHeader { get; private set; } = null!;
     public DateTimeOffset CreatedAt { get; private set; }
-
+    
     public Book Book { get; private set; } = null!;
     public ICollection<Lesson> Lessons { get; private set; } = null!;
 
     private Exam()
     {}
 
-    public Exam(long bookId, ICollection<Lesson> lessons, ExamType examType, DifficultyLevel difficultyLevel)
+    public Exam(long bookId, ICollection<Lesson> lessons, ExamType examType, ExamDifficultyLevel difficultyLevel, ExamHeader header)
     {
         BookId = bookId;
         Lessons = lessons;
         ExamType = examType;
         DifficultyLevel = difficultyLevel;
         CreatedAt = DateTimeOffset.UtcNow;
-    }
-
-    public void SetHeaderImage(string headerPicture)
-    {
-        Header = ExamHeader.FromImage(headerPicture);
-    }
-
-    public void SetCustomHeader(
-        string? schoolName,
-        string? examTitle,
-        string? teacherName,
-        string? className,
-        DateTimeOffset? examDate,
-        int? durationMinutes,
-        string? logoPicture = null)
-    {
-        Header = ExamHeader.Custom(
-            schoolName,
-            examTitle,
-            teacherName,
-            className,
-            examDate,
-            durationMinutes,
-            logoPicture);
+        ExamHeader = header;
     }
 
     public void AddQuestionType(QuestionType questionType, int count)

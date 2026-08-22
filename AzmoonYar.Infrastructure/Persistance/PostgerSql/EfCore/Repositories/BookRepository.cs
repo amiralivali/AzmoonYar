@@ -1,6 +1,7 @@
 ﻿using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
+using AzmoonYar.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
@@ -23,4 +24,16 @@ public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(c
         CancellationToken cancellationToken = default)
         => await Context.Books.Include(x => x.Lessons).Where(x => x.Id == bookId).SelectMany(x => x.Lessons)
             .ToListAsync(cancellationToken);
+
+    public async Task<IReadOnlyCollection<Lesson>> GetLessonsByLessonIds(
+        List<long> lessonsIds,
+        CancellationToken cancellationToken = default)
+    {
+        var lessons = await Context.Lessons
+            .Where(x => lessonsIds.Contains(x.Id))
+            .ToListAsync(cancellationToken);
+
+        return lessons.Count != lessonsIds.Distinct().Count() ? throw new LessonNotFoundException() :
+            lessons;
+    }
 }

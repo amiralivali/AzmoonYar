@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "eWgG5tIH2rA=",
+  "dgSpecHash": "yqXlN9hw1PU=",
   "success": true,
   "projectFilePath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
   "expectedPackageFiles": [
@@ -57,6 +57,7 @@
     "C:\\Users\\Amir\\.nuget\\packages\\npgsql\\10.0.0\\npgsql.10.0.0.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.0\\npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "C:\\Users\\Amir\\.nuget\\packages\\questpdf\\2026.7.3\\questpdf.2026.7.3.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\scalar.aspnetcore\\2.16.20\\scalar.aspnetcore.2.16.20.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\scalar.aspnetcore.microsoft\\2.16.20\\scalar.aspnetcore.microsoft.2.16.20.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\scrutor\\7.0.0\\scrutor.7.0.0.nupkg.sha512",
@@ -87,5 +88,15 @@
     "C:\\Users\\Amir\\.nuget\\packages\\system.windows.extensions\\9.0.0\\system.windows.extensions.9.0.0.nupkg.sha512",
     "C:\\Users\\Amir\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
+      "projectPath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Amir\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

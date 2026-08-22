@@ -3,48 +3,54 @@ using AzmoonYar.Application.DTOs.Exam;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
+using AzmoonYar.Domain.ValueObject;
 
 namespace AzmoonYar.Application.Services;
 
-public class ExamService(IExamRepository examRepository,IBookRepository bookRepository)
+public class ExamService(IExamRepository examRepository, IBookRepository bookRepository)
 {
-    // public async Task<long> CreateExamAsync(CreateExamDto dto, CancellationToken cancellationToken)
-    // {
-    //     var book = await bookRepository.GetByIdAsync(dto.BookId, cancellationToken);
-    //     if (book is null)
-    //         throw new EntityNotFoundException(nameof(Book), dto.BookId);
-    //
-    //     var lessons = book.Lessons
-    //         .Where(l => dto.LessonIds.Contains(l.Id))
-    //         .ToList();
-    //
-    //     if (lessons.Count != dto.LessonIds.Count)
-    //         throw new LessonNotFoundInBookException();
-    //
-    //     var exam = new Exam(dto.BookId, lessons, dto.ExamType, dto.DifficultyLevel);
-    //     if (!string.IsNullOrWhiteSpace(dto.HeaderPicture))
-    //     {
-    //         exam.SetHeaderImage(dto.HeaderPicture);
-    //     }
-    //     else if (!string.IsNullOrWhiteSpace(dto.HeaderText))
-    //     {
-    //         exam.SetCustomHeader(dto.HeaderText, dto.LogoPicture);
-    //     }
-    //     foreach (var question in dto.Questions)
-    //     {
-    //         exam.AddQuestion(question.QuestionId,question.Score,question.ShuffleOptions);
-    //     }
-    //
-    //     foreach (var questionType in dto.QuestionTypes)
-    //     {
-    //         exam.AddQuestionType(questionType.QuestionType,questionType.Count);
-    //     }
-    //     
-    //     await examRepository.AddAsync(exam, cancellationToken);
-    //     await examRepository.SaveChangesAsync(cancellationToken);
-    //
-    //     return exam.Id;
-    // }
-    // //Create Auto Question
-    // //Manuly Select Question
+    public async Task<long> CreateManualAsync(CreateManualExamDto dto, CancellationToken cancellationToken = default)
+    {
+        var lessons = await bookRepository.GetLessonsByLessonIds(dto.LessonIds, cancellationToken);
+        
+        var header = ExamHeader.Create(
+            dto.ExamHeader.SchoolName,
+            dto.ExamHeader.ExamTitle,
+            dto.ExamHeader.TeacherName,
+            dto.ExamHeader.ClassName,
+            dto.ExamHeader.ExamDate,
+            dto.ExamHeader.DurationMinutes,
+            dto.ExamHeader.LogoPicture);
+        
+        var exam = new Exam(dto.BookId, lessons, dto.ExamType, dto.DifficultyLevel,header);
+
+        foreach (var qt in dto.QuestionTypes)
+            exam.AddQuestionType(qt.QuestionType, qt.Count);
+
+        foreach (var q in dto.Questions)
+            exam.AddQuestion(q.QuestionId, q.Score, q.ShuffleOptions);
+
+        await examRepository.AddAsync(exam, cancellationToken);
+        await examRepository.SaveChangesAsync(cancellationToken);
+        return exam.Id;
+    }
+
+    public async Task<long> CreateAutomaticAsync(CreateAutomaticExamDto dto, CancellationToken ct = default)
+    {
+        var lessons = await examRepository.GetLessonsByIdsAsync(dto.LessonIds, ct);
+        var exam = new Exam(dto.BookId, lessons, dto.ExamType, dto.DifficultyLevel);
+
+        foreach (var qt in dto.QuestionTypes)
+            exam.AddQuestionType(qt.QuestionType, qt.Count);
+
+        var selected = await _questionSelector.SelectAsync(
+            dto.LessonIds, dto.DifficultyLevel, dto.QuestionTypes, ct);
+
+        foreach (var q in selected)
+            exam.AddQuestion(q.QuestionId, q.Score);
+
+        await examRepository.AddAsync(exam, ct);
+        await examRepository.SaveChangesAsync(ct);
+        return exam.Id;
+    }
 }

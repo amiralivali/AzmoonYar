@@ -18,16 +18,15 @@ public class ExamConfiguration : IEntityTypeConfiguration<Exam>
             .IsRequired();
         builder.Property(x => x.ExamType)
             .IsRequired();
-        builder.OwnsOne(x => x.Header, header =>
+        builder.OwnsOne(x => x.ExamHeader, header =>
         {
             header.Property(h => h.SchoolName).HasMaxLength(ExamConstants.SchoolNameMaxLength);
-            header.Property(h => h.ExamTitle).HasMaxLength(ExamConstants.ExamTitleMaxLength);
+            header.Property(h => h.ExamTitle).HasMaxLength(ExamConstants.ExamTitleMaxLength).IsRequired();
             header.Property(h => h.TeacherName).HasMaxLength(ExamConstants.TeacherNameMaxLength);
             header.Property(h => h.ClassName).HasMaxLength(ExamConstants.ClassNameMaxLength);
             header.Property(h => h.ExamDate);
-            header.Property(h => h.DurationMinutes);
+            header.Property(h => h.DurationMinutes).IsRequired();
             header.Property(h => h.LogoPicture).HasMaxLength(ExamConstants.LogoPictureMaxLength);
-            header.Property(h => h.HeaderPicture).HasMaxLength(ExamConstants.HeaderPictureMaxLength);
         });
         builder.HasMany(x => x.Lessons)
             .WithMany();
