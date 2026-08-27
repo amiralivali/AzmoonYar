@@ -1,4 +1,4 @@
-﻿using System.Xml;
+﻿/*using System.Xml;
 using AzmoonYar.Application.DTOs.Exam;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -53,4 +53,4 @@ public class ExamService(IExamRepository examRepository, IBookRepository bookRep
         await examRepository.SaveChangesAsync(ct);
         return exam.Id;
     }
-}
+}*/

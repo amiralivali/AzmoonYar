@@ -23,7 +23,7 @@ public class QuestionRepository(AzmoonYarDbContext context)
         var queryable = Context.Questions.Include(x=>x.Lesson).ThenInclude(x=>x!.Book).AsQueryable();
         if (!string.IsNullOrEmpty(searchPhase))
         {
-            queryable = queryable.Where(x => EF.Functions.Contains(x.QuestionText, searchPhase));
+            queryable = queryable.Where(x=> x.QuestionText.Contains(searchPhase));
         }
 
         if (bookId is not null)

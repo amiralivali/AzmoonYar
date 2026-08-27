@@ -41,7 +41,7 @@ public class ExamDocument(Exam exam) : IDocument
     }
     private void ComposeHeader(TableDescriptor table)
     {
-        var header = exam.Header; // خواندن از ValueObject
+        var header = exam.ExamHeader; // خواندن از ValueObject
         var examTypeTitle = exam.ExamType.ToString(); // در صورت داشتن Extension Method برای نام فارسی، اینجا استفاده کنید
         var bookTitle = exam.Book?.BookName ?? "بدون نام کتاب";
 

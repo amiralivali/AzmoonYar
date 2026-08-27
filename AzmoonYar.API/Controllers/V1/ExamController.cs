@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 [ApiVersion(1.0)]
-public class ExamController(ExamService service) : BaseController
+public class ExamController() : BaseController
 {
-    [HttpGet(ExamUriConstants.GenerateExamPdf)]
+    /*[HttpGet(ExamUriConstants.GenerateExamPdf)]
     public ApiResult<Task<byte[]>> GenerateExamPdf()
     {
-        service.
-    }
+       
+    }*/
 }

@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿/*using AzmoonYar.Application.DTOs.Exam;
+using AzmoonYar.Application.Exceptions;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -35,7 +37,7 @@ public class AutomaticQuestionSelector(IQuestionRepository repository)
  
     private async Task<List<Question>> SelectForTypeAsync(
         List<long> lessonIds,
-        ExamQuestionTypeDto questionType,
+        CreateExamQuestionTypeDto questionType,
         DifficultyLevel difficultyLevel,
         CancellationToken ct)
     {
@@ -48,8 +50,7 @@ public class AutomaticQuestionSelector(IQuestionRepository repository)
             if (perLessonTargets[i] == 0)
                 continue;
  
-            var candidates = await repository.GetSelectionCandidatesAsync(
-                lessonIds[i], questionType.QuestionType, difficultyLevel, ct);
+            var candidates = await repository.GetSelectionCandidatesAsync(lessonIds[i], questionType.QuestionType, difficultyLevel, ct);
  
             var alreadyPickedIds = picked.Select(p => p.Id).ToHashSet();
             var fresh = candidates.Where(q => !alreadyPickedIds.Contains(q.Id)).ToList();
@@ -131,4 +132,4 @@ public class AutomaticQuestionSelector(IQuestionRepository repository)
  
         return result;
     }
-}
+}*/
