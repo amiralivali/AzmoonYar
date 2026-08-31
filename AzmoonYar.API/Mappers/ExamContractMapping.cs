@@ -7,10 +7,7 @@ namespace AzmoonYar.API.Mappers;
 public static class ExamContractMapping
 {
     public static GetExamDto ToDto(this GetExamRequest request)
-        => new (new ExamListFilterDto(request.Filter.SearchPhrase,request.Filter.Grade,
-                request.Filter.BookId,request.Filter.ExamDifficultyLevel,
-                request.Filter.ExamType,request.Filter.QuestionType),
-            new ExamPaginationFilterDto(request.Pagination.PageNumber,request.Pagination.PageSize));
+        => new (request.SearchPhrase, request.Grade, request.BookId,request.ExamDifficultyLevel, request.ExamType, request.QuestionType, request.PageNumber, request.PageSize);
 
     public static PagedResult<ExamResponse> ToResponse(this PagedResult<ExamDto> dto)
         => new(dto.Items.Select(x => x.ToResponse()).ToList(),

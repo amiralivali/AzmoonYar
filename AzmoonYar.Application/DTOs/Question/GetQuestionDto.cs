@@ -1,4 +1,13 @@
-﻿namespace AzmoonYar.Application.DTOs.Question;
+﻿using AzmoonYar.Domain.Enums;
 
-public record GetQuestionDto(QuestionListFilterDto Filter,
-    QuestionPaginationFilterDto PaginationFilter);
+namespace AzmoonYar.Application.DTOs.Question;
+
+public record GetQuestionDto(
+    string? SearchPhase,
+    long? BookId,
+    long? LessonId,
+    DifficultyLevel? DifficultyLevel,
+    Grade? Grade,
+    QuestionType? QuestionType,
+    int PageNumber = 1,
+    int PageSize = 10);

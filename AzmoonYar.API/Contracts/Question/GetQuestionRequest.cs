@@ -1,4 +1,13 @@
-﻿namespace AzmoonYar.API.Contracts.Question;
+﻿using AzmoonYar.Domain.Enums;
 
-public record GetQuestionRequest(QuestionListFilter Filter,
-    QuestionPaginationRequest PaginationRequest);
+namespace AzmoonYar.API.Contracts.Question;
+
+public record GetQuestionRequest(
+    string? SearchPhase,
+    long? BookId,
+    long? LessonId,
+    DifficultyLevel? DifficultyLevel,
+    Grade? Grade,
+    QuestionType? QuestionType,
+    int PageNumber = 1,
+    int PageSize = 10);

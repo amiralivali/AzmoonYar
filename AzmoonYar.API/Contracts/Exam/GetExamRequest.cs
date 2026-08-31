@@ -1,3 +1,13 @@
-﻿namespace AzmoonYar.API.Contracts.Exam;
+﻿using AzmoonYar.Domain.Enums;
 
-public record GetExamRequest(ExamListFilter Filter,ExamPaginationRequest Pagination);
+namespace AzmoonYar.API.Contracts.Exam;
+
+public record GetExamRequest(string? SearchPhrase,
+    Grade? Grade,
+    long? BookId,
+    ExamDifficultyLevel? ExamDifficultyLevel,
+    ExamType? ExamType,
+    QuestionType? QuestionType,
+    int PageNumber = 1,
+    int PageSize = 10
+);

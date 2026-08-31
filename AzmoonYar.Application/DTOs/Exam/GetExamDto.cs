@@ -1,4 +1,13 @@
-﻿namespace AzmoonYar.Application.DTOs.Exam;
+﻿using AzmoonYar.Domain.Enums;
 
-public record GetExamDto(ExamListFilterDto Filter,
-    ExamPaginationFilterDto PaginationFilter);
+namespace AzmoonYar.Application.DTOs.Exam;
+
+public record GetExamDto(string? SearchPhrase,
+    Grade? Grade,
+    long? BookId,
+    ExamDifficultyLevel? ExamDifficultyLevel,
+    ExamType? ExamType,
+    QuestionType? QuestionType,
+    int PageNumber = 1,
+    int PageSize = 10
+);

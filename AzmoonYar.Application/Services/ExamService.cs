@@ -12,10 +12,10 @@ public class ExamService(IExamRepository examRepository, IBookRepository bookRep
 {
     public async Task<PagedResult<ExamDto>> GetAllAsync(GetExamDto request, CancellationToken cancellationToken)
     {
-        var result = await examRepository.GetAllAsync(request.Filter.SearchPhrase,request.Filter.Grade,
-            request.Filter.BookId,request.Filter.ExamDifficultyLevel,
-            request.Filter.ExamType,request.Filter.QuestionType,
-            request.PaginationFilter.PageNumber,request.PaginationFilter.PageSize
+        var result = await examRepository.GetAllAsync(request.SearchPhrase,request.Grade,
+            request.BookId,request.ExamDifficultyLevel,
+            request.ExamType,request.QuestionType,
+            request.PageNumber,request.PageSize
             ,cancellationToken);
         return ToDto(result);
     }

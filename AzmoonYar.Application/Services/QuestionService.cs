@@ -45,10 +45,10 @@ public class QuestionService(IQuestionRepository repository)
         GetQuestionDto request,
         CancellationToken cancellationToken = default)
     {
-        var result = await repository.GetAllAsync(request.Filter.SearchPhase,request.Filter.BookId,
-            request.Filter.LessonId,request.Filter.DifficultyLevel,
-            request.Filter.Grade,request.Filter.QuestionType,
-            request.PaginationFilter.PageNumber,request.PaginationFilter.PageSize
+        var result = await repository.GetAllAsync(request.SearchPhase,request.BookId,
+            request.LessonId,request.DifficultyLevel,
+            request.Grade,request.QuestionType,
+            request.PageNumber,request.PageSize
                 ,cancellationToken);
         return ToDto(result);
     }

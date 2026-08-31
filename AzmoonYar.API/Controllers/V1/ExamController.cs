@@ -12,7 +12,7 @@ namespace AzmoonYar.API.Controllers.V1;
 public class ExamController(ExamService service) : BaseController
 {
     [HttpGet(ExamUriConstants.GetAll)]
-    public async Task<ApiResult<PagedResult<ExamResponse>>> GetAll(GetExamRequest filter, CancellationToken cancellationToken)
+    public async Task<ApiResult<PagedResult<ExamResponse>>> GetAll([FromQuery]GetExamRequest filter, CancellationToken cancellationToken)
     {
         var result = await service.GetAllAsync(filter.ToDto(), cancellationToken);
         return result.ToResponse();

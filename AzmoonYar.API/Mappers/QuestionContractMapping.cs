@@ -108,10 +108,17 @@ public static class QuestionContractMapping
     }
 
     public static GetQuestionDto ToDto(this GetQuestionRequest request)
-        => new (new QuestionListFilterDto(request.Filter.SearchPhase,request.Filter.BookId,
-            request.Filter.LessonId,request.Filter.DifficultyLevel,
-            request.Filter.Grade,request.Filter.QuestionType),
-            new QuestionPaginationFilterDto(request.PaginationRequest.PageNumber,request.PaginationRequest.PageSize));
+    {
+        return new GetQuestionDto(
+            request.SearchPhase,
+            request.BookId,
+            request.LessonId,
+            request.DifficultyLevel,
+            request.Grade,
+            request.QuestionType,
+            request.PageNumber,
+            request.PageSize);
+    }
 
     public static PagedResult<QuestionResponse> ToResponse(this PagedResult<QuestionDto> dto)
         => new(dto.Items.Select(x => x.ToResponse()).ToList(),
