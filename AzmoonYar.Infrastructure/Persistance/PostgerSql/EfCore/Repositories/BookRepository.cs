@@ -25,6 +25,9 @@ public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(c
         => await Context.Books.Include(x => x.Lessons).Where(x => x.Id == bookId).SelectMany(x => x.Lessons)
             .ToListAsync(cancellationToken);
 
+    public async Task<int> GetLessonCount(CancellationToken cancellationToken = default)
+        => await Context.Lessons.AsNoTracking().CountAsync(cancellationToken);
+
     public async Task<IReadOnlyCollection<Lesson>> GetLessonsByLessonIds(
         List<long> lessonsIds,
         CancellationToken cancellationToken = default)

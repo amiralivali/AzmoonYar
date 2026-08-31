@@ -31,7 +31,6 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
@@ -60,7 +59,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Asp.Versioning.Mvc": {
@@ -570,7 +568,6 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Domain\\AzmoonYar.Domain.csproj": {
@@ -593,7 +590,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
@@ -922,7 +918,6 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -941,7 +936,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -1264,7 +1258,6 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.Application\\AzmoonYar.Application.csproj": {
@@ -1290,7 +1283,6 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {

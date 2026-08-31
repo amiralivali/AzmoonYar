@@ -17,4 +17,5 @@ public interface IQuestionRepository : IRepository<Question>
 
     Task<FillInBlankItem?> GetFillInBlankItemByIdAsync(long itemId, CancellationToken cancellationToken = default);
     Task<int> GetQuestionsCountByLessonIdAsync(long lessonId, CancellationToken cancellationToken = default);
+    Task<Dictionary<QuestionType, int>> CountByTypeAsync(CancellationToken cancellationToken = default);
 }

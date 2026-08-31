@@ -8,19 +8,31 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Services
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidationFilter>();
     options.Filters.Add<ApiResultFilter>();
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddApiVersioning(options =>
     {
         options.ReportApiVersions = true;
@@ -36,10 +48,8 @@ builder.Services.AddApiVersioning(options =>
     })
     .AddOpenApi(options => options.Document.AddScalarTransformers());
 
-
-
 var app = builder.Build();
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi().WithDocumentPerVersion();
@@ -53,7 +63,7 @@ if (app.Environment.IsDevelopment())
         for (var index = 0; index < descriptions.Count; index++)
         {
             var description = descriptions[index];
-            //var isDefault = index == descriptions.Count - 1;
+
             var isDefault = index == 0;
 
             options.AddDocument(
@@ -62,8 +72,9 @@ if (app.Environment.IsDevelopment())
                 isDefault: isDefault);
         }
     });
-    
+
     app.MapSwagger();
+
     app.UseSwaggerUI(options =>
     {
         options.DisplayRequestDuration();
@@ -72,7 +83,7 @@ if (app.Environment.IsDevelopment())
         {
             options.SwaggerEndpoint(
                 $"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());        
+                description.GroupName.ToUpperInvariant());
         }
     });
 }
@@ -80,6 +91,9 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
+
+// CORS
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();
 

@@ -107,4 +107,12 @@ public class QuestionRepository(AzmoonYarDbContext context)
     {
         return await Context.Questions.CountAsync(x=>x.LessonId==lessonId,cancellationToken); 
     }
+
+    public async Task<Dictionary<QuestionType, int>> CountByTypeAsync(CancellationToken cancellationToken = default)
+    {
+        return await Context.Questions
+            .GroupBy(x=>x.QuestionType)
+            .Select(x=>new { Type = x.Key, Count = x.Count() })
+            .ToDictionaryAsync(k=>k.Type, v=>v.Count,cancellationToken);
+    }
 }

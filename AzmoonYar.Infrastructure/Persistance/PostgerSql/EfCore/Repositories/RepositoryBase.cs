@@ -8,6 +8,9 @@ public abstract class RepositoryBase<TEntity>(AzmoonYarDbContext context) : IRep
     protected readonly AzmoonYarDbContext Context = context;
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
 
+    public virtual async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        => await _dbSet.CountAsync(cancellationToken);
+
     public virtual async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
         => await _dbSet.AsNoTracking().ToListAsync(cancellationToken);
     
