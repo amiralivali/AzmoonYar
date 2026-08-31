@@ -23,6 +23,7 @@ public class Exam
     public ExamType ExamType { get; private set; }
     public ExamDifficultyLevel DifficultyLevel { get; private set; }
     public ExamHeader ExamHeader { get; private set; } = null!;
+    public ExamStatus ExamStatus { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
     
     public Book Book { get; private set; } = null!;
@@ -31,7 +32,7 @@ public class Exam
     private Exam()
     {}
 
-    public Exam(long bookId, ICollection<Lesson> lessons, ExamType examType, ExamDifficultyLevel difficultyLevel, ExamHeader header)
+    public Exam(long bookId, ICollection<Lesson> lessons, ExamType examType, ExamDifficultyLevel difficultyLevel, ExamHeader header,ExamStatus examStatus)
     {
         BookId = bookId;
         Lessons = lessons;
@@ -39,6 +40,7 @@ public class Exam
         DifficultyLevel = difficultyLevel;
         CreatedAt = DateTimeOffset.UtcNow;
         ExamHeader = header;
+        ExamStatus = examStatus;
     }
 
     public void AddQuestionType(QuestionType questionType, int count)
@@ -86,5 +88,10 @@ public class Exam
         var ordered = _examQuestions.OrderBy(x => x.Order).ToList();
         for (var i = 0; i < ordered.Count; i++)
             ordered[i].ChangeOrder(i + 1);
+    }
+    
+    private void ChangeStatus(ExamStatus newStatus)
+    {
+        ExamStatus = newStatus;
     }
 }
