@@ -19,4 +19,7 @@ public class MongoContext
 
     public IMongoCollection<ExceptionLog> ExceptionLogs =>
         Database.GetCollection<ExceptionLog>(_settings.ExceptionLogsCollection);
+
+    public IMongoCollection<ActivityLog> ActivityLogs =>
+        Database.GetCollection<ActivityLog>(_settings.ActivityLogsCollection);
 }

@@ -19,6 +19,7 @@ public class MongoMappingConfig
                 return;
 
             RegisterExceptionLog();
+            RegisterActivityLog();
             _registered = true;
         }
     }
@@ -29,6 +30,27 @@ public class MongoMappingConfig
             return;
 
         BsonClassMap.RegisterClassMap<ExceptionLog>(map =>
+        {
+            // AutoMap picks up the private parameterless constructor and the
+            // properties' private setters, so no explicit creator is needed.
+            map.AutoMap();
+
+            // Id is a string in the domain but stored as a native ObjectId. The
+            // StringObjectIdGenerator lets the driver generate the value on insert,
+            // so nothing in the app has to assign ids.
+            map.MapIdMember(x => x.Id)
+                .SetIdGenerator(StringObjectIdGenerator.Instance)
+                .SetSerializer(new StringSerializer(BsonType.ObjectId));
+
+            map.SetIgnoreExtraElements(true);
+        });
+    }
+    private static void RegisterActivityLog()
+    {
+        if (BsonClassMap.IsClassMapRegistered(typeof(ActivityLog)))
+            return;
+
+        BsonClassMap.RegisterClassMap<ActivityLog>(map =>
         {
             // AutoMap picks up the private parameterless constructor and the
             // properties' private setters, so no explicit creator is needed.

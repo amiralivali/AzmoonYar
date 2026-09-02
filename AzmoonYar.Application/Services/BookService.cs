@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
@@ -8,7 +9,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class BookService(IBookRepository repository)
+public class BookService(IBookRepository repository, ActivityLogService logService) 
 {
     public async Task<IReadOnlyList<BookDto>> GetAllAsync(CancellationToken cancellationToken)
     {
@@ -25,6 +26,8 @@ public class BookService(IBookRepository repository)
         }
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
+        //fix id
+        await logService.AddAsync(new BookCreatedLogData(book.BookName),1);
         return ToDto(book);
     }
 

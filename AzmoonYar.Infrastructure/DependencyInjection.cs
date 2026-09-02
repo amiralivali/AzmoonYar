@@ -32,6 +32,7 @@ public static class DependencyInjection
             MongoMappingConfig.Register();
             builder.AddSingleton<MongoContext>();
             builder.AddScoped<IExceptionLogRepository, ExceptionLogRepository>();
+            builder.AddScoped<IActivityLogRepository, ActivityLogRepository>();
         }
 
         private void AddRedis(IConfiguration configuration)
