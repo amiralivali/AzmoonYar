@@ -10,7 +10,7 @@ public class Book
     public long Id { get; private set; }
     public string BookName { get; private set; } = null!;
     public Grade Grade { get; private set; }
-    public string? GradeInfo { get; private set; }
+    public BookSource BookSource { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
 
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
@@ -19,23 +19,22 @@ public class Book
     {
     }
 
-    public Book(string bookName, Grade grade)
+    public Book(string bookName, Grade grade,
+        BookSource bookSource)
     {
         BookName = bookName.Trim();
         Grade = grade;
+        BookSource = bookSource;
     }
 
     public void UpdateBook(
         string bookName,
-        Grade grade)
+        Grade grade,
+        BookSource bookSource)
     {
         BookName = bookName.Trim();
         Grade = grade;
-    }
-
-    public void ChangeGradeInfo(string? gradeInfo)
-    {
-        GradeInfo = gradeInfo;
+        BookSource = bookSource;
     }
 
     public void AddLesson(string? title)

@@ -1,5 +1,6 @@
 ﻿using AzmoonYar.Domain.Constants;
 using AzmoonYar.Domain.Entities;
+using AzmoonYar.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,9 +14,9 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
         builder.Property(x => x.BookName)
             .IsRequired(true)
             .HasMaxLength(BookConstants.BookNameMaxLength);
-        builder.Property(x => x.GradeInfo)
-            .IsRequired(false)
-            .HasMaxLength(BookConstants.GradeInfoMaxLenght);
+        builder.Property(x => x.BookSource)
+            .IsRequired()
+            .HasDefaultValue(BookSource.User);
         builder.HasIndex(x => x.BookName);
     }
 }
