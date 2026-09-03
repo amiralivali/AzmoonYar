@@ -19,8 +19,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     }
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
-        var book = new Book(dto.BookName, dto.Grade);
-        book.ChangeGradeInfo(dto.GradeInfo);
+        var book = new Book(dto.BookName, dto.Grade,dto.BookSource);
         foreach (var lesson in dto.CreateLessonDtos)
         {
             book.AddLesson(lesson.Title);
@@ -52,11 +51,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     {
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
-        book.UpdateBook(dto.BookName, dto.Grade);
-        if (dto.GradeInfo != null)
-        {
-            book.ChangeGradeInfo(dto.GradeInfo);
-        }
+        book.UpdateBook(dto.BookName, dto.Grade,dto.BookSource);
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
             book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);
@@ -91,7 +86,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         book.Id,
         book.BookName,
         book.Grade,
-        book.GradeInfo,
+        book.BookSource,
         book.CreatedAt,
         book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList());
 

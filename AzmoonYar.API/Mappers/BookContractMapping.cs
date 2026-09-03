@@ -8,12 +8,12 @@ public static class BookContractMapping
 {
     public static CreateBookDto ToDto(this CreateBookRequest request)
     {
-        return new CreateBookDto(request.BookName,request.Grade,request.GradeInfo,request.LessonRequests.Select(x=>new 
+        return new CreateBookDto(request.BookName,request.Grade,request.BookSource,request.LessonRequests.Select(x=>new 
             CreateLessonDto(x.Title)).ToList());
     }
     public static UpdateBookDto ToDto(this UpdateBookRequest request)
     {
-        return new UpdateBookDto(request.BookName,request.Grade,request.GradeInfo,request.UpdateLessonRequests.Select(x=>new 
+        return new UpdateBookDto(request.BookName,request.Grade,request.BookSource,request.UpdateLessonRequests.Select(x=>new 
             UpdateLessonDto(x.Id,x.Title)).ToList());
     }
     public static BookResponse ToResponse(this BookDto dto)
@@ -21,7 +21,7 @@ public static class BookContractMapping
         return new BookResponse(dto.Id,
             dto.BookName,
             dto.Grade,
-            dto.GradeInfo,
+            dto.BookSource,
             dto.CreatedAt,
             dto.Lessons.Select(x=>new LessonResponse(x.Id,x.LessonName,x.LessonCount)).ToList());
     }
