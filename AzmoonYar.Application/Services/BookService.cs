@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
 using AzmoonYar.Application.Logs.Contracts;
@@ -27,7 +28,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         //fix id
-        await logService.AddAsync(new BookCreatedLogData(book.BookName),1);
+        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1);
         return ToDto(book);
     }
 
@@ -44,6 +45,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
                    ?? throw new EntityNotFoundException(nameof(Book), id);
         repository.Delete(book);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),1);
     }
 
     public async Task<BookDto> UpdateAsync(long id, UpdateBookDto dto, CancellationToken cancellationToken = default)
@@ -61,6 +63,7 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         }
         repository.Update(book);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new BookUpdatedLogData(book.BookName,book.Grade.ToPersian()),1);
         return ToDto(book);
     }
     

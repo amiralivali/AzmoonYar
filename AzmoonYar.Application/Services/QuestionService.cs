@@ -1,10 +1,12 @@
-﻿using AzmoonYar.Application.DTOs.Common;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
 using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.DTOs.TrueFalseItem;
 using AzmoonYar.Application.Interfaces;
+using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
@@ -12,7 +14,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class QuestionService(IQuestionRepository repository)
+public class QuestionService(IQuestionRepository repository,ActivityLogService  logService)
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {
@@ -20,7 +22,7 @@ public class QuestionService(IQuestionRepository repository)
         question.ChangePicture(dto.Picture);
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
-
+        await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), 1);
         return ToDto(question);
     }
     public async Task<QuestionDto> UpdateQuestionAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
@@ -31,6 +33,7 @@ public class QuestionService(IQuestionRepository repository)
         question.ChangePicture(dto.Picture);
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), 1);
         return ToDto(question);
     }
 
@@ -59,6 +62,7 @@ public class QuestionService(IQuestionRepository repository)
             ?? throw new EntityNotFoundException(nameof(Question), id);
         repository.Delete(question);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), 1);
     }
 
     public async Task ChangePicture(long id, string picture, CancellationToken cancellationToken = default)

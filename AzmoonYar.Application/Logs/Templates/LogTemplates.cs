@@ -9,6 +9,21 @@ public static class LogTemplates
         {
             [ActivityLogType.BookCreated] = new LogTemplate(
                 "ایجاد کتاب",
-                "کتاب {BookName} ایجاد شد.")
+                "کتاب «{BookName}» در مقطع {Grade} ایجاد شد"),
+            [ActivityLogType.BookDeleted] = new LogTemplate(
+                "حذف کتاب",
+                "کتاب «{BookName}» در مقطع {Grade} حذف شد"),
+            [ActivityLogType.BookUpdated] = new LogTemplate(
+                "ویرایش کتاب",
+                "کتاب «{BookName}» در مقطع {Grade} ویرایش شد"),
+            [ActivityLogType.QuestionCreated] = new LogTemplate(
+                "ایجاد سوال",
+                "سوال {QuestionType} جدید اضافه شد"),
+            [ActivityLogType.QuestionDeleted] = new LogTemplate(
+                "حذف سوال",
+                "سوال {QuestionType} حذف شد"),
+            [ActivityLogType.QuestionUpdated] = new LogTemplate(
+                "ویرایش سوال",
+                "سوال {QuestionType} ویرایش شد")
         };
 }

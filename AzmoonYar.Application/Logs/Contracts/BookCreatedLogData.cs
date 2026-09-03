@@ -2,7 +2,7 @@
 
 namespace AzmoonYar.Application.Logs.Contracts;
 
-public sealed record BookCreatedLogData(string BookName) : ILogData
+public record BookCreatedLogData(string BookName, string Grade) : ILogData
 {
-    public ActivityLogType ActivityLogType => ActivityLogType.BookCreated ;
+    public ActivityLogType ActivityLogType => ActivityLogType.BookCreated;
 }
