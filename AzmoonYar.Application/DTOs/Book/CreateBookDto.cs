@@ -2,4 +2,4 @@
 
 namespace AzmoonYar.Application.DTOs.Book;
 
-public record CreateBookDto(string BookName, Grade Grade,BookSource BookSource,List<CreateLessonDto> CreateLessonDtos);
+public record CreateBookDto(string BookName, Grade Grade,string? Picture,List<CreateLessonDto> CreateLessonDtos);

@@ -19,10 +19,6 @@ public class CreateBookValidator : AbstractValidator<CreateBookRequest>
             .NotEmpty()
             .WithMessage(BookValidationMessages.GradeRequired);
         
-        RuleFor(x=>x.BookSource)
-            .NotEmpty()
-            .WithMessage(BookValidationMessages.GradeRequired);
-        
         RuleForEach(x => x.LessonRequests)
             .SetValidator(new CreateLessonValidator());
     }

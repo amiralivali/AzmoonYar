@@ -11,6 +11,7 @@ public class Book
     public string BookName { get; private set; } = null!;
     public Grade Grade { get; private set; }
     public BookSource BookSource { get; private set; }
+    public string? Picture { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
 
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();
@@ -61,5 +62,10 @@ public class Book
             throw new EntityNotFoundException("lesson", lessonId);
         }
         lesson.ChangeTitle(title);
+    }
+    
+    public void ChangePicture(string picture)
+    {
+        Picture = picture;
     }
 }

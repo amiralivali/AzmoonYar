@@ -2,6 +2,7 @@
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -12,14 +13,22 @@ namespace AzmoonYar.Application.Services;
 
 public class BookService(IBookRepository repository, ActivityLogService logService) 
 {
-    public async Task<IReadOnlyList<BookDto>> GetAllAsync(CancellationToken cancellationToken)
+    public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {
-        var books = await repository.GetAllAsync(cancellationToken);
-        return books.Select(ToDto).ToList();
+        var books = await repository.GetAllAsync(request.SearchPhase,
+            request.Grade,
+            request.BookSource,
+            request.PageNumber,
+            request.PageSize,cancellationToken);
+        return ToDto(books);
     }
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
-        var book = new Book(dto.BookName, dto.Grade,dto.BookSource);
+        var book = new Book(dto.BookName, dto.Grade,BookSource.User);
+        if (string.IsNullOrEmpty(dto.Picture))
+        {
+            book.ChangePicture(dto.Picture);
+        }
         foreach (var lesson in dto.CreateLessonDtos)
         {
             book.AddLesson(lesson.Title);
@@ -51,7 +60,11 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     {
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
-        book.UpdateBook(dto.BookName, dto.Grade,dto.BookSource);
+        book.UpdateBook(dto.BookName, dto.Grade,BookSource.User);
+         if (string.IsNullOrEmpty(dto.Picture))
+         {
+             book.ChangePicture(dto.Picture); 
+         }
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
             book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);
@@ -82,10 +95,18 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         return books.Select(ToDto).ToList();
     }
 
+    private static PagedResult<BookDto> ToDto(PagedResult<Book> result)
+    => new (result.Items.Select(ToDto).ToList(),
+        result.PageNumber,
+        result.PageSize,
+        result.TotalCount,
+        result.TotalPages);
+    
     private static BookDto ToDto(Book book) => new(
         book.Id,
         book.BookName,
         book.Grade,
+        book.Picture,
         book.BookSource,
         book.CreatedAt,
         book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList());

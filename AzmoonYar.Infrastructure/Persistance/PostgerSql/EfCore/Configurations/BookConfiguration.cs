@@ -18,5 +18,7 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .IsRequired()
             .HasDefaultValue(BookSource.User);
         builder.HasIndex(x => x.BookName);
+        builder.Property(x => x.Picture)
+            .HasMaxLength(BookConstants.PictureMaxLenght);
     }
 }
