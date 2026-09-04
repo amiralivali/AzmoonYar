@@ -47,7 +47,7 @@ public class ExamRepository(AzmoonYarDbContext context) : RepositoryBase<Exam>(c
         }*/
         
         var totalCount = await queryable.CountAsync(cancellationToken);
-        var totalPages = (int)Math.Ceiling(totalCount / (double)pageNumber);
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         var exams = await queryable.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(cancellationToken);
         return new PagedResult<Exam>(exams, pageNumber, pageSize, totalCount, totalPages);
     }
