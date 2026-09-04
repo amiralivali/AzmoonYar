@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning;
 using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
+using AzmoonYar.API.Contracts.Dashboard;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.DTOs.Common;
@@ -33,6 +34,13 @@ public class QuestionController(QuestionService service) : BaseController
     {
         var count = await service.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
         return count;
+    }
+
+    [HttpGet(QuestionUriConstants.GetQuestionTypeCount)]
+    public async Task<List<QuestionTypeCountResponse>> GetQuestionTypeCount(CancellationToken cancellationToken)
+    {
+        var result = await service.GetQuestionTypeCountAsync(cancellationToken);
+        return result.Select(x => x.ToResponse()).ToList();
     }
     
     [HttpPost(QuestionUriConstants.Add)]

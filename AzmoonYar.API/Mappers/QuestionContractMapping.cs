@@ -1,9 +1,11 @@
-﻿using AzmoonYar.API.Contracts.FillInBlankItem;
+﻿using AzmoonYar.API.Contracts.Dashboard;
+using AzmoonYar.API.Contracts.FillInBlankItem;
 using AzmoonYar.API.Contracts.MatchingItem;
 using AzmoonYar.API.Contracts.OptionalItem;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Contracts.TrueFalseItem;
 using AzmoonYar.Application.DTOs.Common;
+using AzmoonYar.Application.DTOs.Dashboard;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
@@ -107,6 +109,9 @@ public static class QuestionContractMapping
             request.DifficultyLevel);
     }
 
+    public static QuestionTypeCountResponse ToResponse(this QuestionTypeCountDto dto)
+        => new (dto.QuestionType, dto.QuestionCount);
+    
     public static GetQuestionDto ToDto(this GetQuestionRequest request)
     {
         return new GetQuestionDto(
