@@ -6,6 +6,7 @@ public class ActivityLog
 {
     public string? Id { get; private set; }
     public long UserId { get;private set; }
+    public EntityType EntityType { get; private set; }
     public ActivityLogType ActivityLogType { get; private set; }
     public string Title { get; private set; } = null!;
     public string Message { get; private set; } = null!;
@@ -14,9 +15,10 @@ public class ActivityLog
     private ActivityLog()
     {
     }
-    public ActivityLog(long userId, ActivityLogType activityLogType, string title , string message)
+    public ActivityLog(long userId, EntityType entityType, ActivityLogType activityLogType, string title , string message)
     {
         UserId = userId;
+        EntityType = entityType;
         ActivityLogType = activityLogType;
         Title = title;
         Message = message;

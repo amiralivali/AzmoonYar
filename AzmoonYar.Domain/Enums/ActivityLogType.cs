@@ -7,5 +7,8 @@ public enum ActivityLogType
     BookDeleted = 3,
     QuestionCreated = 4,
     QuestionUpdated = 5,
-    QuestionDeleted = 6
+    QuestionDeleted = 6,
+    ExamCreated = 7,
+    ExamUpdated = 8,
+    ExamDeleted = 9,
 }
