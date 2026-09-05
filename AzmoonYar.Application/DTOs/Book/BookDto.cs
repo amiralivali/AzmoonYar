@@ -2,4 +2,4 @@
 
 namespace AzmoonYar.Application.DTOs.Book;
 
-public record BookDto(long Id,string BookName,Grade Grade,BookSource BookSource,DateTimeOffset CreatedAt,List<LessonDto> Lessons,string? CoverImageUrl);
+public record BookDto(long Id,string BookName,Grade Grade,string? GradeInfo,DateTimeOffset CreatedAt,List<LessonDto> Lessons);

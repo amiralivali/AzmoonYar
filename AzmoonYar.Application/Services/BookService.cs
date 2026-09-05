@@ -2,7 +2,6 @@
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
-using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -11,7 +10,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class BookService(IBookRepository repository, IFileStorage fileStorage, ActivityLogService logService) 
+public class BookService(IBookRepository repository, ActivityLogService logService) 
 {
     public async Task<IReadOnlyList<BookDto>> GetAllAsync(CancellationToken cancellationToken)
     {
@@ -20,19 +19,8 @@ public class BookService(IBookRepository repository, IFileStorage fileStorage, A
     }
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
-        var book = new Book(dto.BookName, dto.Grade,dto.BookSource);
-        if (dto.CoverImage is not null)
-        {
-            var extension = Path.GetExtension(dto.CoverImage.FileName);
-
-            var fileName = $"{Guid.NewGuid()}{extension}";
-
-            var coverImageUrl = await fileStorage.SaveImageAsync(
-                dto.CoverImage.Stream,
-                fileName,
-                nameof(Book));
-            book.ChangePicture(coverImageUrl);
-        }
+        var book = new Book(dto.BookName, dto.Grade);
+        book.ChangeGradeInfo(dto.GradeInfo);
         foreach (var lesson in dto.CreateLessonDtos)
         {
             book.AddLesson(lesson.Title);
@@ -64,18 +52,10 @@ public class BookService(IBookRepository repository, IFileStorage fileStorage, A
     {
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
-        book.UpdateBook(dto.BookName, dto.Grade,dto.BookSource);
-        if (dto.CoverImage is not null)
+        book.UpdateBook(dto.BookName, dto.Grade);
+        if (dto.GradeInfo != null)
         {
-            var extension = Path.GetExtension(dto.CoverImage.FileName);
-
-            var fileName = $"{Guid.NewGuid()}{extension}";
-
-            var coverImageUrl = await fileStorage.SaveImageAsync(
-                dto.CoverImage.Stream,
-                fileName,
-                nameof(Book));
-            book.ChangePicture(coverImageUrl);
+            book.ChangeGradeInfo(dto.GradeInfo);
         }
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
@@ -111,10 +91,9 @@ public class BookService(IBookRepository repository, IFileStorage fileStorage, A
         book.Id,
         book.BookName,
         book.Grade,
-        book.BookSource,
+        book.GradeInfo,
         book.CreatedAt,
-        book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList(),
-        book.Picture);
+        book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList());
 
     private static LessonDto ToDto(Lesson lesson) => new(
         lesson.Id,

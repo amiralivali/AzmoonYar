@@ -12,6 +12,8 @@ public static class BookValidationMessages
     
     public const string GradeRequired = "مقطع تحصیلی الزامی است";
     
-    public const string BookSourceRequired = "منبع سوال الزامی است";
-
+    private const string GradeInfoMaxLengthInvalidTemplate = "توضیحات مقطع تحصیلی نمیتواند بیشتر از {0} کاراکتر باشد";
+    public static string GradeInfoMaxLengthInvalid => 
+        string.Format(GradeInfoMaxLengthInvalidTemplate, BookConstants.GradeInfoMaxLenght);
+    
 }
