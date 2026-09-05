@@ -31,4 +31,9 @@ public static class UserContractMapping
             dto.Password,
             dto.Email);
     }
+
+    public static LoginRequestDto ToDto(this LoginRequest dto)
+    {
+        return new LoginRequestDto(dto.PhoneNumber,dto.Password);
+    }
 }

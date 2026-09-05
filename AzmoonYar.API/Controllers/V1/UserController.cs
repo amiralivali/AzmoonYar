@@ -32,11 +32,11 @@ public class UserController(UserService service) : BaseController
         return dto.ToResponse();
     }
 
-    [HttpGet(UserUriConstants.Login)]
-    public async Task<ApiResult<UserResponse>> Login(string phoneNumber, string password,
+    [HttpPost(UserUriConstants.Login)]
+    public async Task<ApiResult<UserResponse>> Login(LoginRequest request,
         CancellationToken cancellationToken)
     {
-        var user = await service.LoginAsync(phoneNumber, password, cancellationToken);
+        var user = await service.LoginAsync(request.ToDto(), cancellationToken);
         return user.ToResponse();
     }
 }

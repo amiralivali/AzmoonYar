@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Application.DTOs.ActivityLog;
+﻿using AzmoonYar.Application.Caching;
+using AzmoonYar.Application.DTOs.ActivityLog;
 using AzmoonYar.Application.DTOs.Dashboard;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -9,16 +10,38 @@ namespace AzmoonYar.Application.Services;
 public class DashboardService(IBookRepository bookRepository,
     IQuestionRepository questionRepository,
     IExamRepository  examRepository,
-    IActivityLogRepository activityLogRepository)
+    IActivityLogRepository activityLogRepository,
+    DashboardCache dashboardCache)
 {
-    public async Task<SummaryDto> GetSummaryAsync(CancellationToken cancellationToken = default)
+    public Task<SummaryDto> GetSummaryAsync(
+        CancellationToken cancellationToken = default)
     {
-        var totalBooks = await bookRepository.CountAsync(cancellationToken);
-        var totalLessons = await bookRepository.GetLessonCount(cancellationToken);
-        var totalQuestions = await questionRepository.CountAsync(cancellationToken);
-        var totalExams = await examRepository.CountAsync(cancellationToken);
-        var typeCounts = await questionRepository.CountByTypeAsync(cancellationToken);
-        var recentLogs = await activityLogRepository.GetRecent(cancellationToken);
+        return dashboardCache.GetSummaryAsync(
+            GetSummaryFromDatabaseAsync,
+            cancellationToken);
+    }
+
+    private async Task<SummaryDto> GetSummaryFromDatabaseAsync(
+        CancellationToken cancellationToken)
+    {
+        var totalBooks =
+            await bookRepository.CountAsync(cancellationToken);
+
+        var totalLessons =
+            await bookRepository.GetLessonCount(cancellationToken);
+
+        var totalQuestions =
+            await questionRepository.CountAsync(cancellationToken);
+
+        var totalExams =
+            await examRepository.CountAsync(cancellationToken);
+
+        var typeCounts =
+            await questionRepository.CountByTypeAsync(cancellationToken);
+
+        var recentLogs =
+            await activityLogRepository.GetRecent(cancellationToken);
+
         return new SummaryDto(
             totalBooks,
             totalLessons,
@@ -30,9 +53,9 @@ public class DashboardService(IBookRepository bookRepository,
     }
 
     private static ActivityLogDto ToDto(ActivityLog log)
-        => new (log.Id, log.Message, log.CreatedAt);
-    private static QuestionTypeCountDto ToDto(KeyValuePair<QuestionType, int> item) => new(
-        item.Key,
-        item.Value
-    );
+        => new(log.Id, log.Message, log.CreatedAt);
+
+    private static QuestionTypeCountDto ToDto(
+        KeyValuePair<QuestionType, int> item)
+        => new(item.Key, item.Value);
 }

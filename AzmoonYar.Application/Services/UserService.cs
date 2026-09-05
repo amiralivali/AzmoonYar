@@ -38,14 +38,14 @@ public class UserService(IUserRepository repository,IPasswordHasher passwordHash
         return ToDto(user);
     }
 
-    public async Task<UserDto> LoginAsync(string mobileNumber, string password, CancellationToken cancellationToken)
+    public async Task<UserDto> LoginAsync(LoginRequestDto requestDto, CancellationToken cancellationToken)
     {
-        var user = await repository.GetByPhoneNumberAsync(mobileNumber, cancellationToken);
+        var user = await repository.GetByPhoneNumberAsync(requestDto.PhoneNumber, cancellationToken);
 
         if (user is null)
             throw new UserNotFoundException();
 
-        var isPasswordValid = passwordHasher.Verify(password, user.Password);
+        var isPasswordValid = passwordHasher.Verify(requestDto.Password, user.Password);
 
         return !isPasswordValid ? throw new UserNotFoundException() : ToDto(user);
     }
