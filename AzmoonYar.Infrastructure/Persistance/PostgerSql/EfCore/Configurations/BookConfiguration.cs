@@ -18,5 +18,6 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
             .IsRequired()
             .HasDefaultValue(BookSource.User);
         builder.HasIndex(x => x.BookName);
+        
     }
 }

@@ -5,6 +5,7 @@ using AzmoonYar.Infrastructure.Persistance.Mongo;
 using AzmoonYar.Infrastructure.Persistance.Mongo.Repositories;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
+using AzmoonYar.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,7 @@ public static class DependencyInjection
             builder.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.AddScoped<IUserRepository, UserRepository>();
             builder.AddScoped<IExamRepository, ExamRepository>();
+            builder.AddScoped<IFileStorage, LocalFileStorage>();
             builder.AddMongo(configuration);
             builder.AddRedis(configuration);
         }

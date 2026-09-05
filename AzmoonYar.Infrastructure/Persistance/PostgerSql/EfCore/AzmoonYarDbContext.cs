@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using AzmoonYar.Domain.Entities;
+using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Seed;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
@@ -24,5 +25,8 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
+        BookSeed.Seed(modelBuilder);
+        LessonSeed.Seed(modelBuilder);
     }
 }

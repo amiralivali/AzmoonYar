@@ -31,7 +31,7 @@ public class Lesson
             : title.Trim();
 
         LessonName = Title is null
-            ? $"Lesson {LessonCount}:"
-            : $"Lesson {LessonCount}: {Title}";
+            ? $"درس {LessonCount}"
+            : $"درس {LessonCount}: {Title}";
     }
 }

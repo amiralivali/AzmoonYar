@@ -36,6 +36,7 @@
 
     <ItemGroup>
       <Folder Include="Controllers\V2\" />
+      <Folder Include="wwwroot\Uploads\Book\" />
     </ItemGroup>
 
 </Project>

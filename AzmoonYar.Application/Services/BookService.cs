@@ -2,6 +2,7 @@
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -10,7 +11,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class BookService(IBookRepository repository, ActivityLogService logService) 
+public class BookService(IBookRepository repository, IFileStorage fileStorage, ActivityLogService logService) 
 {
     public async Task<IReadOnlyList<BookDto>> GetAllAsync(CancellationToken cancellationToken)
     {
@@ -20,6 +21,18 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
         var book = new Book(dto.BookName, dto.Grade,dto.BookSource);
+        if (dto.CoverImage is not null)
+        {
+            var extension = Path.GetExtension(dto.CoverImage.FileName);
+
+            var fileName = $"{Guid.NewGuid()}{extension}";
+
+            var coverImageUrl = await fileStorage.SaveImageAsync(
+                dto.CoverImage.Stream,
+                fileName,
+                nameof(Book));
+            book.ChangePicture(coverImageUrl);
+        }
         foreach (var lesson in dto.CreateLessonDtos)
         {
             book.AddLesson(lesson.Title);
@@ -52,6 +65,18 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
         book.UpdateBook(dto.BookName, dto.Grade,dto.BookSource);
+        if (dto.CoverImage is not null)
+        {
+            var extension = Path.GetExtension(dto.CoverImage.FileName);
+
+            var fileName = $"{Guid.NewGuid()}{extension}";
+
+            var coverImageUrl = await fileStorage.SaveImageAsync(
+                dto.CoverImage.Stream,
+                fileName,
+                nameof(Book));
+            book.ChangePicture(coverImageUrl);
+        }
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
             book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);
@@ -88,7 +113,8 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         book.Grade,
         book.BookSource,
         book.CreatedAt,
-        book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList());
+        book.Lessons.Select(x => new LessonDto(x.Id, x.LessonName, x.LessonCount)).ToList(),
+        book.Picture);
 
     private static LessonDto ToDto(Lesson lesson) => new(
         lesson.Id,
