@@ -1,8 +1,10 @@
 ﻿using Asp.Versioning;
 using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
+using AzmoonYar.API.Contracts.ActivityLog;
 using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.API.Mappers;
+using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +15,10 @@ namespace AzmoonYar.API.Controllers.V1;
 public class BookController(BookService service) : BaseController
 {
     [HttpGet(BookUriConstants.GetAll)]
-    public async Task<ApiResult<IReadOnlyList<BookResponse>>> GetAll(CancellationToken cancellationToken)
+    public async Task<ApiResult<PagedResult<BookResponse>>> GetAll([FromQuery]GetBookRequest request,CancellationToken cancellationToken)
     {
-        var books = await service.GetAllAsync(cancellationToken);
-        return books.Select(x=>x.ToResponse()).ToList();
+        var books = await service.GetAllAsync(request.ToDto(), cancellationToken);
+        return books.ToResponse();
     }
     
     [HttpGet(BookUriConstants.GetById)]

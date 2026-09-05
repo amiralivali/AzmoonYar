@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.DTOs.Common;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -13,6 +14,34 @@ public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(c
 
     public override async Task<IReadOnlyList<Book>> GetAllAsync(CancellationToken cancellationToken = default)
         => await Context.Books.Include(x => x.Lessons).AsNoTracking().ToListAsync(cancellationToken);
+
+    public async Task<PagedResult<Book>> GetAllAsync(string? searchPhase,
+        Grade? grade, 
+        BookSource? bookSource,
+        int pageNumber, int pageSize,
+        CancellationToken cancellationToken)
+    {
+        var queryable = Context.Books.Include(x => x.Lessons).AsQueryable();
+        if (!string.IsNullOrEmpty(searchPhase))
+        {
+            queryable = queryable.Where(x=> x.BookName.Contains(searchPhase));
+        }
+
+        if (grade is not null)
+        {
+            queryable = queryable.Where(x => x.Grade == grade);
+        }
+        
+        if (bookSource is not null)
+        {
+            queryable = queryable.Where(x => x.BookSource == bookSource);
+        }
+        
+        var totalCount = await  queryable.CountAsync(cancellationToken);
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+        var books = await queryable.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(cancellationToken);
+        return new PagedResult<Book>(books, pageNumber, pageSize, totalCount, totalPages);
+    }
 
     public async Task<IReadOnlyList<Grade>> GetAvailableGradesAsync(CancellationToken cancellationToken = default)
         => await Context.Books.Select(x => x.Grade).Distinct().ToListAsync(cancellationToken);

@@ -1,5 +1,6 @@
 ﻿using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Common;
+using AzmoonYar.Application.DTOs.Dashboard;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.DTOs.OptionalItem;
@@ -77,6 +78,12 @@ public class QuestionService(IQuestionRepository repository,ActivityLogService  
         CancellationToken cancellationToken = default)
     {
         return await repository.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
+    }
+    
+    public async Task<List<QuestionTypeCountDto>> GetQuestionTypeCountAsync(CancellationToken cancellationToken = default)
+    {
+         var result = await repository.CountByTypeAsync(cancellationToken);
+         return result.Select(ToDto).ToList();
     }
 
     private static PagedResult<QuestionDto> ToDto(PagedResult<Question> result)
@@ -156,4 +163,8 @@ public class QuestionService(IQuestionRepository repository,ActivityLogService  
             matchingItems
         );
     }
+    private static QuestionTypeCountDto ToDto(KeyValuePair<QuestionType, int> item) => new(
+        item.Key,
+        item.Value
+    );
 }

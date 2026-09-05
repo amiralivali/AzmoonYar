@@ -20,8 +20,8 @@ public class CreateUserValidator : AbstractValidator<CreateUserRequest>
             .MaximumLength(UserConstants.LastNameMaxLength).WithMessage(UserValidationMessages.LastNameMaxLengthInvalid)
             .Matches(RegexPattern.PersianOrEnglishLetters).WithMessage(UserValidationMessages.LastNameInvalidFormat);
 
-        RuleFor(x => x.Email)
-            .EmailAddress().WithMessage(UserValidationMessages.EmailInvalid);
+        // RuleFor(x => x.Email)
+        //     .EmailAddress().WithMessage(UserValidationMessages.EmailInvalid);
         
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage(UserValidationMessages.PasswordRequired)

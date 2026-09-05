@@ -19,10 +19,6 @@ public class UpdateBookValidator : AbstractValidator<UpdateBookRequest>
             .NotEmpty()
             .WithMessage(BookValidationMessages.GradeRequired);
         
-        RuleFor(x=>x.GradeInfo)
-            .MaximumLength(BookConstants.GradeInfoMaxLenght)
-            .WithMessage(BookValidationMessages.GradeInfoMaxLengthInvalid);
-        
         RuleForEach(x => x.UpdateLessonRequests)
             .SetValidator(new UpdateLessonValidator());
     }

@@ -1,4 +1,5 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Interfaces;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,5 +20,6 @@ public static class DependencyInjection
         builder.AddScoped<TrueFalseItemService>();
         builder.AddScoped<MatchingItemService>();
         builder.AddScoped<OptionalItemService>();
+        builder.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
     }
 }

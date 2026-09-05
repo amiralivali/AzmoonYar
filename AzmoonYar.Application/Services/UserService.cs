@@ -1,13 +1,14 @@
 ﻿using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.User;
 using AzmoonYar.Application.Exceptions;
+using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services;
 
-public class UserService(IUserRepository repository)
+public class UserService(IUserRepository repository,IPasswordHasher passwordHasher)
 {
     public async Task<UserDto> GetByIdAsync(long userId, CancellationToken cancellationToken)
     {
@@ -15,14 +16,15 @@ public class UserService(IUserRepository repository)
             ?? throw new EntityNotFoundException(nameof(User), userId);
         return ToDto(user);
     }
-    public async Task<UserDto> AddAsync(CreateUserDto dto,CancellationToken cancellationToken = default)
+    public async Task<UserDto> AddAsync(CreateUserDto dto, CancellationToken cancellationToken = default)
     {
-        var user = new User(dto.FirstName,dto.LastName,dto.PhoneNumber,dto.Password);
-        
+        var hashedPassword = passwordHasher.Hash(dto.Password);
+        var user = new User(dto.FirstName, dto.LastName, dto.PhoneNumber, hashedPassword);
+
         var duplicateMobile = await repository.CheckPhoneNumberDuplicate(user.PhoneNumber, cancellationToken);
         if (duplicateMobile)
             throw new DuplicateExceptionError(nameof(user.PhoneNumber));
-        
+
         if (!string.IsNullOrEmpty(dto.Email))
         {
             user.SetEmail(dto.Email);
@@ -30,10 +32,22 @@ public class UserService(IUserRepository repository)
             if (duplicateEmail)
                 throw new DuplicateExceptionError(nameof(user.Email));
         }
-        
-        await repository.AddAsync(user,cancellationToken);
+
+        await repository.AddAsync(user, cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         return ToDto(user);
+    }
+
+    public async Task<UserDto> LoginAsync(string mobileNumber, string password, CancellationToken cancellationToken)
+    {
+        var user = await repository.GetByPhoneNumberAsync(mobileNumber, cancellationToken);
+
+        if (user is null)
+            throw new UserNotFoundException();
+
+        var isPasswordValid = passwordHasher.Verify(password, user.Password);
+
+        return !isPasswordValid ? throw new UserNotFoundException() : ToDto(user);
     }
 
     public async Task<UserDto> UpdateAsync(long userId ,UpdateUserDto dto, CancellationToken cancellationToken = default)

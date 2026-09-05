@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using AzmoonYar.Application.Exceptions;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
@@ -24,15 +25,21 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
 
     private static HttpStatusCode ResolveStatusCode(Exception exception) => exception switch
     {
-        EntityNotFoundException => HttpStatusCode.NotFound,
-        OptionalItemAlreadyExistsException => HttpStatusCode.Conflict,
+        EntityNotFoundException or UserNotFoundException or LessonNotFoundException or LessonNotFoundInBookException => HttpStatusCode.NotFound,
+        OptionalItemAlreadyExistsException or
+            DuplicateExceptionError or QuestionAlreadyExistException
+            or QuestionTypeAlreadyExistException=> HttpStatusCode.Conflict,
         DescriptiveQuestionWithoutItemException
             or FillInBlankItemOperationNotAllowedException
             or InvalidQuestionType
             or MatchingItemOperationNotAllowedException
             or OptionalItemOperationNotAllowedException
             or ShortAnswerQuestionWithoutItemException
-            or TrueFalseItemOperationNotAllowedException => HttpStatusCode.BadRequest,
+            or TrueFalseItemOperationNotAllowedException
+            or NotEnoughQuestionsException
+            or InvalidQuestionCount
+            or InvalidQuestionType
+            or InvalidScoreException=> HttpStatusCode.BadRequest,
         _ => HttpStatusCode.InternalServerError
     };
 

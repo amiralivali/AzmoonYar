@@ -51,7 +51,7 @@ public class QuestionRepository(AzmoonYarDbContext context)
             queryable = queryable.Where(x=>x.QuestionType == questionType);
         }
         var totalCount = await  queryable.CountAsync(cancellationToken);
-        var totalPages = (int)Math.Ceiling(totalCount / (double)pageNumber);
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         var questions = await queryable.Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync(cancellationToken);
         return new PagedResult<Question>(questions, pageNumber, pageSize, totalCount, totalPages);
     }

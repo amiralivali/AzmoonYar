@@ -7,4 +7,5 @@ public static class UserUriConstants
     public const string Add = $"{Controller}";
     public const string Update = $"{Controller}/{{Id:long}}";
     public const string GetById = $"{Controller}/{{Id:long}}";
+    public const string Login = $"{Controller}/login";
 }
