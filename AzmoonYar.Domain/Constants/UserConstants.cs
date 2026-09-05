@@ -6,6 +6,6 @@ public static class UserConstants
     public const int LastNameMaxLength = 50;
     public const int EmailMaxLength = 254;
     public const int PasswordMinLength = 8;
-    public const int PasswordMaxLength = 32;
+    public const int PasswordMaxLength = 255;
     public const int PhoneNumberMaxLength = 100;
 }

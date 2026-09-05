@@ -25,10 +25,18 @@ public class UserController(UserService service) : BaseController
         return dto.ToResponse();
     }
     
-    [HttpPost(UserUriConstants.Update)]
+    [HttpPut(UserUriConstants.Update)]
     public async Task<ApiResult<UserResponse>> Update(long id ,UpdateUserRequest request,CancellationToken cancellationToken)
     {
         var dto = await service.UpdateAsync(id,request.ToDto(), cancellationToken);
         return dto.ToResponse();
+    }
+
+    [HttpGet(UserUriConstants.Login)]
+    public async Task<ApiResult<UserResponse>> Login(string phoneNumber, string password,
+        CancellationToken cancellationToken)
+    {
+        var user = await service.LoginAsync(phoneNumber, password, cancellationToken);
+        return user.ToResponse();
     }
 }

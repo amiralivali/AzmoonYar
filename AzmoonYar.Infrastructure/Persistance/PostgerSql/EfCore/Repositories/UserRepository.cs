@@ -28,4 +28,9 @@ public class UserRepository(AzmoonYarDbContext context) : RepositoryBase<User>(c
         {
             return await Context.Users.Where(x=>x.Id != userId && x.Email == email).AnyAsync(cancellationToken);
         }    }
+
+    public async Task<User?> GetByPhoneNumberAsync(string mobileNumber, CancellationToken cancellationToken)
+    {
+        return await Context.Users.Where(x => x.PhoneNumber == mobileNumber).SingleOrDefaultAsync(cancellationToken);
+    }
 }
