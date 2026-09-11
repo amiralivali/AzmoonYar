@@ -1,10 +1,10 @@
 ﻿using AzmoonYar.Application.DTOs.ActivityLog;
-using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Logs.Formatters;
 using AzmoonYar.Application.Logs.Templates;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
+using AzmoonYar.Domain.ValueObject;
 
 namespace AzmoonYar.Application.Services;
 

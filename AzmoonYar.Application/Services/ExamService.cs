@@ -1,5 +1,4 @@
 ﻿using System.Xml;
-using AzmoonYar.Application.DTOs.Common;
 using AzmoonYar.Application.DTOs.Exam;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;

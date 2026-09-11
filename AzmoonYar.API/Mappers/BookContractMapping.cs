@@ -2,7 +2,7 @@
 using AzmoonYar.API.Contracts.Book;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
-using AzmoonYar.Application.DTOs.Common;
+using AzmoonYar.Domain.ValueObject;
 
 namespace AzmoonYar.API.Mappers;
 

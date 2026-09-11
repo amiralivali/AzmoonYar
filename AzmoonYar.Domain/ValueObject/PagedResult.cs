@@ -1,4 +1,4 @@
-﻿namespace AzmoonYar.Application.DTOs.Common;
+﻿namespace AzmoonYar.Domain.ValueObject;
 
 public record PagedResult<T>(IReadOnlyList<T> Items,
     int PageNumber,
