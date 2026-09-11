@@ -5,6 +5,7 @@ using AzmoonYar.Application.DTOs.Book;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.Book;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -16,11 +17,12 @@ public class BookService(IBookRepository repository,IFileStorageService fileStor
 {
     public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {
-        var books = await repository.GetAllAsync(request.SearchPhase,
+        var queryFilter = new BookQueryFilterSpec(request.SearchPhase,
             request.Grade,
             request.BookSource,
             request.PageNumber,
-            request.PageSize,cancellationToken);
+            request.PageSize);
+        var books = await repository.GetAllAsync(queryFilter,cancellationToken);
         return ToDto(books);
     }
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)

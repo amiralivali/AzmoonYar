@@ -5,6 +5,8 @@ namespace AzmoonYar.Application.DTOs.Question;
 public record UpdateQuestionDto(
     long LessonId,
     string QuestionText,
-    string? Picture,
+    Stream? CoverImageStream,
+    string? CoverImageFileName,
+    string? CoverImageContentType,
     QuestionType QuestionType,
     DifficultyLevel DifficultyLevel);

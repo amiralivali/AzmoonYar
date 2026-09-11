@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.Question;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -10,45 +12,40 @@ namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 public class QuestionRepository(AzmoonYarDbContext context)
     : RepositoryBase<Question>(context), IQuestionRepository
 {
-    public async Task<PagedResult<Question>> GetAllAsync(string? searchPhase,
-        long? bookId,
-        long? lessonId,
-        DifficultyLevel? difficultyLevel,
-        Grade? grade,
-        QuestionType? questionType,
-        int pageNumber,
-        int pageSize,
+    public async Task<PagedResult<Question>> GetAllAsync(QuestionQueryFilterSpec queryFilterSpec,
         CancellationToken cancellationToken = default)
     {
+        var pageNumber = queryFilterSpec.PageNumber;
+        var pageSize = queryFilterSpec.PageSize;
         var queryable = Context.Questions.Include(x=>x.Lesson).ThenInclude(x=>x!.Book).AsQueryable();
-        if (!string.IsNullOrEmpty(searchPhase))
+        if (!string.IsNullOrEmpty(queryFilterSpec.SearchPhase))
         {
-            queryable = queryable.Where(x=> x.QuestionText.Contains(searchPhase));
+            queryable = queryable.Where(x=> x.QuestionText.Contains(queryFilterSpec.SearchPhase));
         }
 
-        if (bookId is not null)
+        if (queryFilterSpec.BookId is not null)
         {
-            queryable = queryable.Where(x => x.Lesson!.BookId == bookId);
+            queryable = queryable.Where(x => x.Lesson!.BookId == queryFilterSpec.BookId);
         }
         
-        if (lessonId is not null)
+        if (queryFilterSpec.LessonId is not null)
         {
-            queryable = queryable.Where(x=>x.LessonId == lessonId);
+            queryable = queryable.Where(x=>x.LessonId == queryFilterSpec.LessonId);
         }
 
-        if (difficultyLevel is not null)
+        if (queryFilterSpec.DifficultyLevel is not null)
         {
-            queryable = queryable.Where(x=>x.DifficultyLevel == difficultyLevel);
+            queryable = queryable.Where(x=>x.DifficultyLevel == queryFilterSpec.DifficultyLevel);
         }
 
-        if (grade is not null)
+        if (queryFilterSpec.Grade is not null)
         {
-            queryable = queryable.Where(x => x.Lesson!.Book.Grade == grade);
+            queryable = queryable.Where(x => x.Lesson!.Book.Grade == queryFilterSpec.Grade);
         }
         
-        if (questionType is not null)
+        if (queryFilterSpec.QuestionType is not null)
         {
-            queryable = queryable.Where(x=>x.QuestionType == questionType);
+            queryable = queryable.Where(x=>x.QuestionType == queryFilterSpec.QuestionType);
         }
         var totalCount = await  queryable.CountAsync(cancellationToken);
         var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);

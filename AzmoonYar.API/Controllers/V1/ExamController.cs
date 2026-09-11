@@ -3,6 +3,7 @@ using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Exam;
 using AzmoonYar.API.Mappers;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Domain.ValueObject;
 using Microsoft.AspNetCore.Mvc;

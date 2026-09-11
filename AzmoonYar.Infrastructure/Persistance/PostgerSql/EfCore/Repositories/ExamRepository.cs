@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.Exam;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.ValueObject;
@@ -11,34 +13,36 @@ namespace AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 
 public class ExamRepository(AzmoonYarDbContext context) : RepositoryBase<Exam>(context) , IExamRepository
 {
-    public async Task<PagedResult<Exam>> GetAllAsync(string? searchPhrase, Grade? grade, long? bookId, ExamDifficultyLevel? examDifficultyLevel,
-        ExamType? examType, QuestionType? questionType, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<PagedResult<Exam>> GetAllAsync(ExamQueryFilterSpec queryFilterSpec,
+        CancellationToken cancellationToken)
     {
+        var pageNumber = queryFilterSpec.PageNumber;
+        var pageSize = queryFilterSpec.PageSize;
         var queryable = Context.Exams.Include(x=>x.Book).Include(x=>x.ExamHeader).AsQueryable();
-        if (!string.IsNullOrEmpty(searchPhrase))
+        if (!string.IsNullOrEmpty(queryFilterSpec.SearchPhrase))
         {
-            queryable = queryable.Where(x=> x.Book.BookName.ToLower().Contains(searchPhrase.ToLower())
-                                            || x.ExamHeader.ExamTitle.ToLower().Contains(searchPhrase.ToLower()));
+            queryable = queryable.Where(x=> x.Book.BookName.ToLower().Contains(queryFilterSpec.SearchPhrase.ToLower())
+                                            || x.ExamHeader.ExamTitle.ToLower().Contains(queryFilterSpec.SearchPhrase.ToLower()));
         }
 
-        if (bookId is not null)
+        if (queryFilterSpec.BookId is not null)
         {
-            queryable = queryable.Where(x => x.BookId == bookId);
+            queryable = queryable.Where(x => x.BookId == queryFilterSpec.BookId);
         }
         
-        if (examDifficultyLevel is not null)
+        if (queryFilterSpec.ExamDifficultyLevel is not null)
         {
-            queryable = queryable.Where(x=>x.DifficultyLevel == examDifficultyLevel);
+            queryable = queryable.Where(x=>x.DifficultyLevel == queryFilterSpec.ExamDifficultyLevel);
         }
 
-        if (grade is not null)
+        if (queryFilterSpec.Grade is not null)
         {
-            queryable = queryable.Where(x => x.Book.Grade == grade);
+            queryable = queryable.Where(x => x.Book.Grade == queryFilterSpec.Grade);
         }
         
-        if (examType is not null)
+        if (queryFilterSpec.ExamType is not null)
         {
-            queryable = queryable.Where(x => x.ExamType == examType);
+            queryable = queryable.Where(x => x.ExamType == queryFilterSpec.ExamType);
         }
         
         /*if (questionType is not null)

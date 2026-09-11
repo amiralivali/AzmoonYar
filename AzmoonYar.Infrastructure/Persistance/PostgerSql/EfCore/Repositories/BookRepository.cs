@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.Book;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
@@ -15,26 +17,25 @@ public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(c
     public override async Task<IReadOnlyList<Book>> GetAllAsync(CancellationToken cancellationToken = default)
         => await Context.Books.Include(x => x.Lessons).AsNoTracking().ToListAsync(cancellationToken);
 
-    public async Task<PagedResult<Book>> GetAllAsync(string? searchPhase,
-        Grade? grade, 
-        BookSource? bookSource,
-        int pageNumber, int pageSize,
+    public async Task<PagedResult<Book>> GetAllAsync(BookQueryFilterSpec queryFilterSpec,
         CancellationToken cancellationToken)
     {
+        var pageNumber = queryFilterSpec.PageNumber;
+        var pageSize = queryFilterSpec.PageSize;
         var queryable = Context.Books.Include(x => x.Lessons).AsQueryable();
-        if (!string.IsNullOrEmpty(searchPhase))
+        if (!string.IsNullOrEmpty(queryFilterSpec.SearchPhase))
         {
-            queryable = queryable.Where(x=> x.BookName.Contains(searchPhase));
+            queryable = queryable.Where(x=> x.BookName.Contains(queryFilterSpec.SearchPhase));
         }
 
-        if (grade is not null)
+        if (queryFilterSpec.Grade is not null)
         {
-            queryable = queryable.Where(x => x.Grade == grade);
+            queryable = queryable.Where(x => x.Grade == queryFilterSpec.Grade);
         }
         
-        if (bookSource is not null)
+        if (queryFilterSpec.BookSource is not null)
         {
-            queryable = queryable.Where(x => x.BookSource == bookSource);
+            queryable = queryable.Where(x => x.BookSource == queryFilterSpec.BookSource);
         }
         
         var totalCount = await  queryable.CountAsync(cancellationToken);

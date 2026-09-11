@@ -1,5 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.ActivityLog;
 using AzmoonYar.API.Contracts.Book;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
 using AzmoonYar.Domain.ValueObject;

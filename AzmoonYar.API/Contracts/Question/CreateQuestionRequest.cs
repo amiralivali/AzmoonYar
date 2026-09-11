@@ -5,6 +5,6 @@ namespace AzmoonYar.API.Contracts.Question;
 public record CreateQuestionRequest(
     long LessonId,
     string QuestionText,
-    string? Picture,
+    IFormFile? Picture,
     DifficultyLevel DifficultyLevel,
     QuestionType QuestionType);

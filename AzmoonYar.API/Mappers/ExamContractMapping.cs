@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.API.Contracts.Exam;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Exam;
 using AzmoonYar.Domain.ValueObject;
 

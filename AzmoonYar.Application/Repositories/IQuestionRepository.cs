@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Domain.Entities;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Specification.Question;
+using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.ValueObject;
 
@@ -6,10 +8,7 @@ namespace AzmoonYar.Application.Repositories;
 
 public interface IQuestionRepository : IRepository<Question>
 {
-    Task<PagedResult<Question>> GetAllAsync(string? searchPhase, long? bookId,
-        long? lessonId, DifficultyLevel? difficultyLevel,
-        Grade? grade, QuestionType? questionType,
-        int pageNumber, int pageSize,
+    Task<PagedResult<Question>> GetAllAsync(QuestionQueryFilterSpec  queryFilterSpec,
         CancellationToken cancellationToken);
 
     // Task<IReadOnlyList<Question>> GetAllByQuestionTypeAsync(QuestionType questionType,

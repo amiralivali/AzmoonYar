@@ -4,6 +4,7 @@ using AzmoonYar.API.Contracts.MatchingItem;
 using AzmoonYar.API.Contracts.OptionalItem;
 using AzmoonYar.API.Contracts.Question;
 using AzmoonYar.API.Contracts.TrueFalseItem;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Dashboard;
 using AzmoonYar.Application.DTOs.FillInBlankItem;
 using AzmoonYar.Application.DTOs.MatchingItem;
@@ -95,7 +96,9 @@ public static class QuestionContractMapping
     {
         return new CreateQuestionDto(request.LessonId,
             request.QuestionText,
-            request.Picture,
+            request.Picture?.OpenReadStream(),
+            request.Picture?.FileName,
+            request.Picture?.ContentType,
             request.QuestionType,
             request.DifficultyLevel);
     }
@@ -104,7 +107,9 @@ public static class QuestionContractMapping
     {
         return new UpdateQuestionDto(request.LessonId,
             request.QuestionText,
-            request.Picture,
+            request.Picture?.OpenReadStream(),
+            request.Picture?.FileName,
+            request.Picture?.ContentType,
             request.QuestionType,
             request.DifficultyLevel);
     }

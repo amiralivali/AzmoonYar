@@ -8,19 +8,27 @@ using AzmoonYar.Application.DTOs.TrueFalseItem;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.Question;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
-using AzmoonYar.Domain.ValueObject;
 
 namespace AzmoonYar.Application.Services;
 
-public class QuestionService(IQuestionRepository repository,ActivityLogService  logService)
+public class QuestionService(IQuestionRepository repository,IFileStorageService fileStorageService,ActivityLogService  logService)
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {
         var question = new Question(dto.LessonId, dto.QuestionText, dto.DifficultyLevel, dto.QuestionType);
-        question.ChangePicture(dto.Picture);
+        if (dto.CoverImageStream is not null)
+        {
+            var imageKey = await fileStorageService.UploadAsync(
+                dto.CoverImageStream,
+                dto.CoverImageFileName ?? "cover.jpg",
+                dto.CoverImageContentType ?? "application/octet-stream",
+                cancellationToken);
+            question.ChangePicture(imageKey);
+        }
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), 1);
@@ -31,7 +39,15 @@ public class QuestionService(IQuestionRepository repository,ActivityLogService  
         var question =  await repository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(Question), id);
         question.UpdateQuestion(dto.LessonId,dto.QuestionText,dto.DifficultyLevel,dto.QuestionType);
-        question.ChangePicture(dto.Picture);
+        if (dto.CoverImageStream is not null)
+        {
+            var imageKey = await fileStorageService.UploadAsync(
+                dto.CoverImageStream,
+                dto.CoverImageFileName ?? "cover.jpg",
+                dto.CoverImageContentType ?? "application/octet-stream",
+                cancellationToken);
+            question.ChangePicture(imageKey);
+        }
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
         await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), 1);
@@ -49,10 +65,15 @@ public class QuestionService(IQuestionRepository repository,ActivityLogService  
         GetQuestionDto request,
         CancellationToken cancellationToken = default)
     {
-        var result = await repository.GetAllAsync(request.SearchPhase,request.BookId,
-            request.LessonId,request.DifficultyLevel,
-            request.Grade,request.QuestionType,
-            request.PageNumber,request.PageSize
+        var queryFilter = new QuestionQueryFilterSpec(request.SearchPhase,
+            request.BookId,
+            request.LessonId,
+            request.DifficultyLevel,
+            request.Grade,
+            request.QuestionType,
+            request.PageNumber,
+            request.PageSize);
+        var result = await repository.GetAllAsync(queryFilter
                 ,cancellationToken);
         return ToDto(result);
     }
@@ -61,6 +82,10 @@ public class QuestionService(IQuestionRepository repository,ActivityLogService  
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
             ?? throw new EntityNotFoundException(nameof(Question), id);
+        if (!string.IsNullOrEmpty(question.Picture))
+        {
+            await fileStorageService.DeleteAsync(question.Picture, cancellationToken);
+        }
         repository.Delete(question);
         await repository.SaveChangesAsync(cancellationToken);
         await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), 1);

@@ -1,4 +1,6 @@
-﻿using AzmoonYar.Application.Repositories;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.ActivityLog;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.ValueObject;
@@ -10,28 +12,26 @@ public class ActivityLogRepository(MongoContext context) : IActivityLogRepositor
 {
     private IMongoCollection<ActivityLog> Collection => context.ActivityLogs;
 
-    public async Task<PagedResult<ActivityLog>> GetAllAsync(
-        string? searchPhrase,
-        EntityType? entityType,
-        int pageNumber,
-        int pageSize,
+    public async Task<PagedResult<ActivityLog>> GetAllAsync(ActivityLogQueryFilterSpec queryFilterSpec,
         CancellationToken cancellationToken = default)
     {
+        var pageNumber = queryFilterSpec.PageNumber;
+        var pageSize = queryFilterSpec.PageSize;
         var filterBuilder = Builders<ActivityLog>.Filter;
         var filters = new List<FilterDefinition<ActivityLog>>();
 
-        if (!string.IsNullOrWhiteSpace(searchPhrase))
+        if (!string.IsNullOrWhiteSpace(queryFilterSpec.SearchPhase))
         {
             filters.Add(
                 filterBuilder.Regex(
                     x => x.Message,
-                    new MongoDB.Bson.BsonRegularExpression(searchPhrase, "i")));
+                    new MongoDB.Bson.BsonRegularExpression(queryFilterSpec.SearchPhase, "i")));
         }
 
-        if (entityType.HasValue)
+        if (queryFilterSpec.EntityType.HasValue)
         {
             filters.Add(
-            filterBuilder.Eq( x => x.EntityType, entityType));
+            filterBuilder.Eq( x => x.EntityType, queryFilterSpec.EntityType));
         }
 
         var filter = filters.Count > 0

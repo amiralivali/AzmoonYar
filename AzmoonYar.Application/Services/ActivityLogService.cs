@@ -1,8 +1,10 @@
-﻿using AzmoonYar.Application.DTOs.ActivityLog;
+﻿using AzmoonYar.Application.Common;
+using AzmoonYar.Application.DTOs.ActivityLog;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Logs.Formatters;
 using AzmoonYar.Application.Logs.Templates;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Specification.ActivityLog;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.ValueObject;
 
@@ -12,8 +14,11 @@ public class ActivityLogService(IActivityLogRepository repository)
 {
     public async Task<PagedResult<ActivityLogDto>> GetAllAsync(GetActivityLogDto request,CancellationToken cancellationToken = default)
     {
-        var result = await repository.GetAllAsync(request.SearchPhase, request.EntityType,
-            request.PageNumber, request.PageSize, cancellationToken);
+        var queryFilter = new ActivityLogQueryFilterSpec(request.SearchPhase,
+            request.EntityType,
+            request.PageNumber,
+            request.PageSize);
+        var result = await repository.GetAllAsync(queryFilter, cancellationToken);
         return ToDto(result);
     }
 
