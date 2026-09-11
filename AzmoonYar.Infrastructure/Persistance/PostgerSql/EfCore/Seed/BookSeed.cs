@@ -23,7 +23,7 @@ public class BookSeed
                 BookName = "ریاضی اول ابتدایی",
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/first-grade-math.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-math.jpg",
                 CreatedAt
             },
 
@@ -33,7 +33,7 @@ public class BookSeed
                 BookName = "علوم تجربی اول ابتدایی",
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/first-grade-science.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-science.jpg",
                 CreatedAt
             },
 
@@ -43,7 +43,7 @@ public class BookSeed
                 BookName = "فارسی اول ابتدایی",
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/first-grade-persian.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-persian.jpg",
                 CreatedAt
             },
 
@@ -53,7 +53,7 @@ public class BookSeed
                 BookName = "نگارش فارسی اول ابتدایی",
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/first-grade-persian-writing.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-persian-writing.jpg",
                 CreatedAt
             },
 
@@ -63,7 +63,7 @@ public class BookSeed
                 BookName = "آموزش قرآن اول ابتدایی",
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/first-grade-quran.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-quran.jpg",
                 CreatedAt
             },
 
@@ -77,7 +77,7 @@ public class BookSeed
                 BookName = "ریاضی دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-math.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-math.jpg",
                 CreatedAt
             },
 
@@ -87,7 +87,7 @@ public class BookSeed
                 BookName = "علوم تجربی دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-science.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-science.jpg",
                 CreatedAt
             },
 
@@ -97,7 +97,7 @@ public class BookSeed
                 BookName = "فارسی دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-persian.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-persian.jpg",
                 CreatedAt
             },
 
@@ -107,7 +107,7 @@ public class BookSeed
                 BookName = "نگارش فارسی دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-persian-writing.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-persian-writing.jpg",
                 CreatedAt
             },
 
@@ -117,7 +117,7 @@ public class BookSeed
                 BookName = "آموزش قرآن دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-quran.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-quran.jpg",
                 CreatedAt
             },
 
@@ -127,7 +127,7 @@ public class BookSeed
                 BookName = "هدیه‌های آسمان دوم ابتدایی",
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/second-grade-heavenly-gifts.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-heavenly-gifts.jpg",
                 CreatedAt
             },
             
@@ -141,7 +141,7 @@ public class BookSeed
                 BookName = "ریاضی سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-math.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-math.jpg",
                 CreatedAt
             },
 
@@ -151,7 +151,7 @@ public class BookSeed
                 BookName = "علوم تجربی سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-science.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-science.jpg",
                 CreatedAt
             },
 
@@ -161,7 +161,7 @@ public class BookSeed
                 BookName = "فارسی سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-persian.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-persian.jpg",
                 CreatedAt
             },
 
@@ -171,7 +171,7 @@ public class BookSeed
                 BookName = "نگارش فارسی سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-persian-writing.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-persian-writing.jpg",
                 CreatedAt
             },
 
@@ -181,7 +181,7 @@ public class BookSeed
                 BookName = "هدیه‌های آسمان سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-heavenly-gifts.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-heavenly-gifts.jpg",
                 CreatedAt
             },
 
@@ -191,7 +191,7 @@ public class BookSeed
                 BookName = "مطالعات اجتماعی سوم ابتدایی",
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
-                Picture = "/Uploads/Books/third-grade-social-studies.jpg",
+                Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-social-studies.jpg",
                 CreatedAt
             }
         );

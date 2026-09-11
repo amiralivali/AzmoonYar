@@ -52,7 +52,7 @@ public class BookController(BookService service) : BaseController
     }
     
     [HttpPost(BookUriConstants.Add)]
-    public async Task<ApiResult<BookResponse>> Add(CreateBookRequest request, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookResponse>> Add([FromForm]CreateBookRequest request, CancellationToken cancellationToken)
     {
         var book = await service.AddAsync(request.ToDto(),cancellationToken);
         var response = book.ToResponse();
@@ -60,7 +60,7 @@ public class BookController(BookService service) : BaseController
     }
 
     [HttpPut(BookUriConstants.Update)]
-    public async Task<ApiResult<BookResponse>> Update(long id,UpdateBookRequest request, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookResponse>> Update(long id,[FromForm]UpdateBookRequest request, CancellationToken cancellationToken)
     {
         var book = await service.UpdateAsync(id,request.ToDto(),cancellationToken);
         return book.ToResponse();

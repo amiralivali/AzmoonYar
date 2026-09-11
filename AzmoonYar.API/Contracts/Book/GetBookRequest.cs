@@ -1,6 +1,6 @@
 ﻿using AzmoonYar.Domain.Enums;
 
-namespace AzmoonYar.API.Contracts.ActivityLog;
+namespace AzmoonYar.API.Contracts.Book;
 
 public record GetBookRequest(
     string? SearchPhase,

@@ -561,3 +561,7 @@ C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\runtimes\w
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\runtimes\win-x86\native\qpdf.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BCrypt-Net-Next.dll
 C:\Users\Amir\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.staticwebassets.runtime.json
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AzmoonYar.API.staticwebassets.runtime.json
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AWSSDK.Core.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\AWSSDK.S3.dll
+C:\Users\USer\RiderProjects\AzmoonYar\AzmoonYar.API\bin\Debug\net10.0\BCrypt-Net-Next.dll

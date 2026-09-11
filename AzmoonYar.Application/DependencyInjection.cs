@@ -21,7 +21,6 @@ public static class DependencyInjection
         builder.AddScoped<TrueFalseItemService>();
         builder.AddScoped<MatchingItemService>();
         builder.AddScoped<OptionalItemService>();
-        builder.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
         builder.AddScoped<DashboardCache>();
     }
 }

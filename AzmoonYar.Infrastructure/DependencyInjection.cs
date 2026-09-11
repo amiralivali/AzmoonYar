@@ -1,11 +1,14 @@
-﻿using AzmoonYar.Application.Interfaces;
+﻿using Amazon.S3;
+using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Infrastructure.Caching.Redis;
+using AzmoonYar.Infrastructure.Hashing;
 using AzmoonYar.Infrastructure.Persistance.Mongo;
 using AzmoonYar.Infrastructure.Persistance.Mongo.Repositories;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore;
 using AzmoonYar.Infrastructure.Persistance.PostgerSql.EfCore.Repositories;
 using AzmoonYar.Infrastructure.Storage;
+using AzmoonYar.Infrastructure.Storage.Arvan;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +26,23 @@ public static class DependencyInjection
             builder.AddScoped<IQuestionRepository, QuestionRepository>();
             builder.AddScoped<IUserRepository, UserRepository>();
             builder.AddScoped<IExamRepository, ExamRepository>();
-            builder.AddScoped<IFileStorage, LocalFileStorage>();
+            builder.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
+            builder.Configure<ArvanStorageOptions>(configuration.GetSection(ArvanStorageOptions.SectionName));
+            builder.AddSingleton<IAmazonS3>(sp =>
+            {
+                var opt = configuration.GetSection(ArvanStorageOptions.SectionName).Get<ArvanStorageOptions>()!;
+
+                var config = new AmazonS3Config
+                {
+                    ServiceURL = opt.ServiceUrl,
+                    ForcePathStyle = true,
+                    AuthenticationRegion = opt.AuthenticationRegion
+                };
+
+                return new AmazonS3Client(opt.AccessKey, opt.SecretKey, config);
+            });
+
+            builder.AddScoped<IFileStorageService, S3FileStorageServiceService>();
             builder.AddMongo(configuration);
             builder.AddRedis(configuration);
         }

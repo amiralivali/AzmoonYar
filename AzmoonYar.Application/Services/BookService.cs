@@ -2,6 +2,7 @@
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs;
 using AzmoonYar.Application.DTOs.Book;
+using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -11,7 +12,7 @@ using AzmoonYar.Domain.ValueObject;
 
 namespace AzmoonYar.Application.Services;
 
-public class BookService(IBookRepository repository, ActivityLogService logService) 
+public class BookService(IBookRepository repository,IFileStorageService fileStorageService, ActivityLogService logService) 
 {
     public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {
@@ -25,9 +26,14 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
         var book = new Book(dto.BookName, dto.Grade,BookSource.User);
-        if (string.IsNullOrEmpty(dto.Picture))
+        if (dto.CoverImageStream is not null)
         {
-            book.ChangePicture(dto.Picture);
+            var imageKey = await fileStorageService.UploadAsync(
+                dto.CoverImageStream,
+                dto.CoverImageFileName ?? "cover.jpg",
+                dto.CoverImageContentType ?? "application/octet-stream",
+                cancellationToken);
+            book.ChangePicture(imageKey);
         }
         foreach (var lesson in dto.CreateLessonDtos)
         {
@@ -51,6 +57,10 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
     {
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
+        if (!string.IsNullOrEmpty(book.Picture))
+        {
+            await fileStorageService.DeleteAsync(book.Picture, cancellationToken);
+        }
         repository.Delete(book);
         await repository.SaveChangesAsync(cancellationToken);
         await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),1);
@@ -61,10 +71,15 @@ public class BookService(IBookRepository repository, ActivityLogService logServi
         var book = await repository.GetByIdAsync(id, cancellationToken)
                    ?? throw new EntityNotFoundException(nameof(Book), id);
         book.UpdateBook(dto.BookName, dto.Grade,BookSource.User);
-         if (string.IsNullOrEmpty(dto.Picture))
-         {
-             book.ChangePicture(dto.Picture); 
-         }
+        if (dto.CoverImageStream is not null)
+        {
+            var imageKey = await fileStorageService.UploadAsync(
+                dto.CoverImageStream,
+                dto.CoverImageFileName ?? "cover.jpg",
+                dto.CoverImageContentType ?? "application/octet-stream",
+                cancellationToken);
+            book.ChangePicture(imageKey);
+        }
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
             book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);

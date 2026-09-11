@@ -1,6 +1,6 @@
 ﻿using AzmoonYar.Application.Interfaces;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Infrastructure.Hashing;
 
 public class BCryptPasswordHasher : IPasswordHasher
 {

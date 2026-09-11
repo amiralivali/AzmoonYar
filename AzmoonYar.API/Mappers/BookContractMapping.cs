@@ -10,13 +10,23 @@ public static class BookContractMapping
 {
     public static CreateBookDto ToDto(this CreateBookRequest request)
     {
-        return new CreateBookDto(request.BookName,request.Grade,request.Picture,request.LessonRequests.Select(x=>new 
-            CreateLessonDto(x.Title)).ToList());
+        return new CreateBookDto(
+            request.BookName,
+            request.Grade,
+            request.Picture?.OpenReadStream(),
+            request.Picture?.FileName,
+            request.Picture?.ContentType,
+            request.LessonRequests.Select(x => new CreateLessonDto(x.Title)).ToList());
     }
     public static UpdateBookDto ToDto(this UpdateBookRequest request)
     {
-        return new UpdateBookDto(request.BookName,request.Grade,request.Picture,request.UpdateLessonRequests.Select(x=>new 
-            UpdateLessonDto(x.Id,x.Title)).ToList());
+        return new UpdateBookDto(
+            request.BookName,
+            request.Grade,
+            request.Picture?.OpenReadStream(),
+            request.Picture?.FileName,
+            request.Picture?.ContentType,
+            request.UpdateLessonRequests.Select(x => new UpdateLessonDto(x.Id,x.Title)).ToList());
     }
     public static BookResponse ToResponse(this BookDto dto)
     {
