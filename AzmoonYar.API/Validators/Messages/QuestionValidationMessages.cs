@@ -12,8 +12,8 @@ public static class QuestionValidationMessages
     public const string QuestionTypeRequired = "نوع سوال الزامی است";
 
     public const string DifficultyLevelRequired = "سطح سوال الزامی است";
-    
-    private const string PictureMaxLengthInvalidTemplate = "رشته عکس نمیتواند بیشتر از {0} کاراکتر باشد";
-    public static string PictureMaxLengthInvalid => 
-        string.Format(PictureMaxLengthInvalidTemplate, BaseQuestionConstants.PictureMaxLenght);
+
+    public const string MaxPictureSize = "حجم عکس نباید بیشتر از ۲ مگابایت باشد.";
+
+    public const string AllowedPictureExtensions = "فقط فایل‌های JPG، PNG یا WebP مجاز هستند.";
 }

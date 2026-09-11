@@ -15,9 +15,16 @@ public class CreateQuestionValidator : AbstractValidator<CreateQuestionRequest>
             .MaximumLength(BaseQuestionConstants.QuestionTextMaxLength)
             .WithMessage(QuestionValidationMessages.QuestionTextMaxLengthInvalid);
         
-        RuleFor(x => x.Picture)
-            .MaximumLength(BaseQuestionConstants.PictureMaxLenght)
-            .WithMessage(QuestionValidationMessages.PictureMaxLengthInvalid);
+        When(x => x.Picture is not null, () =>
+        {
+            RuleFor(x => x.Picture!.Length)
+                .LessThanOrEqualTo(BaseQuestionConstants.MaxPictureFileSizeInBytes)
+                .WithMessage(QuestionValidationMessages.MaxPictureSize);
+
+            RuleFor(x => x.Picture!.FileName)
+                .Must(fileName => BaseQuestionConstants.AllowedPictureExtensions.Contains(Path.GetExtension(fileName).ToLowerInvariant()))
+                .WithMessage(QuestionValidationMessages.AllowedPictureExtensions);
+        });
         
         RuleFor(x => x.DifficultyLevel)
             .NotEmpty()

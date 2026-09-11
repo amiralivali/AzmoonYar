@@ -19,6 +19,17 @@ public class UpdateBookValidator : AbstractValidator<UpdateBookRequest>
             .NotEmpty()
             .WithMessage(BookValidationMessages.GradeRequired);
         
+        When(x => x.Picture is not null, () =>
+        {
+            RuleFor(x => x.Picture!.Length)
+                .LessThanOrEqualTo(BookConstants.MaxPictureFileSizeInBytes)
+                .WithMessage(BookValidationMessages.MaxPictureSize);
+
+            RuleFor(x => x.Picture!.FileName)
+                .Must(fileName => BookConstants.AllowedPictureExtensions.Contains(Path.GetExtension(fileName).ToLowerInvariant()))
+                .WithMessage(BookValidationMessages.AllowedPictureExtensions);
+        });
+        
         RuleForEach(x => x.UpdateLessonRequests)
             .SetValidator(new UpdateLessonValidator());
     }

@@ -12,4 +12,7 @@ public static class BookValidationMessages
     
     public const string GradeRequired = "مقطع تحصیلی الزامی است";
     
+    public const string MaxPictureSize = "حجم عکس نباید بیشتر از ۲ مگابایت باشد.";
+
+    public const string AllowedPictureExtensions = "فقط فایل‌های JPG، PNG یا WebP مجاز هستند.";
 }
