@@ -8,14 +8,17 @@ using AzmoonYar.Application.DTOs.TrueFalseItem;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.Question;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class QuestionService(IQuestionRepository repository,IFileStorageService fileStorageService,ActivityLogService  logService)
+public class QuestionService(IQuestionRepository repository,
+    IFileStorageService fileStorageService,
+    ActivityLogService logService) : IQuestionService
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {

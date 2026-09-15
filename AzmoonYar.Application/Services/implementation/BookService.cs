@@ -1,19 +1,19 @@
-﻿using System.Data;
-using AzmoonYar.Application.Common;
-using AzmoonYar.Application.DTOs;
+﻿using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Book;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.Book;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
-using AzmoonYar.Domain.ValueObject;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class BookService(IBookRepository repository,IFileStorageService fileStorageService, ActivityLogService logService) 
+public class BookService(IBookRepository repository,
+    IFileStorageService fileStorageService,
+    ActivityLogService logService) : IBookService
 {
     public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {

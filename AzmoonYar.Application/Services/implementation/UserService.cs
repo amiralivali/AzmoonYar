@@ -1,14 +1,14 @@
-﻿using AzmoonYar.Application.DTOs;
-using AzmoonYar.Application.DTOs.User;
+﻿using AzmoonYar.Application.DTOs.User;
 using AzmoonYar.Application.Exceptions;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class UserService(IUserRepository repository,IPasswordHasher passwordHasher)
+public class UserService(IUserRepository repository,IPasswordHasher passwordHasher) : IUserService
 {
     public async Task<UserDto> GetByIdAsync(long userId, CancellationToken cancellationToken)
     {

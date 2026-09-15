@@ -1,13 +1,12 @@
-﻿using AzmoonYar.Application.DTOs;
-using AzmoonYar.Application.DTOs.ExceptionLog;
+﻿using AzmoonYar.Application.DTOs.ExceptionLog;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
+namespace AzmoonYar.Application.Services.implementation;
 
-namespace AzmoonYar.Application.Services;
-
-public class ExceptionLogService(IExceptionLogRepository repository)
+public class ExceptionLogService(IExceptionLogRepository repository) : IExceptionLogService
 {
     public async Task<IReadOnlyList<ExceptionLogDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {

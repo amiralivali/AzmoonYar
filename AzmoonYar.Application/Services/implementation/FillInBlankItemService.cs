@@ -1,12 +1,12 @@
 ﻿using AzmoonYar.Application.DTOs.FillInBlankItem;
-using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class FillInBlankItemService(IQuestionRepository repository)
+public class FillInBlankItemService(IQuestionRepository repository) : IFillInBlankItemService
 {
     public async Task<List<FillInBlankItemDto>> AddFillInBlankItemsAsync(long id,
         List<CreateFillInBlankItemDto> items,

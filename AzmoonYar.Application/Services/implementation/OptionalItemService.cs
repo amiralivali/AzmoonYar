@@ -1,12 +1,12 @@
 ﻿using AzmoonYar.Application.DTOs.OptionalItem;
-using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class OptionalItemService(IQuestionRepository repository)
+public class OptionalItemService(IQuestionRepository repository) : IOptionalItemService
 {
     public async Task<OptionalItemDto> UpdateOptionalItemAsync(long id,
         UpdateOptionalItemDto dto,

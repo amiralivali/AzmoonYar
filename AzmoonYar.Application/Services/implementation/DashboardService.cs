@@ -2,16 +2,17 @@
 using AzmoonYar.Application.DTOs.ActivityLog;
 using AzmoonYar.Application.DTOs.Dashboard;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
 public class DashboardService(IBookRepository bookRepository,
     IQuestionRepository questionRepository,
     IExamRepository  examRepository,
     IActivityLogRepository activityLogRepository,
-    DashboardCache dashboardCache)
+    DashboardCache dashboardCache) : IDashboardService
 {
     public Task<SummaryDto> GetSummaryAsync(
         CancellationToken cancellationToken = default)

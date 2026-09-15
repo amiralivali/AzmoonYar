@@ -4,15 +4,16 @@ using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Logs.Formatters;
 using AzmoonYar.Application.Logs.Templates;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.ActivityLog;
 using AzmoonYar.Domain.Entities;
-using AzmoonYar.Domain.ValueObject;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class ActivityLogService(IActivityLogRepository repository)
+public class ActivityLogService(IActivityLogRepository repository) : IActivityLogService
 {
-    public async Task<PagedResult<ActivityLogDto>> GetAllAsync(GetActivityLogDto request,CancellationToken cancellationToken = default)
+    public async Task<PagedResult<ActivityLogDto>> GetAllAsync(GetActivityLogDto request
+        ,CancellationToken cancellationToken = default)
     {
         var queryFilter = new ActivityLogQueryFilterSpec(request.SearchPhase,
             request.EntityType,

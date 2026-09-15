@@ -1,12 +1,12 @@
 ﻿using AzmoonYar.Application.DTOs.MatchingItem;
-using AzmoonYar.Application.DTOs.Question;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class MatchingItemService(IQuestionRepository repository)
+public class MatchingItemService(IQuestionRepository repository) : IMatchingItemService
 {
     public async Task<List<MatchingItemDto>> AddMatchingItemsAsync(long id,
         List<CreateMatchingItemDto> items,

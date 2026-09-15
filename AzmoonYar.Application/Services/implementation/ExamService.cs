@@ -1,15 +1,13 @@
-﻿using System.Xml;
-using AzmoonYar.Application.Common;
+﻿using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Exam;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.Exam;
 using AzmoonYar.Domain.Entities;
-using AzmoonYar.Domain.Exceptions;
-using AzmoonYar.Domain.ValueObject;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class ExamService(IExamRepository examRepository, IBookRepository bookRepository)
+public class ExamService(IExamRepository examRepository, IBookRepository bookRepository) : IExamService
 {
     public async Task<PagedResult<ExamDto>> GetAllAsync(GetExamDto request, CancellationToken cancellationToken)
     {

@@ -1,12 +1,12 @@
-﻿using AzmoonYar.Application.DTOs.Question;
-using AzmoonYar.Application.DTOs.TrueFalseItem;
+﻿using AzmoonYar.Application.DTOs.TrueFalseItem;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services;
+namespace AzmoonYar.Application.Services.implementation;
 
-public class TrueFalseItemService(IQuestionRepository repository)
+public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseItemService
 {
     public async Task<List<TrueFalseItemDto>> AddTrueFalseItemsAsync(long id,
         List<CreateTrueFalseItemDto> items,

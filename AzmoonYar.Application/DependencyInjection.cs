@@ -2,6 +2,7 @@
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services;
+using AzmoonYar.Application.Services.implementation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzmoonYar.Application;
