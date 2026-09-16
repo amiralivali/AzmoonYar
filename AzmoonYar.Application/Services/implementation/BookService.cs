@@ -44,7 +44,7 @@ public class BookService(IBookRepository repository,
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         //fix id
-        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1);
+        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
         return ToDto(book);
     }
 
@@ -65,7 +65,7 @@ public class BookService(IBookRepository repository,
         }
         repository.Delete(book);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),1);
+        await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
     }
 
     public async Task<BookDto> UpdateAsync(long id, UpdateBookDto dto, CancellationToken cancellationToken = default)
@@ -88,7 +88,7 @@ public class BookService(IBookRepository repository,
         }
         repository.Update(book);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new BookUpdatedLogData(book.BookName,book.Grade.ToPersian()),1);
+        await logService.AddAsync(new BookUpdatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
         return ToDto(book);
     }
     

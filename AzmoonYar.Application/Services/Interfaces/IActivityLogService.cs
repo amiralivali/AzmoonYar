@@ -7,5 +7,5 @@ namespace AzmoonYar.Application.Services.Interfaces;
 public interface IActivityLogService
 {
     Task<PagedResult<ActivityLogDto>> GetAllAsync(GetActivityLogDto request, CancellationToken cancellationToken = default);
-    Task AddAsync(ILogData logData, long userId);
+    Task AddAsync(ILogData logData, long userId,CancellationToken cancellationToken = default);
 }

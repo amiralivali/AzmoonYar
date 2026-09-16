@@ -15,4 +15,9 @@ public class DashboardCache(ICacheService service)
             factory,
             CachedExpiration,
             cancellationToken);
+
+    public async Task InvalidateAsync(CancellationToken cancellationToken)
+    {
+        await service.RemoveAsync(DashboardCacheKeyConstants.GetSummaryCacheKey, cancellationToken);
+    }
 }

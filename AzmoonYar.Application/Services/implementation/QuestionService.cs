@@ -34,7 +34,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), 1);
+        await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
         return ToDto(question);
     }
     public async Task<QuestionDto> UpdateQuestionAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
@@ -53,7 +53,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), 1);
+        await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
         return ToDto(question);
     }
 
@@ -91,7 +91,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         repository.Delete(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), 1);
+        await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
     }
 
     public async Task ChangePicture(long id, string picture, CancellationToken cancellationToken = default)

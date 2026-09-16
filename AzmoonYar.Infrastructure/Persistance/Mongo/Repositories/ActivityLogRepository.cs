@@ -61,11 +61,14 @@ public class ActivityLogRepository(MongoContext context) : IActivityLogRepositor
 
     public async Task<List<ActivityLog>> GetRecent(
         CancellationToken cancellationToken = default)
-        => await Collection
+    {
+         return await Collection
             .Find(_ => true)
             .SortByDescending(x => x.CreatedAt)
             .Limit(5)
             .ToListAsync(cancellationToken);
+
+    }
 
     public async Task<ActivityLog> GetByIdAsync(
         string id,
