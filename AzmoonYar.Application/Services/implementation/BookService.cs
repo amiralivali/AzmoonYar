@@ -44,7 +44,7 @@ public class BookService(IBookRepository repository,
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         //fix id
-        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
+        //await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
         return ToDto(book);
     }
 
