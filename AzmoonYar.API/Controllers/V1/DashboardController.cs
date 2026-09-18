@@ -5,12 +5,13 @@ using AzmoonYar.API.Contracts.Dashboard;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class DashboardController(DashboardService service) : BaseController
+public class DashboardController(IDashboardService service) : BaseController
 {
     [HttpGet(DashboardUriConstants.GetSummary)]
     public async Task<ApiResult<SummaryResponse>> GetSummary(CancellationToken cancellationToken)

@@ -6,12 +6,13 @@ using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.ValueObject;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 [ApiVersion(1.0)]
-public class ExamController(ExamService service) : BaseController
+public class ExamController(IExamService service) : BaseController
 {
     [HttpGet(ExamUriConstants.GetAll)]
     public async Task<ApiResult<PagedResult<ExamResponse>>> GetAll([FromQuery]GetExamRequest filter, CancellationToken cancellationToken)

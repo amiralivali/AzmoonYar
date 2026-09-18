@@ -5,12 +5,13 @@ using AzmoonYar.API.Contracts.MatchingItem;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class MatchingItemController(MatchingItemService service) : BaseController
+public class MatchingItemController(IMatchingItemService service) : BaseController
 {
     [HttpPost(MatchingItemsUriConstants.AddItem)]
     public async Task<ApiResult<List<MatchingItemResponse>>> AddMatchingItem(long questionId,

@@ -5,12 +5,13 @@ using AzmoonYar.API.Contracts.OptionalItem;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class OptionalItemController(OptionalItemService service) : BaseController
+public class OptionalItemController(IOptionalItemService service) : BaseController
 {
     [HttpPut(OptionalItemUriConstants.UpdateItem)]
     public async Task<ApiResult<OptionalItemResponse>> UpdateOptionalItem(long questionId,

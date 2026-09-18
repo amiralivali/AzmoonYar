@@ -5,12 +5,13 @@ using AzmoonYar.API.Contracts.ExceptionLog;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AzmoonYar.API.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class ExceptionLogController(ExceptionLogService service) : BaseController
+public class ExceptionLogController(IExceptionLogService service) : BaseController
 {
     [HttpGet(ExceptionLogUriConstants.GetAll)]
     public async Task<ApiResult<List<ExceptionLogResponse>>> GetAll(CancellationToken cancellationToken)
