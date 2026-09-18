@@ -9,11 +9,11 @@ using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class BookService(IBookRepository repository,
     IFileStorageService fileStorageService,
-    ActivityLogService logService) : IBookService
+    IActivityLogService logService) : IBookService
 {
     public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {

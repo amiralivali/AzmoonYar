@@ -9,7 +9,7 @@ using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.ActivityLog;
 using AzmoonYar.Domain.Entities;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class ActivityLogService(IActivityLogRepository repository,DashboardCache cache) : IActivityLogService
 {

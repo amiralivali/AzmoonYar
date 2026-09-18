@@ -2,7 +2,7 @@
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services;
-using AzmoonYar.Application.Services.implementation;
+using AzmoonYar.Application.Services.implementations;
 using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +23,7 @@ public static class DependencyInjection
         builder.AddScoped<ITrueFalseItemService,TrueFalseItemService>();
         builder.AddScoped<IMatchingItemService,MatchingItemService>();
         builder.AddScoped<IOptionalItemService,OptionalItemService>();
+        builder.AddScoped<IAuthService,AuthService>();
         builder.AddScoped<DashboardCache>();
     }
 }

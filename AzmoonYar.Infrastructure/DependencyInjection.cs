@@ -1,6 +1,7 @@
 ﻿using Amazon.S3;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
+using AzmoonYar.Infrastructure.Authentication;
 using AzmoonYar.Infrastructure.Caching.Redis;
 using AzmoonYar.Infrastructure.Hashing;
 using AzmoonYar.Infrastructure.Persistance.Mongo;
@@ -24,6 +25,9 @@ public static class DependencyInjection
             builder.AddDbContext<AzmoonYarDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("postgres")));
             builder.AddScoped<IBookRepository, BookRepository>();
             builder.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+            builder.AddScoped<IRefreshTokenService, RefreshTokenService>();
+            builder.AddScoped<ITokenService, JwtTokenService>();
             builder.AddScoped<IUserRepository, UserRepository>();
             builder.AddScoped<IExamRepository, ExamRepository>();
             builder.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
@@ -41,6 +45,7 @@ public static class DependencyInjection
 
                 return new AmazonS3Client(opt.AccessKey, opt.SecretKey, config);
             });
+            builder.Configure<JwtSetting>(configuration.GetSection(JwtSetting.SectionName)); 
 
             builder.AddScoped<IFileStorageService, S3FileStorageServiceService>();
             builder.AddMongo(configuration);

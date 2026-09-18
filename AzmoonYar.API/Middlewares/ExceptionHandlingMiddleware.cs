@@ -25,7 +25,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
 
     private static HttpStatusCode ResolveStatusCode(Exception exception) => exception switch
     {
-        EntityNotFoundException or UserNotFoundException or LessonNotFoundException or LessonNotFoundInBookException => HttpStatusCode.NotFound,
+        EntityNotFoundException or AuthenticationFailedException or LessonNotFoundException or LessonNotFoundInBookException => HttpStatusCode.NotFound,
         OptionalItemAlreadyExistsException or
             DuplicateExceptionError or QuestionAlreadyExistException
             or QuestionTypeAlreadyExistException=> HttpStatusCode.Conflict,

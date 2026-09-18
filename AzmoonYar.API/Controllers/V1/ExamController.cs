@@ -5,7 +5,6 @@ using AzmoonYar.API.Contracts.Exam;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
-using AzmoonYar.Application.Services.implementation;
 using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.ValueObject;
 using Microsoft.AspNetCore.Mvc;

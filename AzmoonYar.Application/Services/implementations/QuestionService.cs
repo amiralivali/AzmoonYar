@@ -14,11 +14,11 @@ using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class QuestionService(IQuestionRepository repository,
     IFileStorageService fileStorageService,
-    ActivityLogService logService) : IQuestionService
+    IActivityLogService logService) : IQuestionService
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {

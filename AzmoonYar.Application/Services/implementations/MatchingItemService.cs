@@ -1,47 +1,47 @@
-﻿using AzmoonYar.Application.DTOs.TrueFalseItem;
+﻿using AzmoonYar.Application.DTOs.MatchingItem;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
-public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseItemService
+public class MatchingItemService(IQuestionRepository repository) : IMatchingItemService
 {
-    public async Task<List<TrueFalseItemDto>> AddTrueFalseItemsAsync(long id,
-        List<CreateTrueFalseItemDto> items,
+    public async Task<List<MatchingItemDto>> AddMatchingItemsAsync(long id,
+        List<CreateMatchingItemDto> items,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ??  throw new EntityNotFoundException(nameof(Question), id);
-        var results = items.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText,dto.IsCorrect))).ToList();
+        var results = items.Select(dto => ToDto(question.AddMatchingItem(dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         return results;
     }
 
-    public async Task<List<TrueFalseItemDto>> UpdateTrueFalseItemsAsync(long id,
-        List<UpdateTrueFalseItemDto> items,
+    public async Task<List<MatchingItemDto>> UpdateMatchingItemsAsync(long id,
+        List<UpdateMatchingItemDto> items,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        var results = items.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText,dto.IdCorrect))).ToList();
+        var results = items.Select(dto => ToDto(question.UpdateMatchingItem(dto.Id,dto.LeftItemText,dto.RightItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
         return results;
     }
 
-    public async Task DeleteTrueFalseItemAsync(long id, long itemId,
+    public async Task DeleteMatchingItemAsync(long id, long itemId,
         CancellationToken cancellationToken = default)
     {
         var question = await repository.GetByIdAsync(id, cancellationToken)
                        ?? throw new EntityNotFoundException(nameof(Question), id);
-        question.RemoveTrueFalseItem(itemId);
+        question.RemoveMatchingItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
     }
     
-    private static TrueFalseItemDto ToDto(TrueFalseItem item) => new(
+    private static MatchingItemDto ToDto(MatchingItem item) => new(
         item.Id,
-        item.ItemText,
-        item.IsCorrect
+        item.LeftItemText,
+        item.RightItemText
     );
 }

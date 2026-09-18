@@ -19,7 +19,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x=>x.Email)
             .HasMaxLength(UserConstants.EmailMaxLength)
             .IsRequired(false);
-        builder.Property(x=>x.Password)
+        builder.Property(x=>x.PasswordHash)
             .HasMaxLength(UserConstants.PasswordMaxLength)   
             .IsRequired();
         builder.Property(x => x.PhoneNumber)

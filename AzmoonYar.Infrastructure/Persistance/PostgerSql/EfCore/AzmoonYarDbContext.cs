@@ -20,6 +20,7 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
     public DbSet<Exam> Exams { get; set; }
     public DbSet<ExamQuestion> ExamQuestions { get; set; }
     public DbSet<ExamQuestionType> ExamQuestionTypes { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

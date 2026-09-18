@@ -5,7 +5,7 @@ using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Application.Specification.Exam;
 using AzmoonYar.Domain.Entities;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class ExamService(IExamRepository examRepository, IBookRepository bookRepository) : IExamService
 {

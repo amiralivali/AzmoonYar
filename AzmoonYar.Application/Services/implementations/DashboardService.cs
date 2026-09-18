@@ -6,7 +6,7 @@ using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Enums;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class DashboardService(IBookRepository bookRepository,
     IQuestionRepository questionRepository,

@@ -4,7 +4,7 @@ using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
 
-namespace AzmoonYar.Application.Services.implementation;
+namespace AzmoonYar.Application.Services.implementations;
 
 public class OptionalItemService(IQuestionRepository repository) : IOptionalItemService
 {

@@ -6,9 +6,10 @@ public class User
     public string FirstName { get; private set; } = null!;
     public string LastName { get; private set; } = null!;
     public string PhoneNumber { get; private set; } = null!;
-    public string Password { get; private set; } = null!;
+    public string PasswordHash { get; private set; } = null!;
     public string? Email { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
+    public IEnumerable<RefreshToken> RefreshTokens { get; private set; } = null!;
 
     private User()
     {
@@ -20,13 +21,13 @@ public class User
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
-        Password = password;
+        PasswordHash = password;
         CreatedAt = DateTimeOffset.UtcNow;
     }
 
-    public void SetEmail(string email)
+    public void SetEmail(string? email = null)
     {
-        Email = email;
+        Email = email ?? null;
     }
 
     public void UpdateUser(string firstName, string lastName, string phoneNumber, string password)
@@ -34,6 +35,6 @@ public class User
         FirstName = firstName;
         LastName = lastName;
         PhoneNumber = phoneNumber;
-        Password = password;
+        PasswordHash = password;
     }
 }
