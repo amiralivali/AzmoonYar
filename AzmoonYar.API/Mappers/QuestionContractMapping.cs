@@ -92,9 +92,10 @@ public static class QuestionContractMapping
         return new OptionalItemResponse(dto.Id,dto.Option1,dto.Option2,dto.Option3,dto.Option4,dto.CorrectOption);
     }
 
-    public static CreateQuestionDto ToDto(this CreateQuestionRequest request)
+    public static CreateQuestionDto ToDto(this CreateQuestionRequest request, long userId)
     {
         return new CreateQuestionDto(request.LessonId,
+            userId,
             request.QuestionText,
             request.Picture?.OpenReadStream(),
             request.Picture?.FileName,
@@ -117,9 +118,10 @@ public static class QuestionContractMapping
     public static QuestionTypeCountResponse ToResponse(this QuestionTypeCountDto dto)
         => new (dto.QuestionType, dto.QuestionCount);
     
-    public static GetQuestionDto ToDto(this GetQuestionRequest request)
+    public static GetQuestionDto ToDto(this GetQuestionRequest request,long userId)
     {
         return new GetQuestionDto(
+            userId,
             request.SearchPhase,
             request.BookId,
             request.LessonId,

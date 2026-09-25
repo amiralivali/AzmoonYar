@@ -14,15 +14,16 @@ public class DashboardService(IBookRepository bookRepository,
     IActivityLogRepository activityLogRepository,
     DashboardCache dashboardCache) : IDashboardService
 {
-    public Task<SummaryDto> GetSummaryAsync(
+    public Task<SummaryDto> GetSummaryAsync(long userId,
         CancellationToken cancellationToken = default)
     {
         return dashboardCache.GetSummaryAsync(
-            GetSummaryFromDatabaseAsync,
+            userId,
+            ct => GetSummaryFromDatabaseAsync(userId, ct),
             cancellationToken);
     }
 
-    private async Task<SummaryDto> GetSummaryFromDatabaseAsync(
+    private async Task<SummaryDto> GetSummaryFromDatabaseAsync(long userId,
         CancellationToken cancellationToken)
     {
         var totalBooks =
@@ -38,7 +39,7 @@ public class DashboardService(IBookRepository bookRepository,
             await examRepository.CountAsync(cancellationToken);
 
         var typeCounts =
-            await questionRepository.CountByTypeAsync(cancellationToken);
+            await questionRepository.CountByTypeAsync(userId,cancellationToken);
 
         var recentLogs =
             await activityLogRepository.GetRecent(cancellationToken);

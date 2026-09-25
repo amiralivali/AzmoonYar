@@ -11,6 +11,8 @@ public class Question
 
     public long Id { get; private set; }
 
+    public long UserId { get; private set; }
+
     public long LessonId { get; private set; }
 
     public string QuestionText { get; private set; } = null!;
@@ -39,11 +41,13 @@ public class Question
 
     public Question(
         long lessonId,
+        long userId,
         string questionText,
         DifficultyLevel difficultyLevel,
         QuestionType questionType)
     {
         LessonId = lessonId;
+        UserId = userId;
         QuestionText = questionText.Trim();
         DifficultyLevel = difficultyLevel;
         QuestionType = questionType;

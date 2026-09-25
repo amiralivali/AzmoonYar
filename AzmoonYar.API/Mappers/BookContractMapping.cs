@@ -9,10 +9,11 @@ namespace AzmoonYar.API.Mappers;
 
 public static class BookContractMapping
 {
-    public static CreateBookDto ToDto(this CreateBookRequest request)
+    public static CreateBookDto ToDto(this CreateBookRequest request,long userId)
     {
         return new CreateBookDto(
             request.BookName,
+            userId,
             request.Grade,
             request.Picture?.OpenReadStream(),
             request.Picture?.FileName,
@@ -39,9 +40,10 @@ public static class BookContractMapping
             dto.CreatedAt,
             dto.Lessons.Select(x=>new LessonResponse(x.Id,x.LessonName,x.LessonCount)).ToList());
     }
-    public static GetBookDto ToDto(this GetBookRequest request)
+    public static GetBookDto ToDto(this GetBookRequest request,long userId)
     {
         return new GetBookDto(
+            userId,
             request.SearchPhase,
             request.Grade,
             request.BookSource,

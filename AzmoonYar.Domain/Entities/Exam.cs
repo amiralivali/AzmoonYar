@@ -8,6 +8,7 @@ public class Exam
 {
     public long Id { get; private set; }
     public long BookId { get; private set; }
+    public long UserId { get;private set; }
     
     private readonly List<ExamQuestionType> _examQuestionTypes = [];
     public IReadOnlyCollection<ExamQuestionType> ExamQuestionTypes =>
@@ -32,9 +33,10 @@ public class Exam
     private Exam()
     {}
 
-    public Exam(long bookId, ICollection<Lesson> lessons, ExamType examType, ExamDifficultyLevel difficultyLevel, ExamHeader header,ExamStatus examStatus)
+    public Exam(long bookId, long userId, ICollection<Lesson> lessons, ExamType examType, ExamDifficultyLevel difficultyLevel, ExamHeader header,ExamStatus examStatus)
     {
         BookId = bookId;
+        UserId = userId;
         Lessons = lessons;
         ExamType = examType;
         DifficultyLevel = difficultyLevel;

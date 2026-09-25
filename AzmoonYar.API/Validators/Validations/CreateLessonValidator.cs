@@ -10,6 +10,8 @@ public class CreateLessonValidator : AbstractValidator<CreateLessonRequest>
 {
     public CreateLessonValidator()
     {
+        RuleFor(x=>x.LessonNumber).GreaterThan(0);
+        
         RuleFor(x => x.Title)
             .MaximumLength(LessonConstants.LessonNameMaxLenght)
             .WithMessage(LessonValidationMessages.LessonNameMaxLengthInvalid)

@@ -26,8 +26,7 @@ public class JwtTokenService(IOptionsSnapshot<JwtSetting> options) : ITokenServi
                 EpochTime.GetIntDate(now.UtcDateTime).ToString(CultureInfo.InvariantCulture),
                 ClaimValueTypes.Integer64),
             new (JwtRegisteredClaimNames.GivenName,user.FirstName),
-            new (JwtRegisteredClaimNames.FamilyName,user.LastName),
-            new (JwtRegisteredClaimNames.PhoneNumber,user.PhoneNumber)
+            new (JwtRegisteredClaimNames.FamilyName,user.LastName)
         };
         
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(setting.Key));

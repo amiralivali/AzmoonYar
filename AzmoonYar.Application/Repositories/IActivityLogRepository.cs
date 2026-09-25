@@ -11,6 +11,6 @@ public interface IActivityLogRepository
     Task<PagedResult<ActivityLog>> GetAllAsync(ActivityLogQueryFilterSpec queryFilterSpec,
         CancellationToken cancellationToken = default);
     Task<List<ActivityLog>> GetRecent(CancellationToken cancellationToken = default);
-    Task<ActivityLog> GetByIdAsync(string id,CancellationToken cancellationToken = default);
+    Task<ActivityLog?> GetByIdAsync(string id,CancellationToken cancellationToken = default);
     Task AddAsync(ActivityLog activityLog,CancellationToken cancellationToken = default);
 }

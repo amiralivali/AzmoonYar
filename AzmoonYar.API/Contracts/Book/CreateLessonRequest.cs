@@ -1,3 +1,3 @@
 ﻿namespace AzmoonYar.API.Contracts.Book;
 
-public record CreateLessonRequest(string? Title);
+public record CreateLessonRequest(int LessonNumber,string? Title);

@@ -3,6 +3,7 @@
 namespace AzmoonYar.Application.DTOs.Book;
 
 public record GetBookDto(
+    long UserId,
     string? SearchPhase,
     Grade? Grade,
     BookSource? BookSource,

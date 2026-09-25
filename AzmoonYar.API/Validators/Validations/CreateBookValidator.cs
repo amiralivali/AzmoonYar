@@ -30,6 +30,14 @@ public class CreateBookValidator : AbstractValidator<CreateBookRequest>
                 .WithMessage(BookValidationMessages.AllowedPictureExtensions);
         });
         
+        RuleFor(x => x.LessonRequests)
+            .NotEmpty()
+            .WithMessage("کتاب باید حداقل یک درس داشته باشد.");
+
+        RuleFor(x => x.LessonRequests)
+            .Must(lessons => lessons.Select(l => l.LessonNumber).Distinct().Count() == lessons.Count)
+            .WithMessage("شماره دروس نباید تکراری باشد.");
+        
         RuleForEach(x => x.LessonRequests)
             .SetValidator(new CreateLessonValidator());
     }

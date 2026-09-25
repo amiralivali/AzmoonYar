@@ -23,6 +23,9 @@ public class BookRepository(AzmoonYarDbContext context) : RepositoryBase<Book>(c
         var pageNumber = queryFilterSpec.PageNumber;
         var pageSize = queryFilterSpec.PageSize;
         var queryable = Context.Books.Include(x => x.Lessons).AsQueryable();
+        
+        queryable = queryable.Where(x=>x.UserId == queryFilterSpec.UserId || x.BookSource == BookSource.System);
+        
         if (!string.IsNullOrEmpty(queryFilterSpec.SearchPhase))
         {
             queryable = queryable.Where(x=> x.BookName.Contains(queryFilterSpec.SearchPhase));

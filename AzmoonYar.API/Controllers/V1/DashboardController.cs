@@ -2,6 +2,7 @@
 using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Dashboard;
+using AzmoonYar.API.Extensions;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services;
 using AzmoonYar.Application.Services.Interfaces;
@@ -15,7 +16,7 @@ public class DashboardController(IDashboardService service) : BaseController
     [HttpGet(DashboardUriConstants.GetSummary)]
     public async Task<ApiResult<SummaryResponse>> GetSummary(CancellationToken cancellationToken)
     {
-        var result = await service.GetSummaryAsync(cancellationToken);
+        var result = await service.GetSummaryAsync(User.GetUserId(),cancellationToken);
         return result.ToResponse();
     }
 }

@@ -8,6 +8,7 @@ public class Book
     private readonly List<Lesson> _lessons = [];
 
     public long Id { get; private set; }
+    public long UserId { get; private set; }
     public string BookName { get; private set; } = null!;
     public Grade Grade { get; private set; }
     public BookSource BookSource { get; private set; }
@@ -20,12 +21,14 @@ public class Book
     {
     }
 
-    public Book(string bookName, Grade grade,
+    public Book(string bookName,
+        long userId, Grade grade,
         BookSource bookSource)
     {
         BookName = bookName.Trim();
         Grade = grade;
         BookSource = bookSource;
+        UserId = userId;
     }
 
     public void UpdateBook(

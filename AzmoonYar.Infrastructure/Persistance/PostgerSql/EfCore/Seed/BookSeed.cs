@@ -9,9 +9,11 @@ public class BookSeed
     private static readonly DateTimeOffset CreatedAt =
         new(2026, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
+    private const long UserId = 1;
+
     public static void Seed(ModelBuilder modelBuilder)
     {
-         modelBuilder.Entity<Book>().HasData(
+        modelBuilder.Entity<Book>().HasData(
 
             // ==========================================
             // First Grade
@@ -24,7 +26,8 @@ public class BookSeed
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-math.jpg",
-                CreatedAt
+                UserId,
+                CreatedAt,
             },
 
             new
@@ -34,6 +37,7 @@ public class BookSeed
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-science.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -44,6 +48,7 @@ public class BookSeed
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-persian.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -54,6 +59,7 @@ public class BookSeed
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-persian-writing.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -64,6 +70,7 @@ public class BookSeed
                 Grade = Grade.ElementaryFirst,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Ffirst-grade-quran.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -78,6 +85,7 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-math.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -88,6 +96,7 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-science.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -98,6 +107,7 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-persian.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -108,6 +118,7 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-persian-writing.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -118,6 +129,7 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-quran.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -128,12 +140,13 @@ public class BookSeed
                 Grade = Grade.ElementarySecond,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fsecond-grade-heavenly-gifts.jpg",
+                UserId,
                 CreatedAt
             },
-            
-            // =========================
-// Third Grade
-// =========================
+
+            // ==========================================
+            // Third Grade
+            // ==========================================
 
             new
             {
@@ -142,6 +155,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-math.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -152,6 +166,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-science.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -162,6 +177,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-persian.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -172,6 +188,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-persian-writing.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -182,6 +199,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-heavenly-gifts.jpg",
+                UserId,
                 CreatedAt
             },
 
@@ -192,6 +210,7 @@ public class BookSeed
                 Grade = Grade.ElementaryThird,
                 BookSource = BookSource.System,
                 Picture = "https://azmoonyar.s3.ir-thr-at1.arvanstorage.ir/System-picture%2Fthird-grade-social-studies.jpg",
+                UserId,
                 CreatedAt
             }
         );

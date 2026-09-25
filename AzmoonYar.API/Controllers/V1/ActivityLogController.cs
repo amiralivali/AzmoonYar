@@ -3,6 +3,7 @@ using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.ActivityLog;
 using AzmoonYar.API.Contracts.Question;
+using AzmoonYar.API.Extensions;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
@@ -17,7 +18,7 @@ public class ActivityLogController(IActivityLogService service) : BaseController
     [HttpGet(ActivityLogUriConstants.GetAll)]
     public async Task<ApiResult<PagedResult<ActivityLogResponse>>> GetAll([FromQuery]GetActivityLogRequest request,CancellationToken cancellationToken)
     {
-        var result = await service.GetAllAsync(request.ToDto(),cancellationToken);
+        var result = await service.GetAllAsync(request.ToDto(User.GetUserId()),cancellationToken);
         return result.ToResponse();
     }
 }

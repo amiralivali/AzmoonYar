@@ -29,5 +29,6 @@ public class AzmoonYarDbContext(DbContextOptions<AzmoonYarDbContext> options) : 
         base.OnModelCreating(modelBuilder);
         BookSeed.Seed(modelBuilder);
         LessonSeed.Seed(modelBuilder);
+        AdminUsersSeed.Seed(modelBuilder);
     }
 }

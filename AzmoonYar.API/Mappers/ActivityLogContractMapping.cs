@@ -9,9 +9,10 @@ namespace AzmoonYar.API.Mappers;
 
 public static class ActivityLogContractMapping
 {
-    public static GetActivityLogDto ToDto(this GetActivityLogRequest request)
+    public static GetActivityLogDto ToDto(this GetActivityLogRequest request,long userId)
     {
         return new GetActivityLogDto(
+            userId,
             request.SearchPhase,
             request.EntityType,
             request.PageNumber,

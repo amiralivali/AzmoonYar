@@ -2,5 +2,5 @@
 
 public static class DashboardCacheKeyConstants
 {
-    public const string GetSummaryCacheKey = "Dashboard:Summary";
+    public static string GetSummaryCacheKey(long userId) => $"dashboard:summary:{userId}";
 }

@@ -18,7 +18,11 @@ public class ActivityLogRepository(MongoContext context) : IActivityLogRepositor
         var pageNumber = queryFilterSpec.PageNumber;
         var pageSize = queryFilterSpec.PageSize;
         var filterBuilder = Builders<ActivityLog>.Filter;
-        var filters = new List<FilterDefinition<ActivityLog>>();
+
+        var filters = new List<FilterDefinition<ActivityLog>>
+        {
+            filterBuilder.Eq(x => x.UserId, queryFilterSpec.UserId)
+        };
 
         if (!string.IsNullOrWhiteSpace(queryFilterSpec.SearchPhase))
         {
@@ -31,12 +35,10 @@ public class ActivityLogRepository(MongoContext context) : IActivityLogRepositor
         if (queryFilterSpec.EntityType.HasValue)
         {
             filters.Add(
-            filterBuilder.Eq( x => x.EntityType, queryFilterSpec.EntityType));
+                filterBuilder.Eq(x => x.EntityType, queryFilterSpec.EntityType));
         }
 
-        var filter = filters.Count > 0
-            ? filterBuilder.And(filters)
-            : filterBuilder.Empty;
+        var filter = filterBuilder.And(filters);
 
         var totalCount = await Collection
             .CountDocumentsAsync(filter, cancellationToken: cancellationToken);
@@ -62,15 +64,14 @@ public class ActivityLogRepository(MongoContext context) : IActivityLogRepositor
     public async Task<List<ActivityLog>> GetRecent(
         CancellationToken cancellationToken = default)
     {
-         return await Collection
+        return await Collection
             .Find(_ => true)
             .SortByDescending(x => x.CreatedAt)
             .Limit(5)
             .ToListAsync(cancellationToken);
-
     }
 
-    public async Task<ActivityLog> GetByIdAsync(
+    public async Task<ActivityLog?> GetByIdAsync(
         string id,
         CancellationToken cancellationToken = default)
         => await Collection

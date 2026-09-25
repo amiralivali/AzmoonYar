@@ -4,6 +4,7 @@ namespace AzmoonYar.Application.DTOs.Question;
 
 public record CreateQuestionDto(
     long LessonId,
+    long UserId,
     string QuestionText,
     Stream? CoverImageStream,
     string? CoverImageFileName,

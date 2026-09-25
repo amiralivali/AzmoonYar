@@ -31,6 +31,7 @@ public static class DependencyInjection
             .Configure<IOptions<JwtSetting>>((options, jwtSetting) =>
             {
                 var setting = jwtSetting.Value;
+                options.MapInboundClaims = false;
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

@@ -3,6 +3,7 @@
 namespace AzmoonYar.Application.DTOs.ActivityLog;
 
 public record GetActivityLogDto(
+    long UserId,
     string? SearchPhase,
     EntityType? EntityType,
     int PageNumber = 1,

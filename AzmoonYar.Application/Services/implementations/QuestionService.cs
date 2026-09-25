@@ -22,7 +22,7 @@ public class QuestionService(IQuestionRepository repository,
 {
     public async Task<QuestionDto> AddQuestionAsync(CreateQuestionDto dto,CancellationToken cancellationToken = default)
     {
-        var question = new Question(dto.LessonId, dto.QuestionText, dto.DifficultyLevel, dto.QuestionType);
+        var question = new Question(dto.LessonId,dto.UserId, dto.QuestionText, dto.DifficultyLevel, dto.QuestionType);
         if (dto.CoverImageStream is not null)
         {
             var imageKey = await fileStorageService.UploadAsync(
@@ -34,7 +34,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         await repository.AddAsync(question,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
+        await logService.AddAsync(new QuestionCreatedLogData(question.QuestionType.ToPersian()), dto.UserId,cancellationToken);
         return ToDto(question);
     }
     public async Task<QuestionDto> UpdateQuestionAsync(long id, UpdateQuestionDto dto,CancellationToken cancellationToken = default)
@@ -53,7 +53,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         repository.Update(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
+        await logService.AddAsync(new QuestionUpdatedLogData(question.QuestionType.ToPersian()), question.UserId,cancellationToken);
         return ToDto(question);
     }
 
@@ -91,7 +91,7 @@ public class QuestionService(IQuestionRepository repository,
         }
         repository.Delete(question);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), 1,cancellationToken);
+        await logService.AddAsync(new QuestionDeletedLogData(question.QuestionType.ToPersian()), question.UserId,cancellationToken);
     }
 
     public async Task ChangePicture(long id, string picture, CancellationToken cancellationToken = default)
@@ -108,9 +108,9 @@ public class QuestionService(IQuestionRepository repository,
         return await repository.GetQuestionsCountByLessonIdAsync(lessonId, cancellationToken);
     }
     
-    public async Task<List<QuestionTypeCountDto>> GetQuestionTypeCountAsync(CancellationToken cancellationToken = default)
+    public async Task<List<QuestionTypeCountDto>> GetQuestionTypeCountAsync(long userId,CancellationToken cancellationToken = default)
     {
-         var result = await repository.CountByTypeAsync(cancellationToken);
+         var result = await repository.CountByTypeAsync(userId,cancellationToken);
          return result.Select(ToDto).ToList();
     }
 

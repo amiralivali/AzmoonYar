@@ -3,6 +3,7 @@ using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.ActivityLog;
 using AzmoonYar.API.Contracts.Book;
+using AzmoonYar.API.Extensions;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
@@ -19,7 +20,7 @@ public class BookController(IBookService service) : BaseController
     [HttpGet(BookUriConstants.GetAll)]
     public async Task<ApiResult<PagedResult<BookResponse>>> GetAll([FromQuery]GetBookRequest request,CancellationToken cancellationToken)
     {
-        var books = await service.GetAllAsync(request.ToDto(), cancellationToken);
+        var books = await service.GetAllAsync(request.ToDto(User.GetUserId()), cancellationToken);
         return books.ToResponse();
     }
     
@@ -56,7 +57,7 @@ public class BookController(IBookService service) : BaseController
     [HttpPost(BookUriConstants.Add)]
     public async Task<ApiResult<BookResponse>> Add([FromForm]CreateBookRequest request, CancellationToken cancellationToken)
     {
-        var book = await service.AddAsync(request.ToDto(),cancellationToken);
+        var book = await service.AddAsync(request.ToDto(User.GetUserId()),cancellationToken);
         var response = book.ToResponse();
         return ApiResult<BookResponse>.Created(response,$"/api/v1/book/{response.Id}");
     }

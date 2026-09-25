@@ -3,6 +3,7 @@ using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Dashboard;
 using AzmoonYar.API.Contracts.Question;
+using AzmoonYar.API.Extensions;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Common;
 using AzmoonYar.Application.Services;
@@ -19,10 +20,10 @@ public class QuestionController(IQuestionService service) : BaseController
     public async Task<ApiResult<PagedResult<QuestionResponse>>> GetAll
         ([FromQuery] GetQuestionRequest filter,CancellationToken cancellationToken)
     {
-        var questions = await service.GetAllAsync(filter.ToDto(),cancellationToken);
+        var questions = await service.GetAllAsync(filter.ToDto(User.GetUserId()),cancellationToken);
         return questions.ToResponse();
     }
-    
+     
     [HttpGet(QuestionUriConstants.GetById)]
     public async Task<ApiResult<QuestionResponse>> GetById(long id, CancellationToken cancellationToken)
     {
@@ -41,7 +42,7 @@ public class QuestionController(IQuestionService service) : BaseController
     [HttpGet(QuestionUriConstants.GetQuestionTypeCount)]
     public async Task<List<QuestionTypeCountResponse>> GetQuestionTypeCount(CancellationToken cancellationToken)
     {
-        var result = await service.GetQuestionTypeCountAsync(cancellationToken);
+        var result = await service.GetQuestionTypeCountAsync(User.GetUserId(),cancellationToken);
         return result.Select(x => x.ToResponse()).ToList();
     }
     
@@ -49,7 +50,7 @@ public class QuestionController(IQuestionService service) : BaseController
     public async Task<ApiResult<QuestionResponse>> AddQuestion(CreateQuestionRequest request,
         CancellationToken cancellationToken)
     {
-        var question = await service.AddQuestionAsync(request.ToDto(),cancellationToken);
+        var question = await service.AddQuestionAsync(request.ToDto(User.GetUserId()),cancellationToken);
         var response = question.ToResponse();
         return ApiResult<QuestionResponse>.Created(response,$"/api/v1/question/{response.Id}");
     }

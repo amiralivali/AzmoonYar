@@ -24,5 +24,5 @@ public interface IQuestionService
     Task<int> GetQuestionsCountByLessonIdAsync(long lessonId,
         CancellationToken cancellationToken = default);
 
-    Task<List<QuestionTypeCountDto>> GetQuestionTypeCountAsync(CancellationToken cancellationToken = default);
+    Task<List<QuestionTypeCountDto>> GetQuestionTypeCountAsync(long userId,CancellationToken cancellationToken = default);
 }

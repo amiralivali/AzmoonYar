@@ -4,5 +4,5 @@ namespace AzmoonYar.Application.Services.Interfaces;
 
 public interface IDashboardService
 {
-    Task<SummaryDto> GetSummaryAsync(CancellationToken cancellationToken = default);
+    Task<SummaryDto> GetSummaryAsync(long userId,CancellationToken cancellationToken = default);
 }

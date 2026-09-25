@@ -3,6 +3,7 @@
 namespace AzmoonYar.Application.DTOs.Question;
 
 public record GetQuestionDto(
+    long UserId,
     string? SearchPhase,
     long? BookId,
     long? LessonId,

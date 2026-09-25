@@ -17,7 +17,8 @@ public class BookService(IBookRepository repository,
 {
     public async Task<PagedResult<BookDto>> GetAllAsync(GetBookDto request,CancellationToken cancellationToken)
     {
-        var queryFilter = new BookQueryFilterSpec(request.SearchPhase,
+        var queryFilter = new BookQueryFilterSpec(request.UserId,
+            request.SearchPhase,
             request.Grade,
             request.BookSource,
             request.PageNumber,
@@ -27,7 +28,7 @@ public class BookService(IBookRepository repository,
     }
     public async Task<BookDto> AddAsync(CreateBookDto dto,CancellationToken cancellationToken = default)
     {
-        var book = new Book(dto.BookName, dto.Grade,BookSource.User);
+        var book = new Book(dto.BookName,dto.UserId, dto.Grade,BookSource.User);
         if (dto.CoverImageStream is not null)
         {
             var imageKey = await fileStorageService.UploadAsync(
@@ -44,7 +45,7 @@ public class BookService(IBookRepository repository,
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         //fix id
-        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
+        await logService.AddAsync(new BookCreatedLogData(book.BookName,book.Grade.ToPersian()),dto.UserId,cancellationToken);
         return ToDto(book);
     }
 
@@ -65,7 +66,7 @@ public class BookService(IBookRepository repository,
         }
         repository.Delete(book);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
+        await logService.AddAsync(new BookDeletedLogData(book.BookName,book.Grade.ToPersian()),book.UserId,cancellationToken);
     }
 
     public async Task<BookDto> UpdateAsync(long id, UpdateBookDto dto, CancellationToken cancellationToken = default)
@@ -88,7 +89,7 @@ public class BookService(IBookRepository repository,
         }
         repository.Update(book);
         await repository.SaveChangesAsync(cancellationToken);
-        await logService.AddAsync(new BookUpdatedLogData(book.BookName,book.Grade.ToPersian()),1,cancellationToken);
+        await logService.AddAsync(new BookUpdatedLogData(book.BookName,book.Grade.ToPersian()),book.UserId,cancellationToken);
         return ToDto(book);
     }
     
