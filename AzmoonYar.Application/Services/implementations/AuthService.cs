@@ -14,7 +14,7 @@ public class AuthService(IUserRepository userRepository,
     IRefreshTokenRepository refreshTokenRepository,
     ITokenService tokenService) : IAuthService
 {
-    public async Task<AuthenticationDto> RegisterAsync(CreateUserDto dto, CancellationToken cancellationToken = default)
+    public async Task<UserDto> RegisterAsync(CreateUserDto dto, CancellationToken cancellationToken = default)
     {
         var duplicateMobile = await userRepository.CheckPhoneNumberDuplicate(dto.PhoneNumber, cancellationToken);
         if (duplicateMobile)
@@ -32,7 +32,7 @@ public class AuthService(IUserRepository userRepository,
         
         await userRepository.AddAsync(user, cancellationToken);
         await userRepository.SaveChangesAsync(cancellationToken);
-        return await CreateSessionAsync(user, cancellationToken);
+        return ToDto(user);
     }
 
     public async Task<AuthenticationDto> LoginAsync(LoginRequestDto requestDto, CancellationToken cancellationToken)

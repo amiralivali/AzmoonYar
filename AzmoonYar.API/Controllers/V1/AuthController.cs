@@ -24,7 +24,7 @@ public class AuthController(IAuthService service) : BaseController
     
     [AllowAnonymous]
     [HttpPost(AuthLogUriConstants.Register)]
-    public async Task<ApiResult<AuthenticationResponse>> Register(CreateUserRequest request,
+    public async Task<ApiResult<UserResponse>> Register(CreateUserRequest request,
         CancellationToken cancellationToken)
     {
         var user = await service.RegisterAsync(request.ToDto(), cancellationToken);
