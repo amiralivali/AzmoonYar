@@ -34,7 +34,7 @@ public class ActivityLogService(IActivityLogRepository repository,DashboardCache
         
         var log = new ActivityLog(userId, logData.EntityType, logData.ActivityLogType, template.Title, message);
         await repository.AddAsync(log,cancellationToken);
-        await cache.InvalidateAsync(userId,cancellationToken);
+        //await cache.InvalidateAsync(userId,cancellationToken);
     }
     private static PagedResult<ActivityLogDto> ToDto(PagedResult<ActivityLog> result)
         => new (result.Items.Select(ToDto).ToList(),

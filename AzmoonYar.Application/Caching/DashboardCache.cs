@@ -12,11 +12,7 @@ public class DashboardCache(ICacheService service)
         long userId,
         Func<CancellationToken, Task<SummaryDto>> factory,
         CancellationToken cancellationToken = default)
-        => service.GetOrCreateAsync(
-            DashboardCacheKeyConstants.GetSummaryCacheKey(userId),
-            factory,
-            CachedExpiration,
-            cancellationToken);
+        => factory(cancellationToken);
 
     public async Task InvalidateAsync(long userId, CancellationToken cancellationToken)
     {
