@@ -6,5 +6,6 @@ public class AuthLogUriConstants
 
     public const string Login = $"{Controller}/login";
     public const string Register = $"{Controller}/register";
+    public const string Logout = $"{Controller}/logout";
     
 }

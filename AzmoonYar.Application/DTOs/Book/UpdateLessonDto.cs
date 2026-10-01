@@ -1,3 +1,3 @@
 ﻿namespace AzmoonYar.Application.DTOs.Book;
 
-public record UpdateLessonDto(long Id,string? Title);
+public record UpdateLessonDto(int LessonNumber,string? Title);

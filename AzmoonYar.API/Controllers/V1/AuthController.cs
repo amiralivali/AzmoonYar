@@ -3,6 +3,7 @@ using AzmoonYar.API.Constants;
 using AzmoonYar.API.Contracts;
 using AzmoonYar.API.Contracts.Auth;
 using AzmoonYar.API.Contracts.User;
+using AzmoonYar.API.Extensions;
 using AzmoonYar.API.Mappers;
 using AzmoonYar.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -29,5 +30,12 @@ public class AuthController(IAuthService service) : BaseController
     {
         var user = await service.RegisterAsync(request.ToDto(), cancellationToken);
         return user.ToResponse();
+    }
+    
+    [HttpPost(AuthLogUriConstants.Logout)]
+    public async Task<ApiResult> Logout(LogoutRequest request,CancellationToken cancellationToken)
+    {
+        await service.LogoutAsync(User.GetUserId(),request.ToDto(), cancellationToken);
+        return ApiResult.NoContent();
     }
 }

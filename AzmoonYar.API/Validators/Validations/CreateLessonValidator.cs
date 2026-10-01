@@ -1,6 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.Book;
-using AzmoonYar.API.FluentValidation.Patterns;
 using AzmoonYar.API.Validators.Messages;
+using AzmoonYar.API.Validators.Patterns;
 using AzmoonYar.Domain.Constants;
 using FluentValidation;
 

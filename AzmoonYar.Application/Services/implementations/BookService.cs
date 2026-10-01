@@ -40,7 +40,7 @@ public class BookService(IBookRepository repository,
         }
         foreach (var lesson in dto.CreateLessonDtos)
         {
-            book.AddLesson(lesson.Title);
+            book.AddLesson(lesson.LessonNumber, lesson.Title);
         }
         await repository.AddAsync(book,cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
@@ -85,7 +85,7 @@ public class BookService(IBookRepository repository,
         }
         foreach (var lessonDto in dto.UpdateLessonDtos.Where(lessonDto => !string.IsNullOrEmpty(lessonDto.Title)))
         {
-            book.ChangeLessonTitle(lessonDto.Id, lessonDto.Title!);
+            book.ChangeLessonTitle(lessonDto.LessonNumber, lessonDto.Title!);
         }
         repository.Update(book);
         await repository.SaveChangesAsync(cancellationToken);

@@ -28,7 +28,8 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
         EntityNotFoundException or AuthenticationFailedException or LessonNotFoundException or LessonNotFoundInBookException => HttpStatusCode.NotFound,
         OptionalItemAlreadyExistsException or
             DuplicateExceptionError or QuestionAlreadyExistException
-            or QuestionTypeAlreadyExistException=> HttpStatusCode.Conflict,
+            or QuestionTypeAlreadyExistException
+            or DuplicateLessonNumber=> HttpStatusCode.Conflict,
         DescriptiveQuestionWithoutItemException
             or FillInBlankItemOperationNotAllowedException
             or InvalidQuestionType

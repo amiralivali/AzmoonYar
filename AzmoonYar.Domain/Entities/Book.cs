@@ -41,9 +41,14 @@ public class Book
         BookSource = bookSource;
     }
 
-    public void AddLesson(string? title)
+    public void AddLesson(int lessonNumber,string? title)
     {
-        var lesson = new Lesson(_lessons.Count+1);
+        if (_lessons.Any(x => x.LessonCount==lessonNumber))
+        {
+            throw new DuplicateLessonNumber();
+        }
+        
+        var lesson = new Lesson(lessonNumber);
         lesson.ChangeTitle(title);
         _lessons.Add(lesson);
     }
@@ -57,12 +62,12 @@ public class Book
         }
         _lessons.Remove(lesson);
     }
-    public void ChangeLessonTitle(long lessonId,string title)
+    public void ChangeLessonTitle(int lessonNumber,string title)
     {
-        var lesson = _lessons.FirstOrDefault(x=>x.Id == lessonId);
+        var lesson = _lessons.FirstOrDefault(x=>x.LessonCount == lessonNumber);
         if (lesson is null)
         {
-            throw new EntityNotFoundException("lesson", lessonId);
+            throw new EntityNotFoundException("lesson", lessonNumber);
         }
         lesson.ChangeTitle(title);
     }

@@ -28,4 +28,7 @@ public static class UserValidationMessages
     public const string PasswordMissingSpecialChar = "رمز عبور باید حداقل یک کاراکتر خاص داشته باشد";
 
     public const string EmailInvalid = "ایمیل نامعتبر میباشد";
+    private const string EmailMaxLengthInvalidTemplate = "ایمیل نمیتواند بیشتر از {0} کاراکتر باشد.";
+    public static string EmailMaxLengthInvalid => 
+        string.Format(EmailMaxLengthInvalidTemplate, UserConstants.EmailMaxLength);
 }

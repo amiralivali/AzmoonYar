@@ -18,7 +18,7 @@ public static class BookContractMapping
             request.Picture?.OpenReadStream(),
             request.Picture?.FileName,
             request.Picture?.ContentType,
-            request.LessonRequests.Select(x => new CreateLessonDto(x.Title)).ToList());
+            request.LessonRequests.Select(x => new CreateLessonDto(x.LessonNumber,x.Title)).ToList());
     }
     public static UpdateBookDto ToDto(this UpdateBookRequest request)
     {
@@ -28,7 +28,7 @@ public static class BookContractMapping
             request.Picture?.OpenReadStream(),
             request.Picture?.FileName,
             request.Picture?.ContentType,
-            request.UpdateLessonRequests.Select(x => new UpdateLessonDto(x.Id,x.Title)).ToList());
+            request.UpdateLessonRequests.Select(x => new UpdateLessonDto(x.LessonNumber,x.Title)).ToList());
     }
     public static BookResponse ToResponse(this BookDto dto)
     {

@@ -1,6 +1,6 @@
 ﻿using AzmoonYar.API.Contracts.Book;
-using AzmoonYar.API.FluentValidation.Patterns;
 using AzmoonYar.API.Validators.Messages;
+using AzmoonYar.API.Validators.Patterns;
 using AzmoonYar.Domain.Constants;
 using FluentValidation;
 
@@ -10,6 +10,8 @@ public class UpdateLessonValidator : AbstractValidator<UpdateLessonRequest>
 {
     public UpdateLessonValidator()
     {
+        RuleFor(x=>x.LessonNumber).GreaterThan(0);
+        
         RuleFor(x => x.Title)
             .MaximumLength(LessonConstants.LessonNameMaxLenght)
             .WithMessage(LessonValidationMessages.LessonNameMaxLengthInvalid)

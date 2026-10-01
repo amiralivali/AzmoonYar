@@ -1,4 +1,4 @@
-﻿namespace AzmoonYar.API.FluentValidation.Patterns;
+﻿namespace AzmoonYar.API.Validators.Patterns;
 
 public static class RegexPattern
 {

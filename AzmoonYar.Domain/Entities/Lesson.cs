@@ -19,7 +19,7 @@ public class Lesson
 
     internal Lesson(int lessonCount)
     {
-        LessonName = $"Lesson {lessonCount}:";
+        LessonName = $"درس {lessonCount}:";
         LessonCount = lessonCount;
         CreatedAt = DateTimeOffset.UtcNow;
     }

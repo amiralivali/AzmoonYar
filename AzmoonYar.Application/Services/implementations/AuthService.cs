@@ -44,6 +44,19 @@ public class AuthService(IUserRepository userRepository,
         return await CreateSessionAsync(user, cancellationToken);
     }
 
+    public async Task LogoutAsync(long userId, LogoutRequestDto requestDto, CancellationToken cancellationToken)
+    {
+        var token = await refreshTokenRepository.GetByHashWithUserAsync(refreshTokenService.Hash(requestDto.RefreshToken),
+            cancellationToken);
+
+        if (token is null || token.UserId != userId)
+        {
+            return;
+        }
+        token.Revoke();
+        await refreshTokenRepository.SaveChangesAsync(cancellationToken);
+    }
+
     private async Task<AuthenticationDto> CreateSessionAsync(User user,CancellationToken cancellationToken = default)
     {
         var refreshTokenValue = refreshTokenService.Create();
