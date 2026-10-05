@@ -12,6 +12,7 @@ public class User
     public string? Email { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
     public UserRole UserRole { get; private set; }
+    public Guid TokenVersion { get; private set; }
     public IEnumerable<RefreshToken> RefreshTokens { get; private set; } = null!;
 
     private User()
@@ -27,6 +28,12 @@ public class User
         PasswordHash = password;
         CreatedAt = DateTimeOffset.UtcNow;
         UserRole = UserRole.User;
+        TokenVersion = Guid.NewGuid();
+    }
+
+    public void InvalidateToken()
+    {
+        TokenVersion = Guid.NewGuid();
     }
 
     public void SetEmail(string? email = null)

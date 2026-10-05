@@ -53,6 +53,7 @@ public class AuthService(IUserRepository userRepository,
         {
             return;
         }
+        token.User.InvalidateToken();
         token.Revoke();
         await refreshTokenRepository.SaveChangesAsync(cancellationToken);
     }

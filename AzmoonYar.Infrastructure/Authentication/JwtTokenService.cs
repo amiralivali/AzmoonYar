@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using AzmoonYar.Application.Common;
 using AzmoonYar.Application.DTOs.Auth;
 using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Domain.Entities;
@@ -26,7 +27,8 @@ public class JwtTokenService(IOptionsSnapshot<JwtSetting> options) : ITokenServi
                 EpochTime.GetIntDate(now.UtcDateTime).ToString(CultureInfo.InvariantCulture),
                 ClaimValueTypes.Integer64),
             new (JwtRegisteredClaimNames.GivenName,user.FirstName),
-            new (JwtRegisteredClaimNames.FamilyName,user.LastName)
+            new (JwtRegisteredClaimNames.FamilyName,user.LastName),
+            new (CustomClaimTypes.TokenVersion, user.TokenVersion.ToString())
         };
         
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(setting.Key));

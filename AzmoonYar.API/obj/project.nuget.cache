@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4p5QguDX7QI=",
+  "dgSpecHash": "OJObem0j214=",
   "success": true,
   "projectFilePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
   "expectedPackageFiles": [
@@ -82,15 +82,6 @@
     "C:\\Users\\USer\\.nuget\\packages\\zstdsharp.port\\0.7.3\\zstdsharp.port.0.7.3.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: No connection could be made because the target machine actively refused it. (127.0.0.1:2081)",
-      "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
-      "targetGraphs": []
-    },
     {
       "code": "NU1900",
       "level": "Warning",

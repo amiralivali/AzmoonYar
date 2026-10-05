@@ -1,7 +1,10 @@
-﻿using System.Text;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using Asp.Versioning;
 using AzmoonYar.API.Filters;
 using AzmoonYar.API.OpenApi;
+using AzmoonYar.Application.Common;
+using AzmoonYar.Application.Repositories;
 using AzmoonYar.Infrastructure.Authentication;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -43,7 +46,56 @@ public static class DependencyInjection
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(setting.Key))
                 };
+                
+                options.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = async context =>
+                    {
+                        var userIdClaim = context.Principal?
+                            .FindFirst(JwtRegisteredClaimNames.Sub);
+
+                        var tokenVersionClaim = context.Principal?
+                            .FindFirst(CustomClaimTypes.TokenVersion);
+
+                        if (userIdClaim is null || tokenVersionClaim is null)
+                        {
+                            context.Fail("Invalid token.");
+                            return;
+                        }
+
+                        if (!long.TryParse(userIdClaim.Value, out var userId))
+                        {
+                            context.Fail("Invalid user id.");
+                            return;
+                        }
+
+                        if (!Guid.TryParse(tokenVersionClaim.Value, out var tokenVersion))
+                        {
+                            context.Fail("Invalid token version.");
+                            return;
+                        }
+
+                        var userRepository =
+                            context.HttpContext.RequestServices
+                                .GetRequiredService<IUserRepository>();
+
+                        var user = await userRepository.GetByIdAsync(userId);
+
+                        if (user is null)
+                        {
+                            context.Fail("User not found.");
+                            return;
+                        }
+
+                        if (user.TokenVersion != tokenVersion)
+                        {
+                            context.Fail("Token has been revoked.");
+                            return;
+                        }
+                    }
+                };
             });
+        
     }
     private static void AddApiVersioningAndOpenApi(this IServiceCollection services)
     {
