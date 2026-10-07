@@ -85,7 +85,7 @@
     {
       "code": "NU1900",
       "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://mirror-nuget.runflare.com/v3/index.json.",
+      "message": "Error occurred while getting package vulnerability data: Response status code does not indicate success: 402 (Payment Required).",
       "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",

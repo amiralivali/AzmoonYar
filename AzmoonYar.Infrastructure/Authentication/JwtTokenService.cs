@@ -28,7 +28,6 @@ public class JwtTokenService(IOptionsSnapshot<JwtSetting> options) : ITokenServi
                 ClaimValueTypes.Integer64),
             new (JwtRegisteredClaimNames.GivenName,user.FirstName),
             new (JwtRegisteredClaimNames.FamilyName,user.LastName),
-            new (CustomClaimTypes.TokenVersion, user.TokenVersion.ToString())
         };
         
         var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(setting.Key));
