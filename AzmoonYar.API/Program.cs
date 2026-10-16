@@ -35,7 +35,6 @@ builder.Services.AddApi();
 
 
 var app = builder.Build();
-app.UseStaticFiles();
 app.UseApiDocumentation();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
