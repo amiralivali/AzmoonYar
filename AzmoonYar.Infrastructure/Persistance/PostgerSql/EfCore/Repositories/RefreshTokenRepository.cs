@@ -11,4 +11,10 @@ public class RefreshTokenRepository(AzmoonYarDbContext context) : RepositoryBase
         return await Context.RefreshTokens.Include(x => x.User)
             .Where(x => x.TokenHash == tokenHash).FirstOrDefaultAsync(cancellationToken);
     }
+    public async Task<IReadOnlyList<RefreshToken>> GetActiveByFamilyAsync(string family,
+        CancellationToken cancellationToken = default)
+        => await Context.RefreshTokens
+            .Where(token => token.Family == family && token.RevokedAt == null &&
+                            token.ExpiresAt > DateTimeOffset.UtcNow)
+            .ToListAsync(cancellationToken);
 }

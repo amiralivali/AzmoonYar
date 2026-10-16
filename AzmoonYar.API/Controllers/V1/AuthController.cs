@@ -32,6 +32,15 @@ public class AuthController(IAuthService service) : BaseController
         return user.ToResponse();
     }
     
+    [AllowAnonymous]
+    [HttpPost(AuthLogUriConstants.Refresh)]
+    public async Task<ApiResult<AuthenticationResponse>> Refresh(RefreshTokenRequest request,
+        CancellationToken cancellationToken)
+    {
+        var result = await service.RefreshAsync(request.RefreshToken, cancellationToken);
+        return result.ToResponse();
+    }
+    
     [HttpPost(AuthLogUriConstants.Logout)]
     public async Task<ApiResult> Logout(LogoutRequest request,CancellationToken cancellationToken)
     {

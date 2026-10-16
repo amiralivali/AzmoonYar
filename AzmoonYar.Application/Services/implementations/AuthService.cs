@@ -43,6 +43,44 @@ public class AuthService(IUserRepository userRepository,
         
         return await CreateSessionAsync(user, cancellationToken);
     }
+    public async Task<AuthenticationDto> RefreshAsync(string rawRefreshToken,
+        CancellationToken cancellationToken = default)
+    {
+        var tokenHash = refreshTokenService.Hash(rawRefreshToken);
+        var currentToken = await refreshTokenRepository.GetByHashWithUserAsync(
+            tokenHash, cancellationToken);
+
+        if (currentToken is null)
+            throw new InvalidRefreshTokenException();
+
+        if (currentToken.RevokedAt is not null)
+        {
+            await RevokeFamilyAsync(currentToken.Family, cancellationToken);
+            throw new InvalidRefreshTokenException();
+        }
+
+        if (!currentToken.IsActive)
+        {
+            currentToken.Revoke();
+            await refreshTokenRepository.SaveChangesAsync(cancellationToken);
+            throw new InvalidRefreshTokenException();
+        }
+
+        var value = refreshTokenService.Create(currentToken.Family);
+        var replacement = new RefreshToken(
+            currentToken.UserId,
+            value.Hash,
+            value.Family,
+            value.ExpiresAt);
+
+        await refreshTokenRepository.AddAsync(replacement, cancellationToken);
+        await refreshTokenRepository.SaveChangesAsync(cancellationToken);
+
+        currentToken.Revoke(replacement.Id);
+        await refreshTokenRepository.SaveChangesAsync(cancellationToken);
+
+        return CreateResponse(currentToken.User, value);
+    }
 
     public async Task LogoutAsync(long userId, LogoutRequestDto requestDto, CancellationToken cancellationToken)
     {
@@ -79,6 +117,16 @@ public class AuthService(IUserRepository userRepository,
             refreshToken.ExpiresAt,
             ToDto(user));
     }
+    
+    private async Task RevokeFamilyAsync(string family, CancellationToken cancellationToken)
+    {
+        var tokens = await refreshTokenRepository.GetActiveByFamilyAsync(family, cancellationToken);
+        foreach (var token in tokens)
+            token.Revoke();
+
+        await refreshTokenRepository.SaveChangesAsync(cancellationToken);
+    }
+    
     private static UserDto ToDto(User user) => new(
         user.Id,
         user.FirstName,
