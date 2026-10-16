@@ -9,7 +9,7 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services.implementations;
 
-public class UserService(IUserRepository repository,IPasswordHasher passwordHasher) : IUserService
+public class UserService(IUserRepository repository) : IUserService
 {
     public async Task<UserDto> GetByIdAsync(long userId, CancellationToken cancellationToken)
     {

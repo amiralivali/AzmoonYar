@@ -18,6 +18,8 @@ public class QuestionRepository(AzmoonYarDbContext context)
         var pageNumber = queryFilterSpec.PageNumber;
         var pageSize = queryFilterSpec.PageSize;
         var queryable = Context.Questions.Include(x=>x.Lesson).ThenInclude(x=>x!.Book).AsQueryable();
+        
+        queryable = queryable.Where(x => x.UserId == queryFilterSpec.UserId);
         if (!string.IsNullOrEmpty(queryFilterSpec.SearchPhase))
         {
             queryable = queryable.Where(x=> x.QuestionText.Contains(queryFilterSpec.SearchPhase));

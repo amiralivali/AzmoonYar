@@ -10,5 +10,6 @@ public record GetQuestionDto(
     DifficultyLevel? DifficultyLevel,
     Grade? Grade,
     QuestionType? QuestionType,
+    QuestionStatus? QuestionStatus,
     int PageNumber = 1,
     int PageSize = 10);

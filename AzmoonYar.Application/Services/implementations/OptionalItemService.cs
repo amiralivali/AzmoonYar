@@ -28,6 +28,15 @@ public class OptionalItemService(IQuestionRepository repository) : IOptionalItem
         return ToDto(item);
     }
     
+    public async Task DeleteOptionalItemAsync(long id,
+        CancellationToken cancellationToken = default)
+    {
+        var question = await repository.GetByIdAsync(id, cancellationToken)
+                       ?? throw new EntityNotFoundException(nameof(Question), id);
+        question.RemoveOptionalItem();
+        await repository.SaveChangesAsync(cancellationToken);
+    }
+    
     private static OptionalItemDto ToDto(OptionalItem item) => new(
         item.Id,
         item.Option1,

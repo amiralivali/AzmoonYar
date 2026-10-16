@@ -128,6 +128,7 @@ public static class QuestionContractMapping
             request.DifficultyLevel,
             request.Grade,
             request.QuestionType,
+            request.QuestionStatus,
             request.PageNumber,
             request.PageSize);
     }

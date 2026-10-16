@@ -9,5 +9,6 @@ public record GetQuestionRequest(
     DifficultyLevel? DifficultyLevel,
     Grade? Grade,
     QuestionType? QuestionType,
+    QuestionStatus? QuestionStatus,
     int PageNumber = 1,
     int PageSize = 10);

@@ -22,6 +22,7 @@ public class Question
     public DifficultyLevel DifficultyLevel { get; private set; }
 
     public QuestionType QuestionType { get; private set; }
+    public QuestionStatus QuestionStatus { get; private set; }
 
     public DateTimeOffset CreatedAt { get; private set; }
 
@@ -52,8 +53,23 @@ public class Question
         DifficultyLevel = difficultyLevel;
         QuestionType = questionType;
         CreatedAt = DateTimeOffset.UtcNow;
+        RecalculateStatus();
     }
     
+
+    private void RecalculateStatus()
+    {
+        var isComplete = QuestionType switch
+        {
+            QuestionType.FillInBlank => _fillInBlankItems.Count > 0,
+            QuestionType.Matching    => _matchingItems.Count > 0,
+            QuestionType.TrueFalse   => _trueFalseItems.Count > 0,
+            QuestionType.Optional    => OptionalItem is not null,
+            _                        => true  
+        };
+
+        QuestionStatus = isComplete ? QuestionStatus.Completed : QuestionStatus.Draft;
+    }
 
     public void UpdateQuestion(long lessonId,
         string questionText,
@@ -63,7 +79,16 @@ public class Question
         LessonId = lessonId;
         QuestionText = questionText.Trim();
         DifficultyLevel = difficultyLevel;
-        QuestionType = questionType;
+        if (QuestionType != questionType)
+        {
+            QuestionType = questionType;
+            _fillInBlankItems.Clear();
+            _matchingItems.Clear();
+            _trueFalseItems.Clear();
+            OptionalItem = null;
+        }
+
+        RecalculateStatus();
     }
     
     public void ChangePicture(string? picture)
@@ -82,6 +107,7 @@ public class Question
 
         var item = new FillInBlankItem(itemText);
         _fillInBlankItems.Add(item);
+        RecalculateStatus();
         return item;
     }
 
@@ -94,6 +120,7 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(FillInBlankItem), itemId);
 
         _fillInBlankItems.Remove(item);
+        RecalculateStatus();
     }
 
     public FillInBlankItem UpdateFillInBlankItem(long itemId, string itemText)
@@ -119,6 +146,7 @@ public class Question
 
         var item = new MatchingItem(leftItemText, rightItemText);
         _matchingItems.Add(item);
+        RecalculateStatus();
         return item;
     }
 
@@ -131,11 +159,12 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(MatchingItem), itemId);
 
         _matchingItems.Remove(item);
+        RecalculateStatus();
     }
 
     public MatchingItem UpdateMatchingItem(long itemId, string leftItemText, string rightItemText)
     {
-        if (QuestionType != QuestionType.FillInBlank)
+        if (QuestionType != QuestionType.Matching)
             throw new MatchingItemOperationNotAllowedException();
 
         var item = _matchingItems.FirstOrDefault(x => x.Id == itemId)
@@ -168,7 +197,19 @@ public class Question
             option3,
             option4,
             correctOption);
+        RecalculateStatus();
         return OptionalItem;
+    }
+    public void RemoveOptionalItem()
+    {
+        if (QuestionType != QuestionType.Optional)
+            throw new OptionalItemOperationNotAllowedException();
+
+        if (OptionalItem is null)
+            throw new OptionalItemNotFoundException();
+
+        OptionalItem = null;
+        RecalculateStatus();
     }
 
     public OptionalItem UpdateOptionalItem(
@@ -199,6 +240,7 @@ public class Question
 
         var item =  new TrueFalseItem(itemText,isCorrect);
         _trueFalseItems.Add(item);
+        RecalculateStatus();
         return item;
     }
 
@@ -211,6 +253,7 @@ public class Question
                    ?? throw new EntityNotFoundException(nameof(TrueFalseItem), itemId);
 
         _trueFalseItems.Remove(item);
+        RecalculateStatus();
     }
 
     public TrueFalseItem UpdateTrueFalseItem(long itemId, string itemText, bool isCorrect)

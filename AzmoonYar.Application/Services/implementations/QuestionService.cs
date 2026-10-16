@@ -68,12 +68,15 @@ public class QuestionService(IQuestionRepository repository,
         GetQuestionDto request,
         CancellationToken cancellationToken = default)
     {
-        var queryFilter = new QuestionQueryFilterSpec(request.SearchPhase,
+        var queryFilter = new QuestionQueryFilterSpec(
+            request.UserId,
+            request.SearchPhase,
             request.BookId,
             request.LessonId,
             request.DifficultyLevel,
             request.Grade,
             request.QuestionType,
+            request.QuestionStatus,
             request.PageNumber,
             request.PageSize);
         var result = await repository.GetAllAsync(queryFilter

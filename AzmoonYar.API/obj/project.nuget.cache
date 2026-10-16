@@ -83,6 +83,15 @@
   ],
   "logs": [
     {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://mirror-nuget.runflare.com/v3/index.json.",
+      "projectPath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\USer\\RiderProjects\\AzmoonYar\\AzmoonYar.API\\AzmoonYar.API.csproj",
+      "targetGraphs": []
+    },
+    {
       "code": "NU1902",
       "level": "Warning",
       "message": "Package 'System.Security.Cryptography.Pkcs' 9.0.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-2fmv-rv2c-59x7",
