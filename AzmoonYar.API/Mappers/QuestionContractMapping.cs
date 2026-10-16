@@ -151,11 +151,10 @@ public static class QuestionContractMapping
         switch (dto.QuestionType)
         {
             case QuestionType.Optional:
-                if (dto.OptionalItem is null)
-                    throw new InvalidOperationException(
-                        $"Optional item not found for question {dto.QuestionId}");
+                if (dto.OptionalItem is not null)
+                    optionalItem = dto.OptionalItem.ToResponse();
 
-                optionalItem = dto.OptionalItem.ToResponse();
+
                 break;
 
             case QuestionType.FillInBlank:
@@ -188,6 +187,7 @@ public static class QuestionContractMapping
             dto.Picture,
             dto.DifficultyLevel,
             dto.QuestionType,
+            dto.QuestionStatus,
             dto.CreatedAt,
             optionalItem,
             fillInBlankItems,

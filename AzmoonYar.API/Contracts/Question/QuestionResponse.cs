@@ -13,6 +13,7 @@ public record QuestionResponse(
     string? Picture,
     DifficultyLevel DifficultyLevel,
     QuestionType QuestionType,
+    QuestionStatus QuestionStatus,
     DateTimeOffset CreatedAt,
     OptionalItemResponse? OptionalItem,
     List<FillInBlankItemResponse> FillInBlankItems,

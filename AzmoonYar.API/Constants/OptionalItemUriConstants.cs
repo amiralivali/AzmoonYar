@@ -7,4 +7,5 @@ public static class OptionalItemUriConstants
 
     public const string UpdateItem = $"{QuestionController}/{{questionId:long}}/{ItemsSegment}";
     public const string AddItem = $"{QuestionController}/{{questionId:long}}/{ItemsSegment}";
+    public const string DeleteItem = $"{QuestionController}/{{questionId:long}}/{ItemsSegment}";
 }

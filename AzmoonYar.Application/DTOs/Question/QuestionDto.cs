@@ -13,6 +13,7 @@ public record QuestionDto(
     string? Picture,
     DifficultyLevel DifficultyLevel,
     QuestionType QuestionType,
+    QuestionStatus QuestionStatus,
     DateTimeOffset CreatedAt,
     OptionalItemDto? OptionalItem,
     List<FillInBlankItemDto> FillInBlankItems ,

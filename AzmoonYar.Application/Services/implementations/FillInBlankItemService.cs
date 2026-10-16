@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.Application.DTOs.FillInBlankItem;
+using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
@@ -6,7 +7,8 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services.implementations;
 
-public class FillInBlankItemService(IQuestionRepository repository) : IFillInBlankItemService
+public class FillInBlankItemService(IQuestionRepository repository,
+    IActivityLogService logService) : IFillInBlankItemService
 {
     public async Task<List<FillInBlankItemDto>> AddFillInBlankItemsAsync(long id,
         List<CreateFillInBlankItemDto> items,
@@ -16,6 +18,7 @@ public class FillInBlankItemService(IQuestionRepository repository) : IFillInBla
             ??  throw new EntityNotFoundException(nameof(Question), id);
         var result = items.Select(dto => ToDto(question.AddFillInBlankItem(dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new FillInBlankItemCreatedLogData(question.Id.ToString()),question.UserId,cancellationToken);
         return result;
     }
 
@@ -27,6 +30,7 @@ public class FillInBlankItemService(IQuestionRepository repository) : IFillInBla
             ?? throw new EntityNotFoundException(nameof(Question), id);
         var items = dtos.Select(dto => ToDto(question.UpdateFillInBlankItem(dto.Id,dto.ItemText))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new FillInBlankItemUpdatedLogData(question.Id.ToString()),question.UserId,cancellationToken);
         return items;
     }
 
@@ -37,6 +41,7 @@ public class FillInBlankItemService(IQuestionRepository repository) : IFillInBla
             ?? throw new EntityNotFoundException(nameof(Question), id);
         question.RemoveFillInBlankItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new FillInBlankItemDeletedLogData(question.Id.ToString()),question.UserId,cancellationToken);
     }
     
     public async Task<List<FillInBlankAnswerDto>> AddFillInBlankAnswersAsync(long itemId,

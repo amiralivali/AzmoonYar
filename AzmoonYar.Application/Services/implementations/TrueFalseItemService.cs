@@ -1,4 +1,5 @@
 ﻿using AzmoonYar.Application.DTOs.TrueFalseItem;
+using AzmoonYar.Application.Logs.Contracts;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
@@ -6,7 +7,8 @@ using AzmoonYar.Domain.Exceptions;
 
 namespace AzmoonYar.Application.Services.implementations;
 
-public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseItemService
+public class TrueFalseItemService(IQuestionRepository repository,
+    IActivityLogService logService) : ITrueFalseItemService
 {
     public async Task<List<TrueFalseItemDto>> AddTrueFalseItemsAsync(long id,
         List<CreateTrueFalseItemDto> items,
@@ -16,6 +18,7 @@ public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseIt
                        ??  throw new EntityNotFoundException(nameof(Question), id);
         var results = items.Select(dto => ToDto(question.AddTrueFalseItem(dto.ItemText,dto.IsCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new TrueFalseItemCreatedLogData(question.Id.ToString()),question.UserId,cancellationToken);
         return results;
     }
 
@@ -27,6 +30,7 @@ public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseIt
                        ?? throw new EntityNotFoundException(nameof(Question), id);
         var results = items.Select(dto => ToDto(question.UpdateTrueFalseItem(dto.Id,dto.ItemText,dto.IdCorrect))).ToList();
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new TrueFalseItemUpdatedLogData(question.Id.ToString()),question.UserId,cancellationToken);
         return results;
     }
 
@@ -37,6 +41,7 @@ public class TrueFalseItemService(IQuestionRepository repository) : ITrueFalseIt
                        ?? throw new EntityNotFoundException(nameof(Question), id);
         question.RemoveTrueFalseItem(itemId);
         await repository.SaveChangesAsync(cancellationToken);
+        await logService.AddAsync(new TrueFalseItemDeletedLogData(question.Id.ToString()),question.UserId,cancellationToken);
     }
     
     private static TrueFalseItemDto ToDto(TrueFalseItem item) => new(

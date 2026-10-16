@@ -135,17 +135,17 @@ public class QuestionService(IQuestionRepository repository,
         switch (question.QuestionType)
         {
             case QuestionType.Optional:
-                if (question.OptionalItem is null)
-                    throw new InvalidOperationException(
-                        $"Optional item not found for question {question.Id}");
+                if (question.OptionalItem is not null)
+                {
+                    optionalItem = new OptionalItemDto(
+                        question.OptionalItem.Id,
+                        question.OptionalItem.Option1,
+                        question.OptionalItem.Option2,
+                        question.OptionalItem.Option3,
+                        question.OptionalItem.Option4,
+                        question.OptionalItem.CorrectOption);
+                }
 
-                optionalItem = new OptionalItemDto(
-                    question.OptionalItem.Id,
-                    question.OptionalItem.Option1,
-                    question.OptionalItem.Option2,
-                    question.OptionalItem.Option3,
-                    question.OptionalItem.Option4,
-                    question.OptionalItem.CorrectOption);
                 break;
 
             case QuestionType.FillInBlank:
@@ -186,6 +186,7 @@ public class QuestionService(IQuestionRepository repository,
             question.Picture,
             question.DifficultyLevel,
             question.QuestionType,
+            question.QuestionStatus,
             question.CreatedAt,
             optionalItem,
             fillInBlankItems,

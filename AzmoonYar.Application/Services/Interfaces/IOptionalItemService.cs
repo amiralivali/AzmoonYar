@@ -11,4 +11,7 @@ public interface IOptionalItemService
     Task<OptionalItemDto> UpdateOptionalItemAsync(long id,
         UpdateOptionalItemDto dto,
         CancellationToken cancellationToken = default);
+
+    Task DeleteOptionalItemAsync(long id,
+        CancellationToken cancellationToken = default);
 }

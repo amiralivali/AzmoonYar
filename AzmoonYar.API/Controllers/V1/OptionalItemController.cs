@@ -29,4 +29,12 @@ public class OptionalItemController(IOptionalItemService service) : BaseControll
         var item = await service.UpdateOptionalItemAsync(questionId,request.ToDto(),cancellationToken);
         return item.ToResponse();
     }
+    
+    [HttpDelete(OptionalItemUriConstants.DeleteItem)]
+    public async Task<ApiResult> DeleteOptionalItem(long questionId,
+        CancellationToken cancellationToken)
+    {
+        await service.DeleteOptionalItemAsync(questionId,cancellationToken);
+        return ApiResult.NoContent();
+    }
 }
