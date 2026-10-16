@@ -26,40 +26,43 @@ public static class LogTemplates
                 "ویرایش سوال",
                 "سوال {QuestionType} ویرایش شد"),
             [ActivityLogType.OptionalItemCreated] = new LogTemplate(
-                "اضافه سوال تستی",
-                "آیتم تستی به سوال با شناسه {questionId} اضافه شد"),
+                "افزودن آیتم تستی",
+                "آیتم تستی به سوال با شناسه {Id} اضافه شد"),
             [ActivityLogType.OptionalItemUpdated] = new LogTemplate(
-                "ویرایش سوال تستی",
-                "آیتم تستی به سوال با شناسه {questionId} ویرایش شد"),
+                "ویرایش آیتم تستی",
+                "آیتم تستی سوال با شناسه {Id} ویرایش شد"),
             [ActivityLogType.OptionalItemDeleted] = new LogTemplate(
-                "حذف سوال تستی",
-                "آیتم تستی به سوال با شناسه {questionId} حذف شد"),
+                "حذف آیتم تستی",
+                "آیتم تستی از سوال با شناسه {Id} حذف شد"),
+
             [ActivityLogType.TrueFalseItemCreated] = new LogTemplate(
-                "اضافه سوال صحیح غلط",
-                "آیتم صحیح غلط به سوال با شناسه {questionId} اضافه شد"),
+                "افزودن آیتم صحیح غلط",
+                "آیتم صحیح غلط به سوال با شناسه {Id} اضافه شد"),
             [ActivityLogType.TrueFalseItemUpdated] = new LogTemplate(
-                "ویرایش سوال صحیح غلط",
-                "آیتم صحیح غلط به سوال با شناسه {questionId} ویرایش شد"),
+                "ویرایش آیتم صحیح غلط",
+                "آیتم صحیح غلط سوال با شناسه {Id} ویرایش شد"),
             [ActivityLogType.TrueFalseItemDeleted] = new LogTemplate(
-                "حذف سوال صحیح غلط",
-                "آیتم صحیح غلط به سوال با شناسه {questionId} حذف شد"),
+                "حذف آیتم صحیح غلط",
+                "آیتم صحیح غلط از سوال با شناسه {Id} حذف شد"),
+
             [ActivityLogType.MatchingItemCreated] = new LogTemplate(
-                "اضافه سوال وصل کردنی",
-                "آیتم وصل کردنی به سوال با شناسه {questionId} اضافه شد"),
+                "افزودن آیتم وصل کردنی",
+                "آیتم وصل کردنی به سوال با شناسه {Id} اضافه شد"),
             [ActivityLogType.MatchingItemUpdated] = new LogTemplate(
-                "ویرایش سوال وصل کردنی",
-                "آیتم وصل کردنی به سوال با شناسه {questionId} ویرایش شد"),
+                "ویرایش آیتم وصل کردنی",
+                "آیتم وصل کردنی سوال با شناسه {Id} ویرایش شد"),
             [ActivityLogType.MatchingItemDeleted] = new LogTemplate(
-                "حذف سوال وصل کردنی",
-                "آیتم وصل کردنی به سوال با شناسه {questionId} حذف شد"),
+                "حذف آیتم وصل کردنی",
+                "آیتم وصل کردنی از سوال با شناسه {Id} حذف شد"),
+
             [ActivityLogType.FillInBlankItemCreated] = new LogTemplate(
-                "اضافه سوال جاخالی",
-                "آیتم جاخالی به سوال با شناسه {questionId} اضافه شد"),
+                "افزودن آیتم جاخالی",
+                "آیتم جاخالی به سوال با شناسه {Id} اضافه شد"),
             [ActivityLogType.FillInBlankItemUpdated] = new LogTemplate(
-                "ویرایش سوال جاخالی",
-                "آیتم جاخالی به سوال با شناسه {questionId} ویرایش شد"),
+                "ویرایش آیتم جاخالی",
+                "آیتم جاخالی سوال با شناسه {Id} ویرایش شد"),
             [ActivityLogType.FillInBlankItemDeleted] = new LogTemplate(
-                "حذف سوال جاخالی",
-                "آیتم جاخالی به سوال با شناسه {questionId} حذف شد"),
+                "حذف آیتم جاخالی",
+                "آیتم جاخالی از سوال با شناسه {Id} حذف شد"),
         };
 }
