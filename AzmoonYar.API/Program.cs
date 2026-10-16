@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using Asp.Versioning;
 using AzmoonYar.API;
@@ -18,8 +19,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -36,7 +35,7 @@ builder.Services.AddApi();
 
 
 var app = builder.Build();
-
+app.UseStaticFiles();
 app.UseApiDocumentation();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();

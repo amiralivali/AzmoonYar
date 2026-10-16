@@ -10,4 +10,7 @@ public static class AuthContractMapping
     
     public static LogoutRequestDto ToDto(this LogoutRequest dto)
         => new(dto.RefreshToken);
+    
+    public static GoogleLoginDto ToDto(this GoogleLoginRequest dto)
+        => new(dto.IdToken);
 }

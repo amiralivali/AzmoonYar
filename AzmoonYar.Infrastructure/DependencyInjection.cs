@@ -30,6 +30,7 @@ public static class DependencyInjection
             builder.AddScoped<ITokenService, JwtTokenService>();
             builder.AddScoped<IUserRepository, UserRepository>();
             builder.AddScoped<IExamRepository, ExamRepository>();
+            builder.AddScoped<IGoogleTokenValidator, GoogleTokenValidator>();
             builder.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
             builder.Configure<ArvanStorageOptions>(configuration.GetSection(ArvanStorageOptions.SectionName));
             builder.AddSingleton<IAmazonS3>(sp =>

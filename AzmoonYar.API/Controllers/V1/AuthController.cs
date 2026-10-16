@@ -47,4 +47,9 @@ public class AuthController(IAuthService service) : BaseController
         await service.LogoutAsync(User.GetUserId(),request.ToDto(), cancellationToken);
         return ApiResult.NoContent();
     }
+    
+    [HttpPost(AuthLogUriConstants.Google)]
+    [AllowAnonymous]
+    public async Task<IActionResult> Google(GoogleLoginRequest request, CancellationToken ct)
+        => Ok(await service.GoogleLoginAsync(request.ToDto(), ct));
 }

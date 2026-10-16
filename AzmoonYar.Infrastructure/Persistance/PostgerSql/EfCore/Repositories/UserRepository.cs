@@ -37,4 +37,10 @@ public class UserRepository(AzmoonYarDbContext context) : RepositoryBase<User>(c
                 user => user.PhoneNumber == normalized || user.Email == normalized,
                 cancellationToken);
     }
+    
+    public async Task<User?> GetByGoogleIdAsync(string googleId, CancellationToken ct)
+        => await context.Users.FirstOrDefaultAsync(u => u.GoogleId == googleId, ct);
+
+    public async Task<User?> GetByEmailAsync(string email, CancellationToken ct)
+        => await context.Users.FirstOrDefaultAsync(u => u.Email == email, ct);
 }

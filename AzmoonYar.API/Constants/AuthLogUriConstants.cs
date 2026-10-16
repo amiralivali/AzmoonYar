@@ -8,4 +8,5 @@ public class AuthLogUriConstants
     public const string Register = $"{Controller}/register";
     public const string Logout = $"{Controller}/logout";
     public const string Refresh = $"{Controller}/refresh";
+    public const string Google = $"{Controller}/google";
 }

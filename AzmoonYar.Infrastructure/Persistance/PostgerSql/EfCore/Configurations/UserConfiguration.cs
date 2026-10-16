@@ -21,11 +21,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired(false);
         builder.Property(x=>x.PasswordHash)
             .HasMaxLength(UserConstants.PasswordMaxLength)   
-            .IsRequired();
+            .IsRequired(false);
         builder.Property(x => x.PhoneNumber)
             .HasMaxLength(UserConstants.PhoneNumberMaxLength)
             .IsUnicode(false)
-            .IsRequired();
+            .IsRequired(false);
         builder.HasIndex(x=>x.Email).IsUnique();   
         builder.HasIndex(x=>x.PhoneNumber).IsUnique();    
     }

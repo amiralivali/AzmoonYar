@@ -11,4 +11,6 @@ public interface IAuthService
 
     Task<AuthenticationDto> RefreshAsync(string rawRefreshToken,
         CancellationToken cancellationToken = default);
+
+    Task<AuthenticationDto> GoogleLoginAsync(GoogleLoginDto dto, CancellationToken cancellationToken);
 }

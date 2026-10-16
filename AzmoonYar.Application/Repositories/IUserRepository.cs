@@ -7,4 +7,6 @@ public interface IUserRepository : IRepository<User>
     Task<bool> CheckPhoneNumberDuplicate(string phoneNumber, CancellationToken cancellationToken,long userId = 0);
     Task<bool> CheckEmailDuplicate(string email, CancellationToken cancellationToken,long userId = 0);
     Task<User?> GetByLoginAsync(string login, CancellationToken cancellationToken = default);
+    Task<User?> GetByGoogleIdAsync(string googleId, CancellationToken ct);
+    Task<User?> GetByEmailAsync(string email, CancellationToken ct);
 }

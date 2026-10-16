@@ -12,7 +12,8 @@ public class AuthService(IUserRepository userRepository,
     IPasswordHasher passwordHasher,
     IRefreshTokenService refreshTokenService,
     IRefreshTokenRepository refreshTokenRepository,
-    ITokenService tokenService) : IAuthService
+    ITokenService tokenService,
+    IGoogleTokenValidator googleTokenValidator) : IAuthService
 {
     public async Task<UserDto> RegisterAsync(CreateUserDto dto, CancellationToken cancellationToken = default)
     {
@@ -38,7 +39,8 @@ public class AuthService(IUserRepository userRepository,
     public async Task<AuthenticationDto> LoginAsync(LoginRequestDto requestDto, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByLoginAsync(requestDto.Login, cancellationToken);
-        if (user is null || !passwordHasher.Verify(requestDto.Password,user.PasswordHash))
+        if (user is null || user.PasswordHash is null ||
+            !passwordHasher.Verify(requestDto.Password, user.PasswordHash))
             throw new AuthenticationFailedException();
         
         return await CreateSessionAsync(user, cancellationToken);
@@ -118,6 +120,27 @@ public class AuthService(IUserRepository userRepository,
             ToDto(user));
     }
     
+    public async Task<AuthenticationDto> GoogleLoginAsync(GoogleLoginDto dto, CancellationToken cancellationToken)
+    {
+        var info = await googleTokenValidator.ValidateAsync(dto.IdToken, cancellationToken);
+
+        var user = await userRepository.GetByGoogleIdAsync(info.Subject, cancellationToken)
+                   ?? await userRepository.GetByEmailAsync(info.Email, cancellationToken);
+
+        if (user is null)
+        {
+            user = User.CreateFromGoogle(info.FirstName, info.LastName, info.Email, info.Subject);
+            await userRepository.AddAsync(user, cancellationToken);
+        }
+        else if (user.GoogleId is null)
+        {
+            user.LinkGoogle(info.Subject);
+        }
+
+        await userRepository.SaveChangesAsync(cancellationToken);
+        return await CreateSessionAsync(user, cancellationToken);
+    }
+    
     private async Task RevokeFamilyAsync(string family, CancellationToken cancellationToken)
     {
         var tokens = await refreshTokenRepository.GetActiveByFamilyAsync(family, cancellationToken);
@@ -126,6 +149,7 @@ public class AuthService(IUserRepository userRepository,
 
         await refreshTokenRepository.SaveChangesAsync(cancellationToken);
     }
+    
     
     private static UserDto ToDto(User user) => new(
         user.Id,
