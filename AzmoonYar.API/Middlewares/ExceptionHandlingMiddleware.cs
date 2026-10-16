@@ -3,6 +3,7 @@ using AzmoonYar.Application.Exceptions;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
 using AzmoonYar.Domain.Exceptions;
+using AzmoonYar.Infrastructure.Exceptions;
 
 namespace AzmoonYar.API.Middlewares;
 
@@ -26,10 +27,13 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
     private static HttpStatusCode ResolveStatusCode(Exception exception) => exception switch
     {
         EntityNotFoundException or AuthenticationFailedException or LessonNotFoundException or LessonNotFoundInBookException => HttpStatusCode.NotFound,
-        OptionalItemAlreadyExistsException or
-            DuplicateExceptionError or QuestionAlreadyExistException
+
+        OptionalItemAlreadyExistsException
+            or DuplicateExceptionError
+            or QuestionAlreadyExistException
             or QuestionTypeAlreadyExistException
-            or DuplicateLessonNumber=> HttpStatusCode.Conflict,
+            or DuplicateLessonNumber => HttpStatusCode.Conflict,
+
         DescriptiveQuestionWithoutItemException
             or FillInBlankItemOperationNotAllowedException
             or InvalidQuestionType
@@ -39,8 +43,10 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
             or TrueFalseItemOperationNotAllowedException
             or NotEnoughQuestionsException
             or InvalidQuestionCount
-            or InvalidQuestionType
-            or InvalidScoreException=> HttpStatusCode.BadRequest,
+            or InvalidScoreException => HttpStatusCode.BadRequest,
+
+        UploadPhotoException or DeletePhotoException => HttpStatusCode.BadGateway,
+
         _ => HttpStatusCode.InternalServerError
     };
 

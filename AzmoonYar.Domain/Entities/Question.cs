@@ -53,6 +53,7 @@ public class Question
         QuestionType = questionType;
         CreatedAt = DateTimeOffset.UtcNow;
     }
+    
 
     public void UpdateQuestion(long lessonId,
         string questionText,

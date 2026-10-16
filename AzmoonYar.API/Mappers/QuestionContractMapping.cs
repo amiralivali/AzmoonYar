@@ -77,7 +77,7 @@ public static class QuestionContractMapping
         return dto.Select(x => new MatchingItemResponse(x.Id,x.LeftItemText,x.RightItemText)).ToList();
     }
 
-    private static CreateOptionalItemDto ToDto(this CreateOptionalItemRequest request)
+    public static CreateOptionalItemDto ToDto(this CreateOptionalItemRequest request)
     {
         return new CreateOptionalItemDto(request.Option1,request.Option2,request.Option3,request.Option4,request.CorrectOption);
     }

@@ -8,6 +8,15 @@ namespace AzmoonYar.Application.Services.implementations;
 
 public class OptionalItemService(IQuestionRepository repository) : IOptionalItemService
 {
+    public async Task<OptionalItemDto> AddOptionalItemAsync(long id, CreateOptionalItemDto dto, CancellationToken cancellationToken = default)
+    {
+        var question = await repository.GetByIdAsync(id, cancellationToken)
+                       ?? throw new EntityNotFoundException(nameof(Question), id);
+        var item = question.AddOptionalItem(dto.Option1,dto.Option2,dto.Option3,dto.Option4,dto.CorrectOption);
+        await repository.SaveChangesAsync(cancellationToken);
+        return ToDto(item);
+    }
+
     public async Task<OptionalItemDto> UpdateOptionalItemAsync(long id,
         UpdateOptionalItemDto dto,
         CancellationToken cancellationToken = default)

@@ -12,6 +12,15 @@ namespace AzmoonYar.API.Controllers.V1;
 [ApiVersion(1.0)]
 public class OptionalItemController(IOptionalItemService service) : BaseController
 {
+    [HttpPost(OptionalItemUriConstants.AddItem)]
+    public async Task<ApiResult<OptionalItemResponse>> AddOptionalItem(long questionId,
+        CreateOptionalItemRequest request,
+        CancellationToken cancellationToken)
+    {
+        var item = await service.AddOptionalItemAsync(questionId,request.ToDto(),cancellationToken);
+        return item.ToResponse();
+    }
+    
     [HttpPut(OptionalItemUriConstants.UpdateItem)]
     public async Task<ApiResult<OptionalItemResponse>> UpdateOptionalItem(long questionId,
         UpdateOptionalItemRequest request,

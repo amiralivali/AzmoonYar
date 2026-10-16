@@ -1,6 +1,8 @@
-﻿using Amazon.S3;
+﻿using Amazon.Runtime;
+using Amazon.S3;
 using Amazon.S3.Model;
 using AzmoonYar.Application.Interfaces;
+using AzmoonYar.Infrastructure.Exceptions;
 using Microsoft.Extensions.Options;
 
 namespace AzmoonYar.Infrastructure.Storage.Arvan;
@@ -20,10 +22,17 @@ public class S3FileStorageServiceService(IAmazonS3 s3Client, IOptions<ArvanStora
             Key = key,
             InputStream = fileStream,
             ContentType = contentType,
-            CannedACL = S3CannedACL.PublicRead 
+            CannedACL = S3CannedACL.PublicRead
         };
 
-        await s3Client.PutObjectAsync(request, ct);
+        try
+        {
+            await s3Client.PutObjectAsync(request, ct);
+        }
+        catch (Exception ex) when (ex is AmazonS3Exception or AmazonServiceException or AmazonClientException)
+        {
+            throw new UploadPhotoException(ex);
+        }
 
         return key;
     }
@@ -36,7 +45,14 @@ public class S3FileStorageServiceService(IAmazonS3 s3Client, IOptions<ArvanStora
             Key = fileKey
         };
 
-        await s3Client.DeleteObjectAsync(request, ct);
+        try
+        {
+            await s3Client.DeleteObjectAsync(request, ct);
+        }
+        catch (Exception ex) when (ex is AmazonS3Exception or AmazonServiceException or AmazonClientException)
+        {
+            throw new DeletePhotoException(ex);
+        }
     }
 
     public string GetFileUrl(string fileKey)

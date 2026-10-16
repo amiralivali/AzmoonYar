@@ -30,7 +30,6 @@ public class OptionalItem
         Option4 = option4.Trim();
         CorrectOption =  correctOption;
     }
-
     internal void Update(
         string option1,
         string option2,
