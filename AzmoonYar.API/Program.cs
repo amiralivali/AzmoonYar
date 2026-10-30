@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Host.UseSerilog((ctx, service, lc) => lc
+        .ReadFrom.Configuration(ctx.Configuration)
+        .ReadFrom.Services(service)
+);
 
 builder.Services.AddApi();
 

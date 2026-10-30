@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AzmoonYar.API.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class AuthController(IAuthService service) : BaseController
+public class AuthController(IAuthService service,ILogger<AuthController> _logger) : BaseController
 {
     [AllowAnonymous]
     [HttpPost(AuthLogUriConstants.Login)]
@@ -20,6 +20,7 @@ public class AuthController(IAuthService service) : BaseController
         CancellationToken cancellationToken)
     {
         var user = await service.LoginAsync(request.ToDto(), cancellationToken);
+        _logger.LogInformation("User logged in");
         return user.ToResponse();
     }
     
