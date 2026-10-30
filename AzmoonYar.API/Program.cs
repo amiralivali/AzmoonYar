@@ -41,6 +41,7 @@ builder.Services.AddApi();
 
 var app = builder.Build();
 app.UseApiDocumentation();
+app.UseSerilogRequestLogging();   
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

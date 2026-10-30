@@ -11,13 +11,16 @@ public class BookConfiguration : IEntityTypeConfiguration<Book>
     public void Configure(EntityTypeBuilder<Book> builder)
     {
         builder.HasKey(x => x.Id);
+        
         builder.Property(x => x.BookName)
             .IsRequired(true)
             .HasMaxLength(BookConstants.BookNameMaxLength);
+        
         builder.Property(x => x.BookSource)
-            .IsRequired()
-            .HasDefaultValue(BookSource.User);
+            .IsRequired();
+        
         builder.HasIndex(x => x.BookName);
+        
         builder.Property(x => x.Picture)
             .HasMaxLength(BookConstants.PictureMaxLenght);
     }
