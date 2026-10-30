@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using AzmoonYar.Application.Exceptions;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Domain.Entities;
@@ -7,7 +8,7 @@ using AzmoonYar.Infrastructure.Exceptions;
 
 namespace AzmoonYar.API.Middlewares;
 
-public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionLog> logger)
+public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionHandlingMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext context, IExceptionLogRepository exceptionLogRepository)
     {
@@ -15,11 +16,33 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
         {
             await next(context);
         }
+        catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested)
+        {
+            logger.LogInformation("Request cancelled by client: {Method} {Path}",
+                context.Request.Method, context.Request.Path);
+
+            if (!context.Response.HasStarted)
+                context.Response.StatusCode = 499;
+        }
         catch (Exception ex)
         {
             var statusCode = ResolveStatusCode(ex);
 
+            if (statusCode == HttpStatusCode.InternalServerError)
+                logger.LogError(ex, "Unhandled exception on {Method} {Path}",
+                    context.Request.Method, context.Request.Path);
+            else
+                logger.LogWarning(ex, "Handled {ExceptionType} on {Method} {Path} -> {StatusCode}",
+                    ex.GetType().Name, context.Request.Method, context.Request.Path, (int)statusCode);
+
             await LogExceptionAsync(context, ex, statusCode, exceptionLogRepository);
+
+            if (context.Response.HasStarted)
+            {
+                logger.LogError("Response already started, cannot write problem response");
+                throw;
+            }
+
             await WriteProblemAsync(context, statusCode, ResolveDetail(ex, statusCode));
         }
     }
@@ -88,7 +111,8 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionL
         {
             status = (int)statusCode,
             title = statusCode.ToString(),
-            detail
+            detail,
+            traceId = Activity.Current?.TraceId.ToString() ?? context.TraceIdentifier
         };
 
         return context.Response.WriteAsJsonAsync(problem);
