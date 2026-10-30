@@ -5,6 +5,7 @@ using AzmoonYar.Application.Interfaces;
 using AzmoonYar.Application.Repositories;
 using AzmoonYar.Application.Services.Interfaces;
 using AzmoonYar.Domain.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace AzmoonYar.Application.Services.implementations;
 
@@ -13,10 +14,13 @@ public class AuthService(IUserRepository userRepository,
     IRefreshTokenService refreshTokenService,
     IRefreshTokenRepository refreshTokenRepository,
     ITokenService tokenService,
-    IGoogleTokenValidator googleTokenValidator) : IAuthService
+    IGoogleTokenValidator googleTokenValidator,
+    ILogger<AuthService> logger) : IAuthService
 {
     public async Task<UserDto> RegisterAsync(CreateUserDto dto, CancellationToken cancellationToken = default)
-    {
+    { 
+        logger.LogInformation("Register attempt with {PhoneNumber}", dto.PhoneNumber);
+        
         var duplicateMobile = await userRepository.CheckPhoneNumberDuplicate(dto.PhoneNumber, cancellationToken);
         if (duplicateMobile)
             throw new DuplicateExceptionError(nameof(dto.PhoneNumber));
@@ -33,17 +37,23 @@ public class AuthService(IUserRepository userRepository,
         
         await userRepository.AddAsync(user, cancellationToken);
         await userRepository.SaveChangesAsync(cancellationToken);
+        
+        logger.LogInformation("User registered with {UserId}", user.Id);
         return ToDto(user);
     }
 
     public async Task<AuthenticationDto> LoginAsync(LoginRequestDto requestDto, CancellationToken cancellationToken)
     {
+        logger.LogInformation("Login attempt for {Login}", requestDto.Login);
+        
         var user = await userRepository.GetByLoginAsync(requestDto.Login, cancellationToken);
-        if (user is null || user.PasswordHash is null ||
+        if (user?.PasswordHash is null ||
             !passwordHasher.Verify(requestDto.Password, user.PasswordHash))
             throw new AuthenticationFailedException();
+        var session = await CreateSessionAsync(user, cancellationToken);
         
-        return await CreateSessionAsync(user, cancellationToken);
+        logger.LogInformation("User {UserId} logged in successfully",user.Id);
+        return session;
     }
     public async Task<AuthenticationDto> RefreshAsync(string rawRefreshToken,
         CancellationToken cancellationToken = default)
